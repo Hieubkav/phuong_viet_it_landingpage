@@ -1,4 +1,7 @@
-import Header from "@/components/header";
+import SiteHeader from "@/components/layout/site-header";
+import Footer from "@/components/layout/Footer";
+import GlobalWaves from "@/components/decor/GlobalWaves";
+import ContactWidget from "@/components/widgets/ContactWidget";
 
 export default function SiteLayout({
   children,
@@ -6,10 +9,16 @@ export default function SiteLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <div className="grid h-svh grid-rows-[auto_1fr]">
-      <Header />
-      {children}
+    <div className="relative min-h-screen bg-[var(--background)] text-foreground">
+      <SiteHeader />
+      <GlobalWaves opacity={0.72} />
+      <main className="relative z-[1]">{children}</main>
+      <Footer />
+      <ContactWidget
+        phoneNumber="0706780790"
+        zaloUrl="https://zalo.me/0706780790"
+        messengerUrl="https://m.me/phuongvietit.vn"
+      />
     </div>
   );
 }
-
