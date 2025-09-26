@@ -76,7 +76,7 @@ export default function SiteHeader() {
             onClick={onGo(item.id)}
             data-active={active === item.id}
             className="
-              relative px-3 py-2 text-[15px] font-medium text-slate-700 transition md:text-base
+              relative px-3 py-2 text-base font-semibold text-slate-700 transition md:text-lg
               hover:text-[#123524]
               after:pointer-events-none after:absolute after:inset-x-2 after:-bottom-0.5 after:h-[3px]
               after:origin-left after:scale-x-0 after:rounded-full
@@ -111,13 +111,15 @@ export default function SiteHeader() {
           <AppImage
             src="/logo.png"
             alt="PV-ERP"
-            width={58}
-            height={58}
-            className="h-12 w-12"
+            width={64}
+            height={64}
+            className="h-14 w-14"
             priority
             unoptimized
           />
-          <span className="text-lg font-semibold tracking-tight text-[#123524] md:text-xl">
+          <span
+            className="text-xl font-bold tracking-tight bg-gradient-to-r from-[#123524] via-[#2a7c4a] to-[#f7a501] bg-clip-text text-transparent md:text-2xl"
+          >
             PV-ERP
           </span>
         </a>
@@ -157,3 +159,4 @@ export default function SiteHeader() {
     </header>
   );
 }
+
