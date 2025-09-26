@@ -24,7 +24,7 @@ export default function ContactInfo({ id }: Props) {
 
         <Card
           className="
-            mx-auto mt-6 max-w-3xl overflow-hidden border-muted/70 bg-white/90 backdrop-blur
+            mx-auto mt-6 max-w-3xl overflow-hidden border-muted/70 bg-white shadow-sm
           "
           itemScope
           itemType="https://schema.org/Organization"
@@ -110,3 +110,4 @@ export default function ContactInfo({ id }: Props) {
     </>
   );
 }
+

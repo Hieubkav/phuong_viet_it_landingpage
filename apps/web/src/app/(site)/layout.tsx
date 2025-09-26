@@ -1,6 +1,5 @@
 import SiteHeader from "@/components/layout/site-header";
 import Footer from "@/components/layout/Footer";
-import GlobalWaves from "@/components/decor/GlobalWaves";
 import ContactWidget from "@/components/widgets/ContactWidget";
 
 export default function SiteLayout({
@@ -9,10 +8,9 @@ export default function SiteLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <div className="relative min-h-screen bg-[var(--background)] text-foreground">
+    <div className="relative min-h-screen bg-white text-foreground">
       <SiteHeader />
-      <GlobalWaves opacity={0.72} />
-      <main className="relative z-[1]">{children}</main>
+      <main className="relative z-[1] bg-white">{children}</main>
       <Footer />
       <ContactWidget
         phoneNumber="0706780790"

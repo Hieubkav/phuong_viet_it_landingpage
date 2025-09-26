@@ -213,7 +213,7 @@ export default function KeyFeaturesSection() {
       </div>
 
       {/* Segmented control */}
-      <div className="mx-auto mt-6 flex w-full max-w-3xl items-center justify-center gap-2 rounded-full border bg-white/70 p-1 backdrop-blur">
+      <div className="mx-auto mt-6 flex w-full max-w-3xl items-center justify-center gap-2 rounded-full border bg-white shadow-sm p-1 ">
         {INDUSTRIES.map((it) => {
           const activeState = active.key === it.key;
           return (
@@ -237,7 +237,7 @@ export default function KeyFeaturesSection() {
       </div>
 
       {/* Preview card */}
-      <Card className="mt-6 overflow-hidden border-muted/70 bg-white/90 backdrop-blur">
+      <Card className="mt-6 overflow-hidden border-muted/70 bg-white shadow-sm">
         <CardContent className="grid gap-6 p-6 lg:grid-cols-2 lg:items-center">
           {/* Text */}
           <div>
@@ -264,7 +264,7 @@ export default function KeyFeaturesSection() {
           </div>
 
           {/* Media */}
-          <div className="overflow-hidden rounded-xl border bg-white/65">
+          <div className="overflow-hidden rounded-xl border bg-white">
             <div className="grid h-full place-items-center p-4">
               {active.media}
             </div>
@@ -277,3 +277,5 @@ export default function KeyFeaturesSection() {
     </Section>
   );
 }
+
+

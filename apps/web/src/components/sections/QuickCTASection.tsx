@@ -96,7 +96,7 @@ export default function QuickCTASection({ id }: Props) {
           {/* RIGHT: Form */}
           <Card
             id={formId}
-            className="overflow-hidden border-muted/70 bg-white/90 backdrop-blur"
+            className="overflow-hidden border-muted/70 bg-white shadow-sm"
           >
             <CardContent className="p-6">
               <h3 className="text-xl font-semibold">Đăng ký demo miễn phí</h3>
@@ -186,3 +186,4 @@ export default function QuickCTASection({ id }: Props) {
     </>
   );
 }
+

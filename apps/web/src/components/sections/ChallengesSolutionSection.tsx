@@ -150,7 +150,7 @@ function Tile({
 }) {
   return (
     <Card
-      className={`relative overflow-hidden border-muted/70 bg-white/90 backdrop-blur ${className}`}
+      className={`relative overflow-hidden border-muted/70 bg-white shadow-sm ${className}`}
       style={style}
     >
       <CardContent className="flex h-full flex-col p-6">
@@ -234,3 +234,4 @@ export default function ChallengesSolutionSection() {
     </Section>
   );
 }
+

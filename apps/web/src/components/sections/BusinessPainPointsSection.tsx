@@ -126,7 +126,7 @@ function ActivePainPanel({
   const Icon = item.icon;
   return (
     <Card
-      className={`relative overflow-hidden border-muted/70 bg-white/85 backdrop-blur ${className}`}
+      className={`relative overflow-hidden border-muted/70 bg-white shadow-sm ${className}`}
     >
       <CardContent className="p-6 lg:p-7 h-full">
         <div className="flex items-start gap-4">
@@ -139,7 +139,7 @@ function ActivePainPanel({
           <p className="max-w-xl text-sm text-muted-foreground">{item.hint}</p>
         </div>
 
-        <div className="mt-5 overflow-hidden rounded-xl border bg-white/60">
+        <div className="mt-5 overflow-hidden rounded-xl border bg-white">
           <div className="aspect-[16/9]">
             <AppImage
               width={1920}
@@ -192,7 +192,7 @@ function SelectablePainCard({
                 ? "border-[color-mix(in_oklab,var(--brand-green),white_30%)]"
                 : "border-muted/70"
             }
-            bg-white/80 backdrop-blur
+            bg-white shadow-sm
           `}
         style={style}
       >
@@ -235,12 +235,12 @@ function MobilePainCard({
   const Icon = item.icon;
   return (
     <Card
-      className="overflow-hidden border-muted/70 bg-white/85 backdrop-blur pv-ani-fade-up-2"
+      className="overflow-hidden border-muted/70 bg-white shadow-sm pv-ani-fade-up-2"
       style={style}
     >
       <CardContent className="p-0">
         {/* Media on top */}
-        <div className="overflow-hidden border-b bg-white/60">
+        <div className="overflow-hidden border-b bg-white">
           <div className="aspect-[16/9]">
             <AppImage
               width={1920}
@@ -272,3 +272,5 @@ function MobilePainCard({
     </Card>
   );
 }
+
+

@@ -94,7 +94,7 @@ export default function ImplementationTimelineSection() {
             <Card
               key={s.key}
               className="
-                relative overflow-hidden border-muted/70 bg-white/90 backdrop-blur
+                relative overflow-hidden border-muted/70 bg-white shadow-sm
                 transition hover:-translate-y-0.5 hover:shadow-lg
               "
             >
@@ -138,3 +138,4 @@ export default function ImplementationTimelineSection() {
     </Section>
   );
 }
+

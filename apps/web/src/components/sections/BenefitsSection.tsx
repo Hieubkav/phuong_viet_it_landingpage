@@ -157,7 +157,7 @@ function BenefitCard({
   media: ReactNode;
 }) {
   return (
-    <Card className="group relative h-full overflow-hidden border-muted/70 bg-white/90 backdrop-blur">
+    <Card className="group relative h-full overflow-hidden border-muted/70 bg-white shadow-sm">
       <CardContent className="flex h-full flex-col p-6">
         <div className="flex items-start gap-3">
           <span className="rounded-2xl border border-[color-mix(in_oklab,var(--brand-green),white_55%)] bg-[color-mix(in_oklab,var(--brand-lime),white_85%)] p-3 shadow-sm">
@@ -234,3 +234,4 @@ export default function BenefitsSection() {
     </Section>
   );
 }
+

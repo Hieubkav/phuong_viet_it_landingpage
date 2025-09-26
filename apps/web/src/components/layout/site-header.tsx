@@ -1,6 +1,5 @@
 "use client";
 
-//import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import {
   Sheet,
@@ -27,7 +26,6 @@ export default function SiteHeader() {
   const [active, setActive] = useState<string>("gioi-thieu");
   const [open, setOpen] = useState(false);
 
-  // theo dõi section đang xem
   useEffect(() => {
     const sel = NAV.map((n) => `#${n.id}`).join(",");
     const els = Array.from(document.querySelectorAll<HTMLElement>(sel));
@@ -35,14 +33,12 @@ export default function SiteHeader() {
 
     const io = new IntersectionObserver(
       (entries) => {
-        // entry chiếm tỉ lệ hiển thị cao nhất sẽ được active
         const vis = entries
           .filter((e) => e.isIntersecting)
           .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
         if (vis?.target?.id) setActive(vis.target.id);
       },
       {
-        // bù header 72px và nhấn mạnh vùng giữa viewport
         rootMargin: "-72px 0px -65% 0px",
         threshold: [0, 0.25, 0.5, 0.75, 1],
       }
@@ -50,7 +46,6 @@ export default function SiteHeader() {
 
     els.forEach((el) => io.observe(el));
 
-    // fallback: khi ở rất gần đầu trang, luôn set "gioi-thieu"
     const onScroll = () => {
       if (window.scrollY < 6) setActive("gioi-thieu");
     };
@@ -67,9 +62,7 @@ export default function SiteHeader() {
     e.preventDefault();
     const el = document.getElementById(id);
     if (!el) return;
-    // cuộn mượt; nhờ scroll-padding-top 72px nên "tới" rất chuẩn
     el.scrollIntoView({ behavior: "smooth", block: "start" });
-    // feedback underline tức thời để người dùng thấy đang chọn
     setActive(id);
   };
 
@@ -83,14 +76,14 @@ export default function SiteHeader() {
             onClick={onGo(item.id)}
             data-active={active === item.id}
             className="
-              relative px-3 py-2 text-sm font-medium text-foreground/80 transition
-              hover:text-foreground
+              relative px-3 py-2 text-[15px] font-medium text-slate-700 transition md:text-base
+              hover:text-[#123524]
               after:pointer-events-none after:absolute after:inset-x-2 after:-bottom-0.5 after:h-[3px]
               after:origin-left after:scale-x-0 after:rounded-full
-              after:bg-[linear-gradient(90deg,var(--brand-green),var(--brand-lime))]
+              after:bg-[linear-gradient(90deg,var(--brand-green),#ffcd66)]
               after:transition-transform after:duration-300
               hover:after:scale-x-100
-              data-[active=true]:text-foreground data-[active=true]:after:scale-x-100
+              data-[active=true]:text-[#123524] data-[active=true]:after:scale-x-100
             "
           >
             {item.label}
@@ -104,12 +97,11 @@ export default function SiteHeader() {
   return (
     <header
       className="
-        sticky top-0 z-50 w-full border-b border-border/60 bg-white/80 backdrop-blur
-        supports-[backdrop-filter]:bg-white/60
+        sticky top-0 z-50 w-full border-b border-border/60 bg-white/85 backdrop-blur
+        supports-[backdrop-filter]:bg-white/70
       "
     >
-      <div className="container container-padding mx-auto flex h-26 items-center justify-between">
-        {/* logo + brand */}
+      <div className="container container-padding mx-auto flex h-24 items-center justify-between">
         <a
           href="#gioi-thieu"
           onClick={onGo("gioi-thieu")}
@@ -121,26 +113,17 @@ export default function SiteHeader() {
             alt="PV-ERP"
             width={58}
             height={58}
-            className="h-13 w-13"
+            className="h-12 w-12"
             priority
             unoptimized
           />
-          <span className="text-base font-bold tracking-tight">PV-ERP</span>
+          <span className="text-lg font-semibold tracking-tight text-[#123524] md:text-xl">
+            PV-ERP
+          </span>
         </a>
 
-        {/* desktop nav */}
-        <nav className="hidden items-center gap-1 md:flex">{NavItems}</nav>
+        <nav className="hidden items-center gap-2 md:flex">{NavItems}</nav>
 
-        {/* CTA */}
-        {/* <div className="hidden md:block">
-          <a href="#lien-he" onClick={onGo("lien-he")}>
-            <Button className="btn-cta-gradient h-9 rounded-full px-4 text-sm font-semibold shadow">
-              Đăng ký demo
-            </Button>
-          </a>
-        </div> */}
-
-        {/* mobile menu */}
         <div className="md:hidden">
           <Sheet open={open} onOpenChange={setOpen}>
             <SheetTrigger asChild>
@@ -150,11 +133,10 @@ export default function SiteHeader() {
             </SheetTrigger>
             <SheetContent
               side="right"
-              className="w-80 p-0 !bg-white text-foreground shadow-2xl ring-1 ring-black/5
-             [background-image:linear-gradient(135deg,rgba(47,168,76,.06),rgba(203,234,58,.06))]"
+              className="w-80 p-0 !bg-white text-foreground shadow-2xl ring-1 ring-black/5"
             >
               <SheetHeader>
-                <SheetTitle className="p-5 flex items-center gap-2">
+                <SheetTitle className="flex items-center gap-2 px-5 pt-5 text-base font-semibold text-[#123524]">
                   <AppImage
                     src="/logo.png"
                     alt="PV-ERP"
@@ -167,15 +149,7 @@ export default function SiteHeader() {
                 </SheetTitle>
               </SheetHeader>
 
-              <div className="mt-6 grid gap-1">{NavItems}</div>
-
-              {/* <div className="mt-6">
-                <a href="#lien-he" onClick={onGo("lien-he")}>
-                  <Button className="btn-cta-gradient h-10 w-full rounded-full font-semibold">
-                    Đăng ký demo
-                  </Button>
-                </a>
-              </div> */}
+              <div className="mt-6 grid gap-1 px-5">{NavItems}</div>
             </SheetContent>
           </Sheet>
         </div>
