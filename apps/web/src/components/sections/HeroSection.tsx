@@ -1,10 +1,15 @@
 "use client";
 
-import Link from "next/link";
 import Section from "@/components/layout/Section";
-import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import AppVideo from "@/components/ui/AppVideo";
+import { Phone } from "lucide-react";
+
+const HERO_STATS = [
+  { v: "100%", k: "TÙY CHỈNH" },
+  { v: "10+", k: "CHUYÊN GIA" },
+  { v: "24/7", k: "HỖ TRỢ" },
+];
 
 export default function HeroSection() {
   return (
@@ -12,10 +17,10 @@ export default function HeroSection() {
       className="relative overflow-hidden hero-surface pt-8 pb-12 lg:pt-8 lg:pb-8"
       containerClassName="relative"
     >
-      <div className="grid items-center gap-8 lg:grid-cols-12">
-        <div className="order-1 lg:order-none lg:col-span-7 pv-ani-fade-up-2">
-          <div className="pv-glass overflow-hidden">
-            <div className="aspect-[16/9]">
+      <div className="grid items-start gap-8 lg:grid-cols-[1.1fr_1fr] lg:items-center">
+        <div className="order-2 lg:order-none lg:self-center lg:justify-self-start pv-ani-fade-up-2">
+          <div className="pv-glass overflow-hidden rounded-3xl shadow-xl shadow-black/5">
+            <div className="aspect-[16/10] lg:aspect-[3/2]">
               <AppVideo
                 className="h-full w-full object-cover"
                 poster="/hero-fallback.svg"
@@ -34,45 +39,30 @@ export default function HeroSection() {
           </div>
         </div>
 
-        <div className="lg:col-span-5 pv-ani-fade-up-1">
-          <Badge className="brand-chip text-sm md:text-base">
-            Giải pháp ERP cho doanh nghiệp Việt
-          </Badge>
-
-          <h1 className="mt-5 text-4xl font-extrabold leading-tight tracking-tight text-[#123524] md:text-5xl xl:text-6xl">
-            PV-ERP – Nền tảng <span className="marker-lime">quản trị thông minh</span> cho doanh nghiệp thời đại số
+        <div className="order-1 lg:order-none pv-ani-fade-up-1 lg:self-center lg:pl-6 xl:pl-10">
+          <h1 className="mt-2 text-4xl font-extrabold leading-tight tracking-tight text-[#123524] md:text-5xl xl:text-6xl lg:mt-0">
+            PV-ERP - Nền tảng <span className="marker-lime">quản trị thông minh</span> cho doanh nghiệp thời đại số
           </h1>
 
           <p className="mt-5 max-w-xl text-lg leading-relaxed text-slate-600 md:text-xl">
-            Kết nối – Đồng hành – Phát triển bền vững cùng hệ sinh thái quản trị số hóa toàn diện.
+            Hợp nhất dữ liệu - Tối ưu vận hành - Tăng trưởng bền vững cùng hệ sinh thái quản trị số hóa toàn diện.
           </p>
 
           <div className="mt-8">
-            <Link href="#lien-he">
-              <Button size="lg" className="btn-cta group text-base font-semibold">
-                Đăng ký demo miễn phí
-                <span className="ml-2 inline-flex">
-                  <svg
-                    className="h-5 w-5 transition-transform duration-200 group-hover:translate-x-0.5"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                  >
-                    <path d="M5 12h14" />
-                    <path d="m12 5 7 7-7 7" />
-                  </svg>
-                </span>
-              </Button>
-            </Link>
+            <Button
+              asChild
+              size="lg"
+              className="btn-cta group px-6 py-5 text-base font-semibold md:text-lg"
+            >
+              <a href="tel:0706780790">
+                Liên hệ nhận tư vấn ngay
+                <Phone className="ml-3 h-6 w-6 transition-transform duration-200 group-hover:translate-x-0.5" aria-hidden="true" />
+              </a>
+            </Button>
           </div>
 
           <div className="mt-10 grid grid-cols-3 gap-3 text-center lg:max-w-md">
-            {[
-              { v: "500+", k: "Khách hàng" },
-              { v: "10+", k: "Năm kinh nghiệm" },
-              { v: "24/7", k: "Hỗ trợ" },
-            ].map(({ v, k }) => (
+            {HERO_STATS.map(({ v, k }) => (
               <div
                 key={k}
                 className="rounded-xl border border-slate-200 bg-white px-3 py-4 text-foreground shadow-sm"
@@ -91,7 +81,4 @@ export default function HeroSection() {
     </Section>
   );
 }
-
-
-
 
