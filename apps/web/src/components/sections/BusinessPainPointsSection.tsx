@@ -2,7 +2,6 @@
 
 import * as React from "react";
 import Section from "@/components/layout/Section";
-import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
 import { Link2, Wallet, BarChart3, BrainCog } from "lucide-react";
 //import Image from "next/image";
@@ -66,14 +65,12 @@ export default function BusinessPainPointsSection() {
     <Section className="section-surface py-14 lg:py-16">
       {/* Header */}
       <div className="mx-auto max-w-3xl text-center pv-ani-fade-up-1">
-        <Badge className="brand-chip">Vấn đề doanh nghiệp gặp phải</Badge>
         <h2 className="mt-3 text-3xl font-bold tracking-tight">
-          Những <span className="marker-lime">thách thức</span> kéo chậm bước
-          tiến bền vững
+          Vấn đề doanh nghiệp gặp phải
         </h2>
         <p className="mt-2 text-muted-foreground">
           Trong hành trình phát triển, doanh nghiệp luôn đối mặt với nhiều thách
-          thức làm chậm bước tiến bền vững.
+          thức làm chậm bước tiến bền vững
         </p>
       </div>
 
@@ -272,5 +269,4 @@ function MobilePainCard({
     </Card>
   );
 }
-
 
