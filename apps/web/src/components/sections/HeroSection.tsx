@@ -9,7 +9,7 @@ import AppVideo from "@/components/ui/AppVideo";
 export default function HeroSection() {
   return (
     <Section
-      className="relative overflow-hidden hero-surface pt-16 pb-12 lg:pt-24 lg:pb-20"
+      className="relative overflow-hidden hero-surface pt-8 pb-12 lg:pt-8 lg:pb-8"
       containerClassName="relative"
     >
       <div className="grid items-center gap-8 lg:grid-cols-12">
@@ -91,4 +91,7 @@ export default function HeroSection() {
     </Section>
   );
 }
+
+
+
 
