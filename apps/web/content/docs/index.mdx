@@ -1,0 +1,37 @@
+---
+title: Todo Tracking - KISS
+description: Minimal data model and flows after reset
+---
+
+## Product focus
+
+- Keep everything as small and clear as possible (KISS).
+- Real-time syncing stays powered by Convex.
+- All effort now centers on a single todo list experience.
+
+## Data model
+
+- Todos
+  - Field: text (string description of the task).
+  - Field: completed (boolean flag).
+  - Convex automatically provides fields _id and _creationTime.
+
+## Core flows
+
+- Add a task: call todos.create with the text.
+- View list: subscribe via todos.list to see changes live.
+- Toggle done: call todos.toggle to flip the completed flag.
+- Delete: call todos.remove when a task is no longer needed.
+
+## Suggested UX touches
+
+- Mobile friendly layout with clear tap targets.
+- Inline create field with optimistic feedback.
+- Simple filter buttons (All / Active / Completed) if needed later.
+- Show last update time so operators know when sync happened.
+
+## Next steps
+
+- Flesh out the UI in apps/web to consume the todo functions.
+- Add client-side validation and optimistic updates.
+- Re-run npx convex codegen whenever schema or functions change.

@@ -1,0 +1,467 @@
+@import "tailwindcss";
+/* @import "tw-animate-css"; */
+
+@custom-variant dark (&:is(.dark *));
+
+/* ===== Brand tokens từ logo ===== */
+:root {
+  /* Brand chính */
+  --brand-green: #2fa84c;         /* PV xanh đậm */
+  --brand-green-dark: #2c8a40;    /* xanh đậm hơn cho dark */
+  --brand-lime: #cbea3a;          /* vàng-xanh của V */
+
+  /* Alias để tương thích code cũ (nếu có dùng brand-blue) */
+  --brand-blue: var(--brand-green);
+  --brand-blue-dark: var(--brand-green-dark);
+
+  /* ===== Shadcn design tokens ===== */
+  --radius: 0.625rem;
+
+  /* Nền & chữ (light) */
+  --background: oklch(1 0 0);
+  --foreground: oklch(0.16 0 0);
+
+  --card: oklch(1 0 0);
+  --card-foreground: var(--foreground);
+
+  --popover: oklch(1 0 0);
+  --popover-foreground: var(--foreground);
+
+  /* Primary theo logo */
+  --primary: var(--brand-green);
+  --primary-foreground: #ffffff;
+
+  /* Neutrals */
+  --secondary: oklch(0.97 0 0);
+  --secondary-foreground: oklch(0.22 0 0);
+
+  --muted: oklch(0.97 0 0);
+  --muted-foreground: oklch(0.56 0 0);
+
+  --accent: oklch(0.97 0 0);
+  --accent-foreground: oklch(0.22 0 0);
+
+  /* State */
+  --destructive: oklch(0.62 0.23 28); /* đỏ dịu, đủ tương phản */
+  --border: oklch(0.92 0 0);
+  --input: oklch(0.92 0 0);
+  --ring: oklch(0.72 0 0);
+
+  /* Charts (ưu tiên sắc xanh – trung tính) */
+  --chart-1: var(--brand-green);
+  --chart-2: color-mix(in oklab, var(--brand-green) 55%, white 45%);
+  --chart-3: oklch(0.53 0 0);      /* slate */
+  --chart-4: #f59e0b;              /* amber mềm */
+  --chart-5: #8b5cf6;              /* violet nhạt */
+
+  /* Sidebar (nếu dùng) */
+  --sidebar: oklch(0.985 0 0);
+  --sidebar-foreground: var(--foreground);
+  --sidebar-primary: var(--brand-green);
+  --sidebar-primary-foreground: #ffffff;
+  --sidebar-accent: oklch(0.97 0 0);
+  --sidebar-accent-foreground: var(--foreground);
+  --sidebar-border: var(--border);
+  --sidebar-ring: var(--ring);
+}
+
+/* ===== Dark mode (đậm, tương phản tốt) ===== */
+.dark {
+  --background: oklch(0.16 0 0);
+  --foreground: oklch(0.985 0 0);
+
+  --card: oklch(0.21 0 0);
+  --card-foreground: var(--foreground);
+
+  --popover: oklch(0.21 0 0);
+  --popover-foreground: var(--foreground);
+
+  /* Primary sáng để nổi bật trên dark */
+  --primary: oklch(0.83 0.1 140); /* xanh lá sáng tương đương brand */
+  --primary-foreground: oklch(0.18 0 0);
+
+  --secondary: oklch(0.28 0 0);
+  --secondary-foreground: oklch(0.985 0 0);
+
+  --muted: oklch(0.28 0 0);
+  --muted-foreground: oklch(0.72 0 0);
+
+  --accent: oklch(0.28 0 0);
+  --accent-foreground: oklch(0.985 0 0);
+
+  --destructive: oklch(0.66 0.17 25);
+  --border: oklch(1 0 0 / 10%);
+  --input: oklch(1 0 0 / 14%);
+  --ring: oklch(0.62 0 0);
+
+  /* Brand trong dark */
+  --brand-green: var(--brand-green-dark);
+  --brand-blue: var(--brand-green-dark);
+}
+
+* { border-color: var(--border); }
+body { background: var(--background); color: var(--foreground); }
+
+
+/* Utilities chung */
+html { scroll-behavior: smooth; }
+
+/* helpers */
+.section-padding { padding-block: 4rem; }
+@media (min-width: 1024px) { .section-padding { padding-block: 6rem; } }
+
+.container-padding { padding-inline: 1rem; }
+@media (min-width: 640px) { .container-padding { padding-inline: 1.5rem; } }
+@media (min-width: 1024px) { .container-padding { padding-inline: 2rem; } }
+
+/* ===== Brand utilities ===== */
+.bg-brand-gradient { background-image: linear-gradient(135deg, var(--brand-green) 0%, var(--brand-lime) 100%); }
+.brand-surface { background:
+  radial-gradient(1200px 400px at 80% -50%, color-mix(in oklab, var(--brand-lime) 20%, transparent) 0%, transparent 60%),
+  radial-gradient(1000px 500px at -20% 120%, color-mix(in oklab, var(--brand-green) 15%, transparent) 0%, transparent 60%),
+  var(--card);
+}
+.brand-chip { background: color-mix(in oklab, var(--brand-green) 18%, white); color: var(--brand-green); border: 1px solid color-mix(in oklab, var(--brand-green) 35%, white); border-radius: 12px; }
+.brand-border { border-color: color-mix(in oklab, var(--brand-green) 45%, var(--border)); }
+:where(button, a, input, textarea, select):focus-visible {
+  outline: 2px solid color-mix(in oklab, var(--brand-green) 60%, transparent);
+  outline-offset: 2px;
+}
+
+
+
+
+/* ===== Painting surfaces (đồng bộ cho mọi section) ===== */
+.hero-surface {
+  /* nền sáng, có nhấn brush nhẹ theo brand */
+  background:
+    radial-gradient(1200px 400px at 80% -40%, color-mix(in oklab, var(--brand-lime) 18%, transparent) 0, transparent 60%),
+    radial-gradient(900px 500px at -10% 110%, color-mix(in oklab, var(--brand-green) 14%, transparent) 0, transparent 60%),
+    var(--background);
+}
+
+.section-surface {
+  background:
+    radial-gradient(1200px 500px at -20% -30%, color-mix(in oklab, var(--brand-lime) 12%, transparent) 0, transparent 65%),
+    radial-gradient(1200px 500px at 120% 130%, color-mix(in oklab, var(--brand-green) 10%, transparent) 0, transparent 65%),
+    var(--background);
+}
+
+/* Video chip: dễ đọc trên hình động */
+.chip-video {
+  background: rgba(255,255,255,.92);
+  color: #101316;              /* chữ đen */
+  border: 1px solid rgba(16,19,22,.08);
+  backdrop-filter: blur(2px);
+  box-shadow: 0 6px 20px rgba(0,0,0,.08);
+  border-radius: 12px;
+}
+
+/* Marker highlight cho headline */
+.marker-lime {
+  box-decoration-break: clone;
+  background: linear-gradient(transparent 62%, color-mix(in oklab, var(--brand-lime) 90%, white 10%) 62%);
+  border-radius: 8px;
+  padding: 0 .2em;
+}
+
+/* Animations (nhẹ, tinh tế) */
+@keyframes pv-fade-up { from{opacity:0;transform:translateY(12px)} to{opacity:1;transform:translateY(0)} }
+@keyframes pv-float   { 0%{transform:translateY(0)} 50%{transform:translateY(-6px)} 100%{transform:translateY(0)} }
+.pv-ani-fade-up-1 { animation: pv-fade-up .6s ease-out .04s both; will-change: transform,opacity; }
+.pv-ani-fade-up-2 { animation: pv-fade-up .6s ease-out .16s both; will-change: transform,opacity; }
+.pv-ani-float     { animation: pv-float 8s ease-in-out infinite; will-change: transform; }
+
+/* Card kính mờ dùng chung */
+.pv-glass {
+  background: color-mix(in oklab, white 12%, transparent);
+  border: 1px solid color-mix(in oklab, white 26%, transparent);
+  box-shadow: 0 22px 60px rgba(0,0,0,.15);
+  backdrop-filter: blur(8px);
+  border-radius: 20px;
+}
+
+
+/* ==== PV CTA button ==== */
+@keyframes pv-shine {
+  0%   { transform: translateX(-120%); }
+  100% { transform: translateX(120%); }
+}
+
+.btn-cta {
+  position: relative;
+  overflow: hidden;
+  color: #fff;
+  background-image: linear-gradient(
+    90deg,
+    var(--brand-green) 0%,
+    color-mix(in oklab, var(--brand-lime) 85%, white 15%) 100%
+  );
+  background-size: 200% 100%;
+  background-position: 0% 0%;
+  border: 1px solid color-mix(in oklab, var(--brand-green) 50%, white);
+  box-shadow: 0 10px 24px rgba(47, 168, 76, .22);
+  transform: translateY(0);
+  transition:
+    transform .25s ease,
+    box-shadow .25s ease,
+    background-position .35s ease;
+}
+
+.btn-cta:hover {
+  background-position: 100% 0%;
+  transform: translateY(-2px);
+  box-shadow: 0 14px 32px rgba(47, 168, 76, .28);
+}
+
+.btn-cta:active {
+  transform: translateY(0);
+  box-shadow: 0 8px 18px rgba(47, 168, 76, .20);
+}
+
+.btn-cta:focus-visible {
+  outline: 2px solid color-mix(in oklab, var(--brand-green) 60%, transparent);
+  outline-offset: 3px;
+}
+
+/* vệt “shine” rất nhẹ khi hover */
+.btn-cta::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(120deg, transparent 0%, rgba(255,255,255,.22) 30%, transparent 60%);
+  transform: translateX(-120%);
+  transition: transform .7s cubic-bezier(.2,.6,.2,1);
+  pointer-events: none;
+}
+.btn-cta:hover::after { transform: translateX(120%); }
+
+/* tôn trọng người dùng giảm chuyển động */
+@media (prefers-reduced-motion: reduce) {
+  .btn-cta,
+  .btn-cta:hover,
+  .btn-cta::after,
+  .btn-cta:hover::after { transition: none; }
+}
+
+/* ===== Strong painting background cho Solution (bao phủ toàn section) ===== */
+.solution-surface {
+  position: relative;
+  background: var(--background);
+}
+.solution-surface::before{
+  content:"";
+  position:absolute; inset:-1px;
+  pointer-events:none; z-index:0;
+  background:
+    /* mảng lime lớn ở góc phải trên */
+    radial-gradient(1100px 520px at 118% -8%,
+      color-mix(in oklab, var(--brand-lime) 24%, transparent) 0,
+      transparent 62%
+    ),
+    /* mảng green lớn ở góc trái dưới */
+    radial-gradient(1200px 640px at -12% 118%,
+      color-mix(in oklab, var(--brand-green) 20%, transparent) 0,
+      transparent 64%
+    ),
+    /* nhấn mờ ở đỉnh */
+    radial-gradient(700px 420px at 50% -10%,
+      color-mix(in oklab, var(--brand-green) 10%, transparent) 0,
+      transparent 70%
+    );
+}
+
+/* mini charts animation (như trước) */
+@keyframes pv-draw{from{stroke-dasharray:1 320}to{stroke-dasharray:320 0}}
+@keyframes pv-barwave{0%{transform:scaleY(.35)}50%{transform:scaleY(.95)}100%{transform:scaleY(.55)}}
+.spark-line path{stroke:var(--brand-green);stroke-width:2;fill:none;stroke-linecap:round;animation:pv-draw 2.4s ease-in-out .2s both alternate infinite}
+.chart-bars rect{transform-origin:bottom;fill:color-mix(in oklab,var(--brand-green) 78%,white 22%);animation:pv-barwave 3s ease-in-out infinite}
+.chart-bars rect:nth-child(2){animation-delay:.15s}
+.chart-bars rect:nth-child(3){animation-delay:.30s}
+.chart-bars rect:nth-child(4){animation-delay:.45s}
+.chart-bars rect:nth-child(5){animation-delay:.60s}
+.donut .ring{stroke:color-mix(in oklab,var(--brand-green) 75%,white 25%);stroke-width:10;fill:none;opacity:.18}
+.donut .arc{stroke:var(--brand-green);stroke-width:10;fill:none;stroke-linecap:round}
+.nodes .dot{fill:color-mix(in oklab,var(--brand-lime) 88%,white 12%)}
+.nodes .link{stroke:color-mix(in oklab,var(--brand-green) 55%,white 45%);stroke-width:2;stroke-linecap:round;opacity:.6}
+
+/* ==== Flow network (Integrated data) ==== */
+@keyframes pv-flow { to { stroke-dashoffset: -260 } }
+@keyframes pv-pulse {
+  0%,100% { r: 5.5; opacity: .9 }
+  50%     { r: 7;   opacity: 1  }
+}
+.flow-link path{
+  stroke: color-mix(in oklab, var(--brand-green) 60%, white 40%);
+  stroke-width: 2.5;
+  fill: none;
+  stroke-linecap: round;
+  stroke-dasharray: 10 12;
+  animation: pv-flow 2.8s linear infinite;
+  opacity: .7;
+}
+.pulse-dot circle{
+  fill: color-mix(in oklab, var(--brand-lime) 88%, white 12%);
+  transform-origin: center;
+  animation: pv-pulse 2.4s ease-in-out infinite;
+}
+.pulse-dot circle:nth-child(2){ animation-delay: .12s }
+.pulse-dot circle:nth-child(3){ animation-delay: .24s }
+.pulse-dot circle:nth-child(4){ animation-delay: .36s }
+.pulse-dot circle:nth-child(5){ animation-delay: .48s }
+.pulse-dot circle:nth-child(6){ animation-delay: .60s }
+
+/* ==== Combo chart line (Data strategy) ==== */
+.combo-line path{
+  stroke: var(--brand-green);
+  stroke-width: 2;
+  fill: none;
+  stroke-linecap: round;
+  animation: pv-draw 2.6s ease-in-out .2s both alternate infinite;
+}
+/* chart-bars đã có; thêm delay cho nhiều cột hơn */
+.chart-bars rect:nth-child(6){ animation-delay:.75s }
+.chart-bars rect:nth-child(7){ animation-delay:.90s }
+.chart-bars rect:nth-child(8){ animation-delay:1.05s }
+
+/* === Donut (cashflow) – sweep/oscillate === */
+@keyframes pv-donut {
+  0%   { stroke-dashoffset: calc(var(--circum, 220) * .42); } /* ~58% */
+  50%  { stroke-dashoffset: calc(var(--circum, 220) * .25); } /* ~75% */
+  100% { stroke-dashoffset: calc(var(--circum, 220) * .35); } /* ~65% */
+}
+.donut-cash .ring{
+  stroke: color-mix(in oklab, var(--brand-green) 70%, white 30%);
+  opacity: .18; stroke-width: 10; fill: none;
+}
+.donut-cash .arc{
+  stroke: var(--brand-green); stroke-width: 10; fill: none; stroke-linecap: round;
+  animation: pv-donut 3.2s ease-in-out infinite;
+}
+
+/* === Long bars (strategy) – responsive wave === */
+@keyframes pv-barwave { 0%{ transform: scaleY(.35) } 50%{ transform: scaleY(.95) } 100%{ transform: scaleY(.55) } }
+.bars-long rect{
+  transform-origin: bottom;
+  fill: color-mix(in oklab, var(--brand-green) 78%, white 22%);
+  animation: pv-barwave 3s ease-in-out infinite;
+}
+.bars-long rect:nth-child(2){ animation-delay:.12s }
+.bars-long rect:nth-child(3){ animation-delay:.24s }
+.bars-long rect:nth-child(4){ animation-delay:.36s }
+.bars-long rect:nth-child(5){ animation-delay:.48s }
+.bars-long rect:nth-child(6){ animation-delay:.60s }
+.bars-long rect:nth-child(7){ animation-delay:.72s }
+.bars-long rect:nth-child(8){ animation-delay:.84s }
+.bars-long rect:nth-child(9){ animation-delay:.96s }
+.bars-long rect:nth-child(10){ animation-delay:1.08s }
+
+/* Apps surface – mảng sơn xanh nhẹ + noise */
+.apps-surface{
+  position: relative;
+  background:
+    radial-gradient(1100px 520px at 120% -10%,
+      color-mix(in oklab, var(--brand-lime) 18%, transparent) 0, transparent 62%),
+    radial-gradient(900px 520px at -15% 110%,
+      color-mix(in oklab, var(--brand-green) 14%, transparent) 0, transparent 64%),
+    oklch(0.985 0 0);
+}
+
+/* Painting riêng cho KeyFeatures (dịu, sang) */
+.industry-surface{
+  position: relative;
+  background:
+    radial-gradient(1100px 520px at 115% -10%, color-mix(in oklab, var(--brand-lime) 18%, transparent) 0, transparent 62%),
+    radial-gradient(1000px 600px at -12% 118%, color-mix(in oklab, var(--brand-green) 14%, transparent) 0, transparent 64%),
+    var(--background);
+}
+
+/* Gears rotate */
+@keyframes pv-rotate { from{ transform: rotate(0) } to{ transform: rotate(360deg) } }
+.gear { animation: pv-rotate 12s linear infinite; transform-origin: 50% 50%; }
+.gear-rev { animation-direction: reverse; animation-duration: 9s; }
+
+/* (đã có trong các section trước)
+   .chart-bars rect { transform-origin: bottom; animation: pv-barwave 3s ease-in-out infinite; }
+   .spark-line path { animation: pv-draw 2.4s ease-in-out .2s both alternate infinite; }
+*/
+
+/* Painting riêng cho Benefits (mảng xanh/lime dịu) */
+.benefits-surface{
+  position: relative;
+  background:
+    radial-gradient(1100px 520px at 120% -10%, color-mix(in oklab, var(--brand-lime) 16%, transparent) 0, transparent 62%),
+    radial-gradient(1000px 600px at -12% 118%, color-mix(in oklab, var(--brand-green) 12%, transparent) 0, transparent 64%),
+    var(--background);
+}
+
+/* Rise cho cột “mở rộng” */
+@keyframes pv-rise { from { transform: scaleY(.35) } to { transform: scaleY(.95) } }
+.stack-rise rect { transform-origin: bottom; fill: color-mix(in oklab, var(--brand-green) 78%, white 22%); animation: pv-rise 2.2s ease-in-out infinite alternate; }
+.stack-rise rect:nth-child(2){ animation-delay:.12s }
+.stack-rise rect:nth-child(3){ animation-delay:.24s }
+.stack-rise rect:nth-child(4){ animation-delay:.36s }
+.stack-rise rect:nth-child(5){ animation-delay:.48s }
+
+/* (đã dùng lại từ trước)
+   .chart-bars rect { transform-origin: bottom; fill: color-mix(in oklab, var(--brand-green) 78%, white 22%); animation: pv-barwave 3s ease-in-out infinite; }
+   @keyframes pv-barwave { 0%{ transform: scaleY(.35) } 50%{ transform: scaleY(.95) } 100%{ transform: scaleY(.55) } }
+*/
+
+/* CTA painting – mảng xanh phủ nền nhưng nhẹ, sang */
+.cta-surface{
+  position: relative;
+  background:
+    radial-gradient(1100px 520px at 115% -10%,
+      color-mix(in oklab, var(--brand-lime) 22%, transparent) 0, transparent 62%),
+    radial-gradient(1000px 600px at -12% 118%,
+      color-mix(in oklab, var(--brand-green) 18%, transparent) 0, transparent 64%),
+    var(--background);
+}
+
+/* Nút CTA gradient thương hiệu */
+.btn-cta-gradient{
+  background-image: linear-gradient(135deg, var(--brand-green) 0%, var(--brand-lime) 100%);
+  color: white;
+}
+.btn-cta-gradient:hover{
+  filter: brightness(1.02);
+  box-shadow: 0 10px 24px rgba(0,0,0,.12);
+}
+
+/* Timeline surface: mảng xanh/lime dịu, đồng bộ brand */
+.timeline-surface{
+  position: relative;
+  background:
+    radial-gradient(1100px 520px at 118% -10%,
+      color-mix(in oklab, var(--brand-lime) 16%, transparent) 0, transparent 62%),
+    radial-gradient(1000px 580px at -14% 118%,
+      color-mix(in oklab, var(--brand-green) 12%, transparent) 0, transparent 64%),
+    var(--background);
+}
+
+/* thêm vào globals.css nếu muốn */
+footer .shadow-top-soft { box-shadow: 0 -6px 24px rgba(0,0,0,.08) inset; }
+
+/* trước bạn đã có smooth */
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 72px; /* khớp với header */
+}
+
+/* animation tinh tế + respect reduced motion */
+@media (prefers-reduced-motion: no-preference) {
+  @keyframes pv-weave-pan {
+    0% { transform: translateX(0) }
+    50% { transform: translateX(4%) }
+    100% { transform: translateX(0) }
+  }
+  @keyframes pv-weave-pan-slow {
+    0% { transform: translateX(0) }
+    50% { transform: translateX(2.6%) }
+    100% { transform: translateX(0) }
+  }
+  .animate-pv-weave-pan { animation: pv-weave-pan 26s ease-in-out infinite; }
+  .animate-pv-weave-pan-slow { animation: pv-weave-pan-slow 32s ease-in-out infinite; }
+}
+
