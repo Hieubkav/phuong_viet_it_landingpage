@@ -264,9 +264,50 @@ export default function BenefitsSection() {
         </p>
       </div>
 
-      <div className="mt-10 flex flex-col gap-6 lg:grid lg:grid-cols-[minmax(0,_1fr)_minmax(260px,_320px)] lg:items-stretch">
-        {/* Content Detail - Bên trái */}
-        <div className="order-2 pv-ani-fade-up-1 lg:order-1">
+      <div className="mt-10 flex flex-col gap-6 lg:grid lg:grid-cols-[minmax(260px,_320px)_minmax(0,_1fr)] lg:items-stretch">
+        {/* Tab Navigation - Bên trái */}
+        <div className="order-1 flex gap-3 overflow-x-auto pb-2 pv-ani-fade-up-2 snap-x snap-mandatory lg:order-1 lg:grid lg:gap-4 lg:overflow-visible lg:pb-0 lg:snap-none">
+          {BENEFITS.map((benefit) => (
+            <button
+              key={benefit.key}
+              type="button"
+              onClick={() => setActiveTab(benefit.key)}
+              className="text-left outline-none focus-visible:ring-2 focus-visible:ring-[color-mix(in_oklab,var(--brand-green),transparent_65%)] focus-visible:ring-offset-2"
+              role="tab"
+              aria-selected={activeTab === benefit.key}
+            >
+              <div className={`relative h-full min-w-[220px] shrink-0 snap-start overflow-hidden border transition hover:-translate-y-0.5 hover:shadow-sm lg:min-w-0 lg:shrink lg:py-5 lg:gap-4 py-4 gap-3 rounded-2xl ${
+                activeTab === benefit.key
+                  ? "border-[color-mix(in_oklab,var(--brand-green),white_40%)] shadow-md"
+                  : "border-muted/70"
+              } bg-white`}>
+                <div className="flex items-start gap-2 p-4">
+                  <span className={`flex h-9 w-9 items-center justify-center rounded-lg border text-[var(--brand-green)] ${
+                    activeTab === benefit.key
+                      ? "border-[color-mix(in_oklab,var(--brand-green),white_50%)] bg-[color-mix(in_oklab,var(--brand-lime),white_82%)]"
+                      : "border-[color-mix(in_oklab,var(--brand-green),white_75%)] bg-[color-mix(in_oklab,var(--brand-lime),white_90%)]"
+                  }`}>
+                    {benefit.icon}
+                  </span>
+                  <div>
+                    <div className="text-base font-semibold text-foreground line-clamp-1">
+                      {benefit.title}
+                    </div>
+                    <p className="mt-1 text-sm text-muted-foreground line-clamp-2">
+                      {benefit.summary}
+                    </p>
+                  </div>
+                </div>
+                <div className={`absolute inset-x-0 bottom-0 h-[3px] transition-transform ${
+                  activeTab === benefit.key ? "scale-x-100" : "scale-x-0"
+                } bg-[linear-gradient(90deg,var(--brand-green),var(--brand-lime))]`} />
+              </div>
+            </button>
+          ))}
+        </div>
+
+        {/* Content Detail - Bên phải */}
+        <div className="order-2 pv-ani-fade-up-1 lg:order-2">
           <div className="relative h-full overflow-hidden border-muted/70 bg-white shadow-sm lg:min-h-[560px] rounded-2xl border p-8 flex flex-col">
             <div className="flex items-start gap-4 mb-6">
               <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-[var(--brand-green)]/10 text-[var(--brand-green)]">
@@ -312,47 +353,6 @@ export default function BenefitsSection() {
             {/* Bottom gradient bar */}
             <div className="absolute inset-x-0 bottom-0 h-[3px] bg-[linear-gradient(90deg,var(--brand-green),var(--brand-lime))]" />
           </div>
-        </div>
-
-        {/* Tab Navigation - Bên phải */}
-        <div className="order-1 flex gap-3 overflow-x-auto pb-2 pv-ani-fade-up-2 snap-x snap-mandatory lg:order-2 lg:grid lg:gap-4 lg:overflow-visible lg:pb-0 lg:snap-none">
-          {BENEFITS.map((benefit) => (
-            <button
-              key={benefit.key}
-              type="button"
-              onClick={() => setActiveTab(benefit.key)}
-              className="text-left outline-none focus-visible:ring-2 focus-visible:ring-[color-mix(in_oklab,var(--brand-green),transparent_65%)] focus-visible:ring-offset-2"
-              role="tab"
-              aria-selected={activeTab === benefit.key}
-            >
-              <div className={`relative h-full min-w-[220px] shrink-0 snap-start overflow-hidden border transition hover:-translate-y-0.5 hover:shadow-sm lg:min-w-0 lg:shrink lg:py-5 lg:gap-4 py-4 gap-3 rounded-2xl ${
-                activeTab === benefit.key
-                  ? "border-[color-mix(in_oklab,var(--brand-green),white_40%)] shadow-md"
-                  : "border-muted/70"
-              } bg-white`}>
-                <div className="flex items-start gap-2 p-4">
-                  <span className={`flex h-9 w-9 items-center justify-center rounded-lg border text-[var(--brand-green)] ${
-                    activeTab === benefit.key
-                      ? "border-[color-mix(in_oklab,var(--brand-green),white_50%)] bg-[color-mix(in_oklab,var(--brand-lime),white_82%)]"
-                      : "border-[color-mix(in_oklab,var(--brand-green),white_75%)] bg-[color-mix(in_oklab,var(--brand-lime),white_90%)]"
-                  }`}>
-                    {benefit.icon}
-                  </span>
-                  <div>
-                    <div className="text-base font-semibold text-foreground line-clamp-1">
-                      {benefit.title}
-                    </div>
-                    <p className="mt-1 text-sm text-muted-foreground line-clamp-2">
-                      {benefit.summary}
-                    </p>
-                  </div>
-                </div>
-                <div className={`absolute inset-x-0 bottom-0 h-[3px] transition-transform ${
-                  activeTab === benefit.key ? "scale-x-100" : "scale-x-0"
-                } bg-[linear-gradient(90deg,var(--brand-green),var(--brand-lime))]`} />
-              </div>
-            </button>
-          ))}
         </div>
       </div>
     </Section>
