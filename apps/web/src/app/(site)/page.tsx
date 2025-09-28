@@ -6,7 +6,6 @@ import ERPPreviewSection from "@/components/sections/ERPPreviewSection";
 import KeyFeaturesSection from "@/components/sections/KeyFeaturesSection";
 import BenefitsSection from "@/components/sections/BenefitsSection";
 import QuickCTASection from "@/components/sections/QuickCTASection";
-import ContactInfo from "@/components/sections/ContactInfo";
 import ImplementationTimelineSection from "@/components/sections/ImplementationTimelineSection";
 
 export default function LandingPage() {
@@ -34,8 +33,6 @@ export default function LandingPage() {
 
       <SectionAnchor id="lien-he" />
       <QuickCTASection />
-
-      <ContactInfo />
     </>
   );
 }

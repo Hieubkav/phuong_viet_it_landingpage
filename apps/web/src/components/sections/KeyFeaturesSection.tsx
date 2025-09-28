@@ -1,71 +1,78 @@
 "use client";
 
 import Section from "@/components/layout/Section";
-import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
-import { ShoppingBag, Factory, Briefcase, CheckCircle2 } from "lucide-react";
-import { useState, type ReactNode } from "react";
+import { Briefcase, CheckCircle2, Factory, ShoppingBag } from "lucide-react";
+import type { CSSProperties, ReactNode } from "react";
+import type { LucideIcon } from "lucide-react";
 
-type Industry = {
-  key: "commerce" | "manufacturing" | "services";
-  icon: ReactNode;
+type CSSVars = CSSProperties & { [key: `--${string}`]: string | number };
+
+type Feature = {
+  key: string;
+  icon: LucideIcon;
   title: string;
-  blurb: string;
-  points: string[];
+  summary: string;
+  bullets: string[];
   media: ReactNode;
+  accent: string;
 };
 
 function BarsCommerce() {
   return (
-    <svg className="chart-bars h-28 w-full" viewBox="0 0 360 100" aria-hidden>
+    <svg
+      className="h-28 w-full text-[var(--brand-green)]"
+      viewBox="0 0 360 100"
+      aria-hidden
+    >
       {Array.from({ length: 7 }).map((_, i) => (
-        <rect key={i} x={18 + i * 48} y={18} width="26" height="72" rx="4" />
+        <rect
+          key={i}
+          x={18 + i * 48}
+          y={14 + (i % 3) * 6}
+          width="26"
+          height={`${70 - (i % 3) * 12}`}
+          rx="4"
+          opacity={0.3 + i * 0.08}
+          fill="currentColor"
+        />
       ))}
     </svg>
   );
 }
 
 function GearsManufacturing() {
-  // 2 bánh răng ăn khớp, quay ngược chiều nhau (SMIL animateTransform)
+  const teeth = Array.from({ length: 12 }).map((_, i) => i * 30);
+  const smallTeeth = Array.from({ length: 10 }).map((_, i) => i * 36);
+
   return (
-    <svg viewBox="0 0 240 120" className="h-28 w-full" aria-hidden>
-      {/* thanh nối tượng trưng */}
+    <svg className="h-28 w-full text-[var(--brand-green)]" viewBox="0 0 260 120" aria-hidden>
       <rect
-        x="96"
-        y="57"
-        width="48"
-        height="6"
-        rx="3"
+        x="112"
+        y="56"
+        width="60"
+        height="8"
+        rx="4"
         fill="currentColor"
-        opacity=".08"
+        opacity="0.12"
       />
 
-      {/* Bánh răng lớn (trái) */}
-      <g transform="translate(80 60)">
-        {/* viền nhẹ */}
-        <circle
-          r="28"
-          fill="none"
-          stroke="currentColor"
-          strokeOpacity=".12"
-          strokeWidth="10"
-        />
-        {/* răng cưa */}
+      <g transform="translate(100 60)">
+        <circle r="28" fill="none" stroke="currentColor" strokeOpacity="0.12" strokeWidth="10" />
         <g>
-          {Array.from({ length: 12 }).map((_, i) => (
+          {teeth.map((angle) => (
             <rect
-              key={i}
+              key={angle}
               x={-3}
-              y={-38}
+              y={-40}
               width={6}
-              height={14}
-              rx={1.5}
-              transform={`rotate(${i * 30})`}
+              height={16}
+              rx={2}
+              transform={`rotate(${angle})`}
               fill="currentColor"
-              opacity=".9"
+              opacity="0.88"
             />
           ))}
-          {/* quay thuận */}
           <animateTransform
             attributeName="transform"
             type="rotate"
@@ -75,34 +82,25 @@ function GearsManufacturing() {
             repeatCount="indefinite"
           />
         </g>
-        {/* lõi */}
-        <circle r="8" fill="currentColor" opacity=".9" />
+        <circle r="8" fill="currentColor" opacity="0.92" />
       </g>
 
-      {/* Bánh răng nhỏ (phải) */}
-      <g transform="translate(155 60)">
-        <circle
-          r="22"
-          fill="none"
-          stroke="currentColor"
-          strokeOpacity=".12"
-          strokeWidth="8"
-        />
+      <g transform="translate(178 60)">
+        <circle r="22" fill="none" stroke="currentColor" strokeOpacity="0.12" strokeWidth="8" />
         <g>
-          {Array.from({ length: 10 }).map((_, i) => (
+          {smallTeeth.map((angle) => (
             <rect
-              key={i}
+              key={angle}
               x={-2.5}
               y={-30}
               width={5}
               height={12}
-              rx={1.25}
-              transform={`rotate(${i * 36})`}
+              rx={1.5}
+              transform={`rotate(${angle})`}
               fill="currentColor"
-              opacity=".9"
+              opacity="0.9"
             />
           ))}
-          {/* quay ngược */}
           <animateTransform
             attributeName="transform"
             type="rotate"
@@ -112,36 +110,34 @@ function GearsManufacturing() {
             repeatCount="indefinite"
           />
         </g>
-        <circle r="6" fill="currentColor" opacity=".9" />
+        <circle r="6" fill="currentColor" opacity="0.92" />
       </g>
     </svg>
   );
 }
 
-
 function LineServicesSmooth() {
-  // Đường cong duy nhất; animate stroke-dasharray để vẽ từ trái sang phải mượt
-  const LEN = 640; // độ dài ước lượng, đủ lớn để hiệu ứng mượt
+  const dash = 560;
   return (
     <svg
-      className="h-28 w-full"
-      viewBox="0 0 360 100"
-      aria-hidden="true"
-      preserveAspectRatio="xMidYMid meet"
+      className="h-28 w-full text-[var(--brand-green)]"
+      viewBox="0 0 360 120"
+      aria-hidden
     >
       <path
-        d="M8 72 C 58 28, 106 58, 148 40 S 248 70, 296 46 S 352 38, 352 38"
+        d="M20 90 C70 20, 130 108, 190 54 S 310 90, 340 36"
         fill="none"
-        stroke="var(--brand-green)"
-        strokeWidth="2.5"
+        stroke="currentColor"
+        strokeOpacity="0.9"
         strokeLinecap="round"
-        strokeLinejoin="round"
+        strokeWidth="6"
+        strokeDasharray={dash}
+        strokeDashoffset={dash}
       >
         <animate
-          attributeName="stroke-dasharray"
-          from={`0, ${LEN}`}
-          to={`${LEN}, 0`}
-          dur="3s"
+          attributeName="stroke-dashoffset"
+          values={`${dash};0`}
+          dur="12s"
           repeatCount="indefinite"
         />
       </path>
@@ -149,133 +145,102 @@ function LineServicesSmooth() {
   );
 }
 
-
-const INDUSTRIES: Industry[] = [
+const FEATURES: Feature[] = [
   {
     key: "commerce",
-    icon: <ShoppingBag className="h-5 w-5 text-[var(--brand-green)]" />,
+    icon: ShoppingBag,
     title: "Thương mại",
-    blurb: "Chuỗi cung ứng mượt mà, kho hàng chính xác, bán hàng minh bạch.",
-    points: [
-      "Tối ưu cung ứng & logistics",
-      "Quản lý kho – tồn – định mức",
-      "Phân tích bán hàng theo thời gian thực",
+    summary: "Chuỗi cung ứng mượt mà, kho hàng chính xác, bán hàng minh bạch",
+    bullets: [
+      "Tối ưu cung ứng & logistics đa kênh",
+      "Quản lý tồn kho, định mức và cảnh báo chính xác",
+      "Dashboard doanh số theo thời gian thực cho mọi phòng ban",
     ],
     media: <BarsCommerce />,
+    accent: "from-emerald-500 to-lime-400",
   },
   {
     key: "manufacturing",
-    icon: <Factory className="h-5 w-5 text-[var(--brand-green)]" />,
+    icon: Factory,
     title: "Sản xuất",
-    blurb: "Lập kế hoạch thông minh, QC chặt chẽ, theo dõi OEE realtime.",
-    points: [
-      "Kế hoạch MPS/MRP thông minh",
-      "Kiểm soát chất lượng đa công đoạn",
-      "Giám sát hiệu suất dây chuyền",
+    summary: "Lập kế hoạch thông minh, kiểm soát chất lượng chặt chẽ, theo dõi OEE liên tục",
+    bullets: [
+      "MPS/MRP thông minh theo năng lực chuyền",
+      "Quy trình QC nhiều công đoạn chuẩn hóa",
+      "Giám sát hiệu suất dây chuyền với cảnh báo bất thường",
     ],
     media: <GearsManufacturing />,
+    accent: "from-sky-500 to-indigo-400",
   },
   {
     key: "services",
-    icon: <Briefcase className="h-5 w-5 text-[var(--brand-green)]" />,
+    icon: Briefcase,
     title: "Dịch vụ",
-    blurb: "CRM, dự án & hỗ trợ khách hàng hợp nhất – vận hành tự động.",
-    points: [
-      "CRM đa kênh & pipeline",
-      "Quản lý dự án linh hoạt",
-      "Tự động hóa quy trình nội bộ",
+    summary: "CRM, dự án, hỗ trợ khách hàng hợp nhất – vận hành tự động hóa",
+    bullets: [
+      "CRM đa kênh và chăm sóc khách hàng 360°",
+      "Quản lý dự án linh hoạt theo Agile/Kanban",
+      "Tự động hóa quy trình nội bộ và phối hợp đội nhóm",
     ],
-    media: <LineServicesSmooth />, // ⟵ dùng SVG mượt
+    media: <LineServicesSmooth />,
+    accent: "from-rose-500 to-orange-400",
   },
 ];
 
 export default function KeyFeaturesSection() {
-  const [active, setActive] = useState<Industry>(INDUSTRIES[0]);
-
   return (
-    <Section
-      className="industry-surface py-14 lg:py-16"
-      containerClassName="relative z-[1]"
-    >
-      {/* Header */}
+    <Section className="industry-surface py-14 lg:py-16" containerClassName="relative z-[1]">
       <div className="mx-auto max-w-3xl text-center">
-        <Badge className="brand-chip">
-          ERP linh hoạt – Phù hợp mọi lĩnh vực
-        </Badge>
         <h2 className="mt-3 text-3xl font-bold tracking-tight">
-          Tùy chỉnh theo ngành,{" "}
-          <span className="marker-lime">tối ưu vận hành</span>
+          ERP linh hoạt – <span className="marker-lime">Phù hợp mọi lĩnh vực</span>
         </h2>
         <p className="mt-2 text-muted-foreground">
-          Dù Thương mại, Sản xuất hay Dịch vụ, PV-ERP đều điều chỉnh theo đặc
-          thù ngành để nâng cao hiệu quả quản trị.
+          PV-ERP điều chỉnh theo đặc thù từng ngành để nâng cao hiệu quả vận hành và quản trị
         </p>
       </div>
 
-      {/* Segmented control */}
-      <div className="mx-auto mt-6 flex w-full max-w-3xl items-center justify-center gap-2 rounded-full border bg-white shadow-sm p-1 ">
-        {INDUSTRIES.map((it) => {
-          const activeState = active.key === it.key;
-          return (
-            <button
-              key={it.key}
-              onClick={() => setActive(it)}
-              className={`inline-flex items-center gap-2 rounded-full px-4 py-2 text-sm font-medium transition
-                ${
-                  activeState
-                    ? "bg-[linear-gradient(135deg,var(--brand-green),var(--brand-lime))] text-white shadow"
-                    : "text-foreground/80 hover:bg-muted"
-                }
-              `}
-              aria-pressed={activeState}
-            >
-              {it.icon}
-              {it.title}
-            </button>
-          );
-        })}
-      </div>
+      <div className="relative mt-12">
+        <span className="absolute left-5 top-0 bottom-6 w-px bg-gradient-to-b from-[color-mix(in_oklab,var(--brand-green),transparent_30%)] via-[color-mix(in_oklab,var(--brand-green),transparent_10%)] to-[color-mix(in_oklab,var(--brand-green),transparent_40%)]" aria-hidden />
 
-      {/* Preview card */}
-      <Card className="mt-6 overflow-hidden border-muted/70 bg-white shadow-sm">
-        <CardContent className="grid gap-6 p-6 lg:grid-cols-2 lg:items-center">
-          {/* Text */}
-          <div>
-            <div className="flex items-center gap-3">
-              <span className="rounded-2xl border border-[color-mix(in_oklab,var(--brand-green),white_55%)] bg-[color-mix(in_oklab,var(--brand-lime),white_85%)] p-3">
-                {active.icon}
-              </span>
-              <div>
-                <h3 className="text-xl font-semibold">{active.title}</h3>
-                <p className="mt-1 text-sm text-muted-foreground">
-                  {active.blurb}
-                </p>
+        <div className="space-y-10 sm:space-y-12">
+          {FEATURES.map((feature) => {
+            const Icon = feature.icon;
+            return (
+              <div key={feature.key} className="relative pl-16">
+                <span
+                  className={`absolute left-5 top-3 flex h-12 w-12 -translate-x-1/2 items-center justify-center rounded-full border-4 border-white bg-gradient-to-br ${feature.accent} text-white shadow-lg`}
+                >
+                  <Icon className="h-5 w-5" aria-hidden />
+                </span>
+
+                <Card className="border border-muted/70 bg-white shadow-sm">
+                  <CardContent className="flex flex-col gap-6 p-6">
+                    <div className="space-y-3">
+                      <h3 className="text-xl font-semibold tracking-tight text-foreground md:text-2xl">
+                        {feature.title}
+                      </h3>
+                      <p className="text-base text-slate-600 md:text-lg">{feature.summary}</p>
+                    </div>
+
+                    <ul className="space-y-2 text-sm text-foreground/85 md:text-base">
+                      {feature.bullets.map((bullet) => (
+                        <li key={bullet} className="flex items-start gap-2">
+                          <CheckCircle2 className="mt-0.5 h-4 w-4 flex-shrink-0 text-[var(--brand-green)]" aria-hidden />
+                          <span>{bullet}</span>
+                        </li>
+                      ))}
+                    </ul>
+
+                    <div className="overflow-hidden rounded-2xl border border-slate-200 bg-white/80 p-4 text-[color-mix(in_oklab,var(--brand-green),black_10%)]">
+                      {feature.media}
+                    </div>
+                  </CardContent>
+                </Card>
               </div>
-            </div>
-
-            <ul className="mt-4 space-y-2">
-              {active.points.map((p) => (
-                <li key={p} className="flex items-start gap-2 text-sm">
-                  <CheckCircle2 className="mt-0.5 h-4 w-4 text-[var(--brand-green)]" />
-                  <span>{p}</span>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          {/* Media */}
-          <div className="overflow-hidden rounded-xl border bg-white">
-            <div className="grid h-full place-items-center p-4">
-              {active.media}
-            </div>
-          </div>
-        </CardContent>
-
-        {/* brand underline */}
-        <div className="h-[3px] w-full bg-[linear-gradient(90deg,var(--brand-green),var(--brand-lime))]" />
-      </Card>
+            );
+          })}
+        </div>
+      </div>
     </Section>
   );
 }
-
-

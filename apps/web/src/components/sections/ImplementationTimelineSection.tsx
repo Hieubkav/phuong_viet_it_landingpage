@@ -1,9 +1,7 @@
 "use client";
 
 import Section from "@/components/layout/Section";
-import { Badge } from "@/components/ui/badge";
-import { Card, CardContent } from "@/components/ui/card";
-import { Headphones, Search, Cog, GraduationCap, Wrench } from "lucide-react";
+import { MessageCircle, Cog, GraduationCap, Headphones } from "lucide-react";
 
 type Step = {
   key: string;
@@ -11,131 +9,97 @@ type Step = {
   desc: string;
   icon: React.ReactNode;
   num: string;
+  bgColor: string;
+  numColor: string;
 };
 
 const STEPS: Step[] = [
   {
     key: "consult",
-    num: "01",
-    title: "Tư vấn",
-    desc: "Lắng nghe nhu cầu, xác định mục tiêu & phạm vi.",
-    icon: <Headphones className="h-5 w-5" />,
+    num: "1",
+    title: "Liên hệ tư vấn",
+    desc: "Tư vấn giải pháp phù hợp với đặc thù cơ quan",
+    icon: <MessageCircle className="h-6 w-6 text-blue-600" />,
+    bgColor: "bg-white",
+    numColor: "bg-blue-600",
   },
   {
-    key: "survey",
-    num: "02",
-    title: "Khảo sát",
-    desc: "Phân tích quy trình, dữ liệu & hiện trạng hệ thống.",
-    icon: <Search className="h-5 w-5" />,
-  },
-  {
-    key: "implement",
-    num: "03",
-    title: "Triển khai",
-    desc: "Cấu hình, nhập liệu mẫu, tích hợp & thử nghiệm UAT.",
-    icon: <Cog className="h-5 w-5" />,
+    key: "setup",
+    num: "2",
+    title: "Cài đặt & Cấu hình",
+    desc: "Triển khai và cấu hình theo quy trình ISO hiện tại",
+    icon: <Cog className="h-6 w-6 text-green-600" />,
+    bgColor: "bg-white",
+    numColor: "bg-blue-600",
   },
   {
     key: "training",
-    num: "04",
-    title: "Đào tạo",
-    desc: "Hướng dẫn vận hành theo vai trò, chuẩn hóa quy trình.",
-    icon: <GraduationCap className="h-5 w-5" />,
+    num: "3",
+    title: "Tập huấn sử dụng",
+    desc: "Hướng dẫn chi tiết sử dụng phần mềm",
+    icon: <GraduationCap className="h-6 w-6 text-orange-600" />,
+    bgColor: "bg-white",
+    numColor: "bg-blue-600",
   },
   {
-    key: "maintenance",
-    num: "05",
-    title: "Bảo trì",
-    desc: "Hỗ trợ vận hành, tối ưu & mở rộng khi cần.",
-    icon: <Wrench className="h-5 w-5" />,
+    key: "support",
+    num: "4",
+    title: "Vận hành & Hỗ trợ",
+    desc: "Hỗ trợ 24/7 trong các ngày làm việc",
+    icon: <Headphones className="h-6 w-6 text-purple-600" />,
+    bgColor: "bg-white",
+    numColor: "bg-blue-600",
   },
 ];
 
 export default function ImplementationTimelineSection() {
   return (
-    <Section className="timeline-surface py-14 lg:py-16">
+    <Section className="py-14 lg:py-16 bg-gray-50">
       {/* Header */}
-      <div className="mx-auto max-w-3xl text-center">
-        <Badge className="brand-chip">Quy trình triển khai ERP</Badge>
-        <h2 className="mt-3 text-3xl font-bold tracking-tight">
-          Nhanh gọn, <span className="marker-lime">bài bản</span> & minh bạch
+      <div className="mx-auto max-w-4xl text-center">
+        <h2 className="text-3xl font-bold tracking-tight text-gray-900">
+          Triển khai đơn giản
         </h2>
-        <p className="mt-2 text-muted-foreground">
-          Tư vấn → Khảo sát → Triển khai → Đào tạo → Bảo trì
+        <p className="mt-4 text-lg text-gray-600 max-w-2xl mx-auto">
+          Chỉ với 4 bước đơn giản, bạn có thể sở hữu hệ thống ISO điện tử hoàn chỉnh
         </p>
       </div>
 
-      {/* Timeline */}
-      <div className="relative mt-10">
-        {/* line ngang (desktop) – CĂN GIỮA */}
-        <div
-          className="
-    pointer-events-none absolute left-6 right-6
-    top-1/2 -translate-y-1/2
-    hidden h-[3px] bg-[linear-gradient(90deg,var(--brand-green),var(--brand-lime))]
-    lg:block
-  "
-        />
+      {/* Steps */}
+      <div className="mt-12">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+          {STEPS.map((step) => (
+            <div key={step.key} className="relative">
+              {/* Number - positioned outside and above */}
+              <div className="flex justify-center mb-4">
+                <div className={`${step.numColor} text-white rounded-xl w-12 h-12 flex items-center justify-center font-bold text-lg shadow-sm`}>
+                  {step.num}
+                </div>
+              </div>
 
-        {/* line dọc (mobile) – CĂN GIỮA */}
-        <div
-          className="
-    pointer-events-none absolute
-    left-1/2 -translate-x-1/2
-    top-6 bottom-6
-    w-[3px] bg-[linear-gradient(180deg,var(--brand-green),var(--brand-lime))]
-    lg:hidden
-  "
-        />
-
-        {/* Steps */}
-        <div className="grid grid-cols-1 gap-5 lg:grid-cols-5">
-          {STEPS.map((s, i) => (
-            <Card
-              key={s.key}
-              className="
-                relative overflow-hidden border-muted/70 bg-white shadow-sm
-                transition hover:-translate-y-0.5 hover:shadow-lg
-              "
-            >
-              <CardContent className="p-6">
-                {/* Node number + icon */}
-                <div className="relative mb-4 flex items-center gap-3">
-                  {/* dot số thứ tự */}
-                  <div
-                    className="
-                      relative grid h-10 w-10 place-items-center rounded-full text-white shadow
-                      bg-[linear-gradient(135deg,var(--brand-green),var(--brand-lime))]
-                    "
-                  >
-                    <span className="text-[11px] font-bold tracking-wide">
-                      {s.num}
-                    </span>
-                    {/* halo nhẹ */}
-                    <span className="absolute -z-10 inline-block h-12 w-12 rounded-full bg-[color-mix(in_oklab,var(--brand-lime),white_75%)] opacity-60 blur-md" />
-                  </div>
-
-                  {/* icon theo bước (màu brand) */}
-                  <div className="grid h-9 w-9 place-items-center rounded-xl border border-[color-mix(in_oklab,var(--brand-green),white_50%)] bg-[color-mix(in_oklab,var(--brand-lime),white_88%)] text-[var(--brand-green)]">
-                    {s.icon}
+              {/* Background rounded rectangle */}
+              <div className={`${step.bgColor} rounded-2xl px-6 py-6 relative shadow-sm border border-gray-100`}>
+                {/* Icon */}
+                <div className="flex justify-center mb-4">
+                  <div className="w-12 h-12 bg-gray-50 rounded-lg flex items-center justify-center shadow-sm">
+                    {step.icon}
                   </div>
                 </div>
 
-                <div className="space-y-1">
-                  <h3 className="text-base font-semibold">{s.title}</h3>
-                  <p className="text-sm text-muted-foreground">{s.desc}</p>
+                {/* Content */}
+                <div className="text-center px-2">
+                  <h3 className="font-semibold text-gray-900 mb-2 text-sm">
+                    {step.title}
+                  </h3>
+                  <p className="text-xs text-gray-600 leading-relaxed">
+                    {step.desc}
+                  </p>
                 </div>
-              </CardContent>
-
-              {/* connector “che” giao tuyến cho mobile (dot -> line dọc) */}
-              {i < STEPS.length - 1 && (
-                <span className="absolute -bottom-3 left-1/2 -translate-x-1/2 block h-3 w-[3px] bg-white lg:hidden" />
-              )}
-            </Card>
+              </div>
+            </div>
           ))}
         </div>
       </div>
     </Section>
   );
 }
-

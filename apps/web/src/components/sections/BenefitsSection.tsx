@@ -1,237 +1,173 @@
 "use client";
 
 import Section from "@/components/layout/Section";
-import { Badge } from "@/components/ui/badge";
-import { Card, CardContent } from "@/components/ui/card";
-import { PiggyBank, Rocket, LineChart, ShieldCheck } from "lucide-react";
-import type { ReactNode } from "react";
+import {
+  BarChart3,
+  LineChart,
+  PiggyBank,
+  ShieldCheck,
+  TrendingUp,
+} from "lucide-react";
+import { useState } from "react";
 
-/* ============ Mini SVGs (animated) ============ */
-
-function SavingsLine() {
-  return (
-    <svg
-      className="savings-line h-28 w-full"
-      viewBox="0 0 360 100"
-      aria-hidden="true"
-    >
-      {/* xu hướng giảm chi phí (đi xuống mượt) */}
-      <path
-        d="M10 40 C 70 65, 130 30, 185 52 S 290 78, 350 60"
-        fill="none"
-        stroke="var(--brand-green)"
-        strokeWidth="2.5"
-        strokeLinecap="round"
-      >
-        <animate
-          attributeName="stroke-dasharray"
-          from="0, 600"
-          to="600, 0"
-          dur="3.2s"
-          repeatCount="indefinite"
-        />
-      </path>
-    </svg>
-  );
-}
-
-function ProductivityBars() {
-  return (
-    <svg
-      className="chart-bars h-28 w-full"
-      viewBox="0 0 360 100"
-      aria-hidden="true"
-    >
-      {Array.from({ length: 7 }).map((_, i) => (
-        <rect key={i} x={16 + i * 48} y={18} width="26" height="72" rx="4" />
-      ))}
-    </svg>
-  );
-}
-
-function DecisionRealtime() {
-  // dot chạy theo đường cong (SMIL)
-  const pathD =
-    "M10 72 C 60 28, 110 58, 150 40 S 240 70, 290 46 S 350 38, 350 38";
-  return (
-    <svg className="h-28 w-full" viewBox="0 0 360 100" aria-hidden="true">
-      <path
-        d={pathD}
-        fill="none"
-        stroke="var(--brand-green)"
-        strokeWidth="2.5"
-        strokeLinecap="round"
-      />
-      <circle r="4" fill="var(--brand-green)">
-        <animateMotion dur="3.2s" repeatCount="indefinite">
-          <mpath xlinkHref="#realtime-path" />
-        </animateMotion>
-      </circle>
-      {/* hidden path with id for mpath */}
-      <path id="realtime-path" d={pathD} fill="none" stroke="none" />
-    </svg>
-  );
-}
-
-function ExpansionRipple() {
-  // Ripple mở rộng từ tâm – 2 vòng luân phiên, luôn căn giữa
-  return (
-    <svg
-      className="h-28 w-full"
-      viewBox="0 0 120 120"
-      preserveAspectRatio="xMidYMid meet"
-      aria-hidden="true"
-    >
-      <defs>
-        <linearGradient id="rip" x1="0" y1="0" x2="1" y2="1">
-          <stop offset="0%" stopColor="var(--brand-green)" stopOpacity="0.95" />
-          <stop
-            offset="100%"
-            stopColor="var(--brand-lime)"
-            stopOpacity="0.95"
-          />
-        </linearGradient>
-      </defs>
-
-      {/* Hai ripple ring lan toả từ tâm */}
-      <g fill="none" stroke="url(#rip)" strokeWidth="2">
-        <circle cx="60" cy="60" r="10" opacity="0.85">
-          <animate
-            attributeName="r"
-            from="10"
-            to="54"
-            dur="2.8s"
-            repeatCount="indefinite"
-          />
-          <animate
-            attributeName="opacity"
-            values="0.85;0"
-            dur="2.8s"
-            repeatCount="indefinite"
-          />
-        </circle>
-        <circle cx="60" cy="60" r="10" opacity="0.85">
-          <animate
-            attributeName="r"
-            from="10"
-            to="54"
-            dur="2.8s"
-            begin="1.4s"
-            repeatCount="indefinite"
-          />
-          <animate
-            attributeName="opacity"
-            values="0.85;0"
-            dur="2.8s"
-            begin="1.4s"
-            repeatCount="indefinite"
-          />
-        </circle>
-      </g>
-
-      {/* Hạt nhân ở giữa nhấp nhẹ */}
-      <circle cx="60" cy="60" r="4" fill="url(#rip)" opacity="0.95">
-        <animate
-          attributeName="r"
-          values="4;6;4"
-          dur="1.8s"
-          repeatCount="indefinite"
-        />
-      </circle>
-    </svg>
-  );
-}
-
-
-/* ============ Card Item ============ */
-
-function BenefitCard({
-  icon,
-  title,
-  desc,
-  media,
-}: {
-  icon: ReactNode;
+type Benefit = {
+  key: string;
+  icon: React.ReactNode;
   title: string;
-  desc: string;
-  media: ReactNode;
-}) {
-  return (
-    <Card className="group relative h-full overflow-hidden border-muted/70 bg-white shadow-sm">
-      <CardContent className="flex h-full flex-col p-6">
-        <div className="flex items-start gap-3">
-          <span className="rounded-2xl border border-[color-mix(in_oklab,var(--brand-green),white_55%)] bg-[color-mix(in_oklab,var(--brand-lime),white_85%)] p-3 shadow-sm">
-            {icon}
-          </span>
-          <div>
-            <div className="text-lg font-semibold leading-snug">{title}</div>
-            <p className="mt-1 text-sm text-muted-foreground">{desc}</p>
-          </div>
-        </div>
+  description: string;
+  summary: string;
+  bullets: string[];
+  image: string;
+};
 
-        <div className="mt-4 flex-1 overflow-hidden rounded-xl border bg-white/65">
-          <div className="grid h-full place-items-center p-3">{media}</div>
-        </div>
-
-        <span
-          className="absolute inset-x-0 bottom-0 h-[3px] w-full bg-[linear-gradient(90deg,var(--brand-green),var(--brand-lime))]"
-          aria-hidden
-        />
-      </CardContent>
-    </Card>
-  );
-}
-
-/* ============ Section ============ */
+const BENEFITS: Benefit[] = [
+  {
+    key: "saving",
+    icon: <PiggyBank className="h-5 w-5 text-[var(--brand-green)]" aria-hidden />,
+    title: "Tối ưu chi phí vận hành",
+    summary: "Loại bỏ trùng lặp, minh bạch nguồn lực giúp doanh nghiệp tiết kiệm tới 30% chi phí vận hành.",
+    description:
+      "Tự động hóa quy trình giúp cắt giảm chi phí lặp lại và kiểm soát ngân sách chính xác.",
+    bullets: [
+      "Tự động đối soát công nợ, lập hóa đơn",
+      "Cảnh báo tồn kho và đặt hàng thông minh",
+      "Báo cáo chi phí theo dự án, phòng ban",
+    ],
+    image: "/images/benefits/cost-control.png",
+  },
+  {
+    key: "productivity",
+    icon: <BarChart3 className="h-5 w-5 text-[var(--brand-green)]" aria-hidden />,
+    title: "Năng suất tăng vượt trội",
+    summary: "Luồng công việc số hóa giúp đội ngũ hoàn thành nhiều hơn trong cùng quỹ thời gian.",
+    description:
+      "Hợp nhất các quy trình tạo luồng thông tin xuyên suốt, giảm thời gian chờ đợi.",
+    bullets: [
+      "Tự động phê duyệt và giao việc",
+      "Dashboard hiệu suất theo thời gian thực",
+      "Ứng dụng di động cập nhật tức thời",
+    ],
+    image: "/images/benefits/productivity.png",
+  },
+  {
+    key: "transparency",
+    icon: <LineChart className="h-5 w-5 text-[var(--brand-green)]" aria-hidden />,
+    title: "Quyết định dữ liệu minh bạch",
+    summary: "Tất cả phòng ban truy cập chung một nguồn dữ liệu chính xác để ra quyết định nhanh chóng.",
+    description:
+      "Báo cáo thời gian thực giúp lãnh đạo nắm bắt tình hình và ra quyết định nhanh.",
+    bullets: [
+      "Dashboard KPI cá nhân hóa",
+      "Cảnh báo vượt ngưỡng tự động",
+      "Dữ liệu tập trung, chia sẻ dễ dàng",
+    ],
+    image: "/images/benefits/transparency.png",
+  },
+  {
+    key: "growth",
+    icon: <TrendingUp className="h-5 w-5 text-[var(--brand-green)]" aria-hidden />,
+    title: "Nền tảng tăng trưởng bền vững",
+    summary: "Kiến trúc linh hoạt giúp doanh nghiệp mở rộng quy mô mà không phải thay đổi hệ thống lõi.",
+    description:
+      "Kiến trúc linh hoạt với API và workflow tùy biến giúp doanh nghiệp mở rộng dễ dàng.",
+    bullets: [
+      "Hơn 40 module sẵn có",
+      "Tích hợp dễ với hệ thống cũ",
+      "Bảo mật cao, đạt chuẩn hiện đại",
+    ],
+    image: "/images/benefits/growth.png",
+  },
+];
 
 export default function BenefitsSection() {
+  const [activeTab, setActiveTab] = useState("saving");
+  const activeBenefit = BENEFITS.find(benefit => benefit.key === activeTab) || BENEFITS[0];
+
   return (
-    <Section
-      className="benefits-surface py-14 lg:py-16"
-      containerClassName="relative z-[1]"
-    >
-      {/* Header */}
+    <Section className="benefits-surface py-14 lg:py-16" containerClassName="relative z-[1]">
       <div className="mx-auto max-w-3xl text-center">
-        <Badge className="brand-chip">Giá trị cho doanh nghiệp</Badge>
         <h2 className="mt-3 text-3xl font-bold tracking-tight">
-          Tiết kiệm, <span className="marker-lime">năng suất</span>, minh bạch &
-          tăng trưởng bền vững
+          Giá trị cho doanh nghiệp
         </h2>
         <p className="mt-2 text-muted-foreground">
-          Với PV-ERP, doanh nghiệp không chỉ tiết kiệm chi phí và tăng năng
-          suất, mà còn minh bạch dữ liệu, ra quyết định nhanh và xây dựng nền
-          tảng tăng trưởng bền vững.
+          Tiết kiệm chi phí, tăng năng suất và ra quyết định nhanh để phát triển bền vững
         </p>
       </div>
 
-      {/* Grid 4 thẻ bằng nhau */}
-      <div className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
-        <BenefitCard
-          icon={<PiggyBank className="h-5 w-5 text-[var(--brand-green)]" />}
-          title="Tối ưu chi phí vận hành"
-          desc="Cắt giảm đáng kể chi phí quản lý & vận hành nhờ tự động hóa."
-          media={<SavingsLine />}
-        />
-        <BenefitCard
-          icon={<Rocket className="h-5 w-5 text-[var(--brand-green)]" />}
-          title="Nâng cao năng suất & hiệu quả"
-          desc="Làm việc thông minh hơn, hoàn thành nhiều hơn trong thời gian ngắn."
-          media={<ProductivityBars />}
-        />
-        <BenefitCard
-          icon={<LineChart className="h-5 w-5 text-[var(--brand-green)]" />}
-          title="Ra quyết định nhanh, chính xác"
-          desc="Báo cáo thời gian thực & dữ liệu trực quan cho hành động kịp thời."
-          media={<DecisionRealtime />}
-        />
-        <BenefitCard
-          icon={<ShieldCheck className="h-5 w-5 text-[var(--brand-green)]" />}
-          title="Minh bạch & linh hoạt mở rộng"
-          desc="Hệ thống minh bạch, sẵn sàng mở rộng khi quy mô tăng trưởng."
-          media={<ExpansionRipple />} // ⟵ đổi sang ripple
-        />
+      <div className="mt-10 grid gap-8 lg:grid-cols-12 lg:items-start">
+        {/* Tab Navigation - Bên trái */}
+        <div className="lg:col-span-4 space-y-2 lg:h-full">
+          {BENEFITS.map((benefit) => (
+            <button
+              key={benefit.key}
+              onClick={() => setActiveTab(benefit.key)}
+              className={`w-full text-left p-4 rounded-xl border transition-all duration-200 ${
+                activeTab === benefit.key
+                  ? "bg-[var(--brand-green)]/5 border-[var(--brand-green)]/30 text-[var(--brand-green)]"
+                  : "bg-white border-muted/70 hover:border-[var(--brand-green)]/20 hover:bg-[var(--brand-green)]/5"
+              }`}
+            >
+              <div className="flex items-center gap-3">
+                <div className={`flex h-12 w-12 items-center justify-center rounded-lg transition-colors ${
+                  activeTab === benefit.key
+                    ? "bg-[var(--brand-green)]/10"
+                    : "bg-muted/50"
+                }`}>
+                  {benefit.icon}
+                </div>
+                <div className="flex-1">
+                  <h3 className={`font-bold text-base ${
+                    activeTab === benefit.key ? "text-[var(--brand-green)]" : "text-foreground"
+                  }`}>
+                    {benefit.title}
+                  </h3>
+                </div>
+              </div>
+            </button>
+          ))}
+        </div>
+
+        {/* Content Detail - Bên phải */}
+        <div className="lg:col-span-8 lg:h-full">
+          <div className="rounded-2xl border border-muted/70 bg-white p-8 h-full flex flex-col">
+            <div className="flex items-start gap-4 mb-6">
+              <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-[var(--brand-green)]/10 text-[var(--brand-green)]">
+                {activeBenefit.icon}
+              </div>
+              <div className="flex-1">
+                <h3 className="text-2xl font-bold tracking-tight mb-2">
+                  {activeBenefit.title}
+                </h3>
+                <p className="text-muted-foreground leading-relaxed mb-3">
+                  {activeBenefit.summary}
+                </p>
+                <p className="text-sm text-muted-foreground/80 leading-relaxed">
+                  {activeBenefit.description}
+                </p>
+              </div>
+            </div>
+
+            {/* Benefits List */}
+            <div className="flex-1">
+              <h4 className="font-semibold mb-4 text-[var(--brand-green)]">
+                Lợi ích chi tiết:
+              </h4>
+              <ul className="space-y-3">
+                {activeBenefit.bullets.map((bullet, index) => (
+                  <li key={index} className="flex items-start gap-3">
+                    <div className="flex h-5 w-5 items-center justify-center rounded-full bg-[var(--brand-green)]/10 mt-0.5 flex-shrink-0">
+                      <div className="h-2 w-2 rounded-full bg-[var(--brand-green)]" />
+                    </div>
+                    <span className="text-sm text-muted-foreground leading-relaxed">
+                      {bullet}
+                    </span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+        </div>
       </div>
     </Section>
   );
 }
-

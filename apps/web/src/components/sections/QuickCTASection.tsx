@@ -2,188 +2,60 @@
 
 import Section from "@/components/layout/Section";
 import SectionAnchor from "@/components/layout/SectionAnchor";
-import { Badge } from "@/components/ui/badge";
-import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { useCallback, useId, useState, type FormEvent } from "react";
 
 type Props = { id?: string };
 
 export default function QuickCTASection({ id }: Props) {
-  const formId = useId();
-
-  // form state (đơn giản, không dùng any)
-  const [fullName, setFullName] = useState("");
-  const [company, setCompany] = useState("");
-  const [email, setEmail] = useState("");
-  const [phone, setPhone] = useState("");
-
-  const onSubmit = useCallback(
-    (e: FormEvent<HTMLFormElement>) => {
-      e.preventDefault();
-
-      // Tạo mailto đến email công ty (theo thông tin bạn đã chia sẻ)
-      const to = "phuongviet.ite@gmail.com";
-      const subject = encodeURIComponent("Đăng ký Demo PV-ERP");
-      const body = encodeURIComponent(
-        [
-          "Thông tin đăng ký demo PV-ERP:",
-          `• Họ tên: ${fullName}`,
-          `• Email: ${email}`,
-          `• Số điện thoại: ${phone}`,
-          `• Công ty: ${company}`,
-        ].join("\n")
-      );
-
-      window.open(`mailto:${to}?subject=${subject}&body=${body}`, "_blank");
-    },
-    [fullName, email, phone, company]
-  );
+  const handleCallPhone = () => {
+    window.location.href = "tel:0706780790";
+  };
 
   return (
     <>
       {/* nếu có id thì cắm anchor vô hình để menu nhảy tới chính xác */}
       {id ? <SectionAnchor id={id} /> : null}
 
-      <Section
+      <Section 
         className="cta-surface py-14 lg:py-16"
         containerClassName="relative z-[1]"
       >
-        <div className="grid gap-8 lg:grid-cols-2 lg:items-center">
-          {/* LEFT: Tiêu đề + CTA */}
-          <div>
-            <Badge className="brand-chip">Chuyển đổi số cùng PV-ERP</Badge>
-            <h2 className="mt-3 text-3xl font-bold leading-tight tracking-tight">
-              Sẵn sàng <span className="marker-lime">chuyển đổi số</span> cùng
-              PV-ERP?
-            </h2>
-            <p className="mt-2 text-muted-foreground">
-              Dùng thử trải nghiệm thực tế hoặc nhận tư vấn 1:1 từ chuyên gia
-              triển khai doanh nghiệp.
-            </p>
-
-            <div className="mt-5 flex flex-col gap-3 sm:flex-row">
-              {/* Nút chính: kéo tới form */}
-              <a href={`#${formId}`} className="inline-block">
-                <Button
-                  className="btn-cta-gradient h-11 rounded-full px-6 text-base font-semibold shadow-md"
-                  size="lg"
-                >
-                  Đăng ký Demo
-                </Button>
-              </a>
-
-              {/* Nút phụ: mở email liên hệ */}
-              <a
-                href="mailto:phuongviet.ite@gmail.com?subject=Liên hệ tư vấn PV-ERP"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-block"
+        <div className="pv-glass overflow-hidden rounded-3xl shadow-xl shadow-black/5 px-8 py-12 bg-gradient-to-br from-[var(--brand-green)] to-[var(--brand-green-dark)] text-white">
+          <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6">
+            {/* Left side - Text content */}
+            <div className="flex-1">
+              <div className="text-sm font-medium text-[var(--brand-lime)] mb-2 tracking-wide">
+                GIẢI PHÁP DOANH NGHIỆP
+              </div>
+              <h2 className="text-2xl md:text-3xl font-extrabold mb-3 leading-tight tracking-tight">
+                Sẵn sàng <span className="text-[var(--brand-lime)]">chuyển đổi số</span> cùng PV-ERP?
+              </h2>
+              <p className="text-white/90 text-base md:text-lg leading-relaxed max-w-xl">
+                Dùng thử trải nghiệm thực tế hoặc nhận tư vấn 1:1 từ chuyên gia triển khai doanh nghiệp.
+              </p>
+            </div>
+            
+            {/* Right side - Buttons */}
+            <div className="flex flex-col sm:flex-row gap-3 lg:flex-shrink-0">
+              <Button 
+                onClick={handleCallPhone}
+                className="btn-cta-gradient h-11 rounded-full px-8 text-base font-semibold shadow-md min-w-[160px] cursor-pointer"
+                size="lg"
               >
-                <Button
-                  variant="outline"
-                  className="h-11 rounded-full px-6 text-base font-semibold hover:border-[color-mix(in_oklab,var(--brand-green),white_40%)] hover:text-[var(--brand-green)]"
-                  size="lg"
-                >
-                  Liên hệ tư vấn ngay
-                </Button>
-              </a>
+                Đăng ký Demo
+              </Button>
+              <Button 
+                onClick={handleCallPhone}
+                variant="outline"
+                className="h-11 rounded-full px-8 text-base font-semibold border-white text-[var(--brand-green)] bg-white hover:bg-white/90 hover:text-[var(--brand-green-dark)] min-w-[160px] cursor-pointer"
+                size="lg"
+              >
+                Liên hệ tư vấn
+              </Button>
             </div>
           </div>
-
-          {/* RIGHT: Form */}
-          <Card
-            id={formId}
-            className="overflow-hidden border-muted/70 bg-white shadow-sm"
-          >
-            <CardContent className="p-6">
-              <h3 className="text-xl font-semibold">Đăng ký demo miễn phí</h3>
-              <p className="mt-1 text-sm text-muted-foreground">
-                Điền thông tin, đội ngũ PV-ERP sẽ liên hệ trong thời gian sớm
-                nhất.
-              </p>
-
-              <form className="mt-5 grid gap-4" onSubmit={onSubmit}>
-                <div className="grid gap-4 sm:grid-cols-2">
-                  <div className="grid gap-2">
-                    <Label htmlFor={`${formId}-name`}>Họ và tên</Label>
-                    <Input
-                      id={`${formId}-name`}
-                      name="fullName"
-                      placeholder="Nguyễn Văn A"
-                      value={fullName}
-                      onChange={(e) => setFullName(e.target.value)}
-                      autoComplete="name"
-                      required
-                    />
-                  </div>
-
-                  <div className="grid gap-2">
-                    <Label htmlFor={`${formId}-company`}>Công ty</Label>
-                    <Input
-                      id={`${formId}-company`}
-                      name="company"
-                      placeholder="CÔNG TY TNHH …"
-                      value={company}
-                      onChange={(e) => setCompany(e.target.value)}
-                      autoComplete="organization"
-                      required
-                    />
-                  </div>
-                </div>
-
-                <div className="grid gap-4 sm:grid-cols-2">
-                  <div className="grid gap-2">
-                    <Label htmlFor={`${formId}-email`}>Email</Label>
-                    <Input
-                      id={`${formId}-email`}
-                      type="email"
-                      name="email"
-                      placeholder="you@company.com"
-                      value={email}
-                      onChange={(e) => setEmail(e.target.value)}
-                      autoComplete="email"
-                      required
-                    />
-                  </div>
-
-                  <div className="grid gap-2">
-                    <Label htmlFor={`${formId}-phone`}>Số điện thoại</Label>
-                    <Input
-                      id={`${formId}-phone`}
-                      type="tel"
-                      name="phone"
-                      placeholder="0706 780 790"
-                      value={phone}
-                      onChange={(e) => setPhone(e.target.value)}
-                      autoComplete="tel"
-                      inputMode="tel"
-                      pattern="^[0-9()+\-\s]{7,}$"
-                      title="Nhập số điện thoại hợp lệ"
-                      required
-                    />
-                  </div>
-                </div>
-
-                <div className="mt-2">
-                  <Button
-                    type="submit"
-                    className="btn-cta-gradient h-11 w-full rounded-full text-base font-semibold shadow-md"
-                  >
-                    Gửi đăng ký
-                  </Button>
-                </div>
-              </form>
-            </CardContent>
-
-            {/* brand underline */}
-            <div className="h-[3px] w-full bg-[linear-gradient(90deg,var(--brand-green),var(--brand-lime))]" />
-          </Card>
         </div>
       </Section>
     </>
   );
 }
-

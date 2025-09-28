@@ -1,55 +1,41 @@
 "use client";
 import Section from "@/components/layout/Section";
-import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
-import { useState } from "react";
 
 export default function ContactForm() {
-  const [loading, setLoading] = useState(false);
-
-  async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
-    e.preventDefault();
-    setLoading(true);
-    try {
-      // TODO: call API route / email service
-      alert("Cảm ơn bạn! Chúng tôi sẽ liên hệ sớm.");
-    } finally {
-      setLoading(false);
-    }
-  }
+  const handleCallPhone = () => {
+    window.location.href = "tel:+84123456789";
+  };
 
   return (
-    <Section>
-      <Card className="border-muted/70">
-        <CardContent className="p-6">
-          <h3 className="text-xl font-semibold">Liên hệ tư vấn</h3>
-          <p className="mt-1 text-sm text-muted-foreground">
-            Điền thông tin, đội ngũ PV IT&E sẽ phản hồi trong thời gian sớm
-            nhất.
+    <Section className="py-12 lg:py-16">
+      <div className="bg-red-600 rounded-2xl px-8 py-12 text-center text-white">
+        <div className="mx-auto max-w-3xl">
+          <h2 className="text-2xl md:text-3xl font-bold mb-4">
+            Bắt đầu hành trình với VBA Vũ Phúc
+          </h2>
+          <p className="text-red-100 mb-8 text-base md:text-lg leading-relaxed">
+            Đầu phẩm của khóa học VBA chất lượng cao và chuyên sâu theo tiêu chuẩn quốc tế với tập 
+            tân tâm tử đội ngũ giảng viên.
           </p>
-
-          <form onSubmit={onSubmit} className="mt-6 grid gap-4 md:grid-cols-2">
-            <Input required placeholder="Họ và tên" name="name" />
-            <Input required type="email" placeholder="Email" name="email" />
-            <Input required placeholder="Số điện thoại" name="phone" />
-            <Input placeholder="Công ty" name="company" />
-            <Textarea
-              required
-              placeholder="Nhu cầu / mô tả bài toán của bạn"
-              name="message"
-              className="min-h-32 md:col-span-2"
-            />
-            <div className="md:col-span-2">
-              <Button type="submit" disabled={loading}>
-                {loading ? "Đang gửi..." : "Gửi yêu cầu"}
-              </Button>
-            </div>
-          </form>
-        </CardContent>
-      </Card>
+          
+          <div className="flex flex-col sm:flex-row gap-4 justify-center max-w-md mx-auto">
+            <Button 
+              onClick={handleCallPhone}
+              className="bg-white text-red-600 hover:bg-red-50 px-8 py-3 font-semibold flex-1"
+            >
+              Khóa học
+            </Button>
+            <Button 
+              onClick={handleCallPhone}
+              variant="outline"
+              className="border-white text-white bg-transparent hover:bg-white hover:text-red-600 px-8 py-3 font-semibold flex-1"
+            >
+              Đăng ký tư vấn
+            </Button>
+          </div>
+        </div>
+      </div>
     </Section>
   );
 }
-

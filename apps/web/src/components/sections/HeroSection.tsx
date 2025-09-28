@@ -41,7 +41,7 @@ export default function HeroSection() {
 
         <div className="order-1 lg:order-none pv-ani-fade-up-1 lg:self-center lg:pl-6 xl:pl-10">
           <h1 className="mt-2 text-4xl font-extrabold leading-tight tracking-tight text-[#123524] md:text-5xl xl:text-6xl lg:mt-0">
-            PV-ERP - Nền tảng <span className="marker-lime">quản trị thông minh</span> cho doanh nghiệp thời đại số
+            Nền tảng <span className="marker-lime">quản trị thông minh</span> cho doanh nghiệp
           </h1>
 
           <p className="mt-5 max-w-xl text-lg leading-relaxed text-slate-600 md:text-xl">
