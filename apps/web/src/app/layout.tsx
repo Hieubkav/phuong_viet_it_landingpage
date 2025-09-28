@@ -23,6 +23,10 @@ export const metadata: Metadata = {
     shortcut: '/logo.png',
     apple: '/logo.png',
   },
+  other: {
+    'color-scheme': 'light only',
+    'theme-color': '#ffffff',
+  },
   openGraph: {
     title: "PV-ERP | Hệ thống ERP toàn diện cho doanh nghiệp", 
     description: "PV-ERP - Giải pháp quản lý doanh nghiệp toàn diện, tích hợp quản lý bán hàng, kho hàng, nhân sự và tài chính",
