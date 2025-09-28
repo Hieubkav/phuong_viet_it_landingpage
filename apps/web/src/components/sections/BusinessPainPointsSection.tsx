@@ -52,7 +52,7 @@ export default function BusinessPainPointsSection() {
         </div>
         
         {/* Title with highlighted text */}
-        <h2 className="text-3xl font-bold tracking-tight text-[#123524]">
+        <h2 className="text-2xl md:text-3xl font-bold tracking-tight text-[#123524] leading-tight break-words">
           <span className="whitespace-nowrap">Vấn đề doanh nghiệp</span> <span className="marker-lime">gặp phải</span>
         </h2>
         

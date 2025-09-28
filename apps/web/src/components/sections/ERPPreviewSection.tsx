@@ -100,7 +100,7 @@ function AppTile({
   return (
     <Card
       className="
-        group relative min-h-[200px] overflow-hidden border border-[color-mix(in_oklab,var(--brand-green),white_12%)]
+        group relative min-h-[160px] sm:min-h-[180px] lg:min-h-[200px] overflow-hidden border border-[color-mix(in_oklab,var(--brand-green),white_12%)]
         bg-white shadow-[0_10px_30px_rgba(0,0,0,0.06)] transition
         hover:-translate-y-1 hover:shadow-[0_18px_40px_rgba(0,0,0,0.12)]
       "
@@ -145,7 +145,7 @@ export default function ERPPreviewSection() {
         </div>
         
         {/* Title with highlighted text */}
-        <h2 className="text-3xl font-bold tracking-tight text-[#123524]">
+        <h2 className="text-2xl md:text-3xl font-bold tracking-tight text-[#123524] leading-tight break-words">
           <span className="marker-lime">PV-ERP</span> quy trình liền mạch,{" "}
           <span className="whitespace-nowrap">dữ liệu thống nhất</span>
         </h2>
@@ -157,7 +157,7 @@ export default function ERPPreviewSection() {
       </div>
 
       {/* Grid Apps */}
-      <div className="mt-8 grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6">
+      <div className="mt-8 grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6">
         {MODULES.map((m, i) => (
           <AppTile
             key={m.id}

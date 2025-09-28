@@ -33,7 +33,7 @@ export default function ContactWidget({
 
   return (
     <TooltipProvider delayDuration={150}>
-      <div className={cn("fixed z-[70] select-none", basePos, className)}>
+      <div className={cn("fixed z-[50] select-none", basePos, className)}>
         {/* child buttons */}
         <div
           className="pointer-events-none absolute inset-0 flex items-center justify-center"

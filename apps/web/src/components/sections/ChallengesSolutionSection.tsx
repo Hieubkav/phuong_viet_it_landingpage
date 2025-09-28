@@ -318,7 +318,7 @@ export default function ChallengesSolutionSection() {
         </div>
         
         {/* Title with highlighted text */}
-        <h2 className="text-3xl font-bold tracking-tight text-[#123524]">
+        <h2 className="text-2xl md:text-3xl font-bold tracking-tight text-[#123524] leading-tight break-words">
           Tối ưu - Hợp nhất - <span className="marker-lime">Hiệu quả</span>
         </h2>
         

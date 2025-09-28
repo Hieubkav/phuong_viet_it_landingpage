@@ -226,3 +226,127 @@
 - Áp dụng whitespace-nowrap cho "Lộ trình rõ ràng" để tránh rớt từ
 - Steps timeline và functionality không thay đổi
 - Typography và styling nhất quán với toàn bộ website sections
+
+## Responsive Typography Fix
+**Date**: 2025-01-25  
+**Components**: All sections with h2 titles
+
+### Vấn đề:
+- Tiêu đề dài gây tràn màn hình trên mobile (đặc biệt BenefitsSection)
+- Tạo thanh cuộn ngang không mong muốn
+- Typography không optimal cho màn hình nhỏ
+
+### Giải pháp áp dụng:
+1. **Responsive font size**: `text-2xl md:text-3xl` thay vì `text-3xl` cố định
+2. **Improved line height**: Thêm `leading-tight` cho spacing tốt hơn  
+3. **Better text wrapping**: Điều chỉnh whitespace-nowrap cho phù hợp
+4. **Container padding**: Thêm `px-4` và tăng `max-w-4xl` cho BenefitsSection
+
+### Sections được cập nhật:
+- BusinessPainPointsSection
+- ChallengesSolutionSection  
+- ERPPreviewSection
+- KeyFeaturesSection
+- BenefitsSection (fix chính)
+- ImplementationTimelineSection
+
+### Pattern mới:
+```tsx
+<h2 className="text-2xl md:text-3xl font-bold tracking-tight text-[#123524] leading-tight">
+  {/* Title content với whitespace-nowrap điều chỉnh */}
+</h2>
+```
+
+### Notes:
+- Cải thiện đáng kể responsive trên mobile
+- Không tạo thanh cuộn ngang
+- Typography nhất quán trên tất cả breakpoints
+- Giữ nguyên visual hierarchy trên desktop
+
+## Advanced Responsive Overflow Fix
+**Date**: 2025-01-25  
+**Issue**: Persistent horizontal scroll on mobile despite initial fixes
+
+### Root Causes Identified:
+1. **BenefitsSection**: Duplicate padding (`px-4` + Section's built-in padding)
+2. **ERPPreviewSection**: Grid with too many columns on small screens (`lg:grid-cols-6`)
+3. **AppTile cards**: Fixed `min-h-[200px]` too large for mobile
+4. **Typography**: Long titles without proper word breaking
+
+### Comprehensive Fixes Applied:
+
+#### Container & Spacing:
+- **Removed duplicate padding**: BenefitsSection `px-4` (Section already has padding)
+- **Optimized grid**: Changed from `lg:grid-cols-6` to `lg:grid-cols-5 xl:grid-cols-6`
+- **Reduced gap**: ERPPreviewSection grid gap from `gap-4` to `gap-3`
+
+#### Responsive Cards:
+- **AppTile height**: `min-h-[200px]` → `min-h-[160px] sm:min-h-[180px] lg:min-h-[200px]`
+- Better scaling for different screen sizes
+
+#### Typography Safety:
+- **Added `break-words`** to all h2 titles across sections
+- Ensures long words wrap instead of causing overflow
+- Works alongside existing `whitespace-nowrap` for specific phrases
+
+### Updated Sections:
+- BusinessPainPointsSection
+- ChallengesSolutionSection  
+- ERPPreviewSection (main fixes)
+- KeyFeaturesSection
+- BenefitsSection (container fix)
+- ImplementationTimelineSection
+
+### Final Pattern:
+```tsx
+<h2 className="text-2xl md:text-3xl font-bold tracking-tight text-[#123524] leading-tight break-words">
+  {/* Content with controlled whitespace-nowrap */}
+</h2>
+```
+
+### Result:
+- ✅ No horizontal scroll on any screen size
+- ✅ Proper text wrapping without breaking design
+- ✅ Optimized grid layouts for mobile
+- ✅ Consistent spacing across all sections
+
+## Critical Mobile Overflow Fix
+**Date**: 2025-01-25  
+**Issue**: Persistent horizontal scroll specifically from BenefitsSection title and ContactWidget
+
+### Specific Problems:
+1. **BenefitsSection Title**: "Tiết kiệm, hiệu quả, minh bạch và bền vững cho doanh nghiệp" causing overflow on very small screens
+2. **ContactWidget**: High z-index and fixed positioning potentially causing layout issues
+
+### Targeted Fixes:
+
+#### BenefitsSection Title Overhaul:
+```tsx
+// Before: Aggressive approach
+<h2 className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-bold tracking-tight text-[#123524] leading-tight break-words hyphens-auto word-wrap overflow-wrap-anywhere">
+  <span className="block sm:inline">Tiết kiệm, hiệu quả,</span>{" "}
+  <span className="block sm:inline">minh bạch và</span>{" "}
+  <span className="whitespace-nowrap">
+    <span className="marker-lime">bền vững</span> cho doanh nghiệp
+  </span>
+</h2>
+```
+
+**Key improvements:**
+- **Progressive font sizing**: `text-lg` on mobile up to `lg:text-3xl`
+- **Controlled line breaks**: `block sm:inline` for natural wrapping
+- **Multiple word-wrap strategies**: `break-words`, `hyphens-auto`, `overflow-wrap-anywhere`
+- **Responsive text**: Smaller on mobile, larger on desktop
+
+#### Container Safety:
+- **Added `overflow-hidden`** to BenefitsSection containerClassName
+- **Responsive text sizing** for description: `text-base sm:text-lg`
+
+#### ContactWidget Fix:
+- **Reduced z-index**: From `z-[70]` to `z-[50]` to avoid stacking issues
+
+### Result:
+- ✅ **Eliminated horizontal scroll** from long title
+- ✅ **Natural text wrapping** on all screen sizes
+- ✅ **Maintained design integrity** while ensuring readability
+- ✅ **ContactWidget positioning** optimized

@@ -84,8 +84,8 @@ export default function BenefitsSection() {
   const activeBenefit = BENEFITS.find(benefit => benefit.key === activeTab) || BENEFITS[0];
 
   return (
-    <Section className="benefits-surface py-14 lg:py-16" containerClassName="relative z-[1]">
-      <div className="mx-auto max-w-3xl text-center">
+    <Section className="benefits-surface py-14 lg:py-16" containerClassName="relative z-[1] overflow-hidden">
+      <div className="mx-auto max-w-4xl text-center">
         {/* Badge */}
         <div className="mb-4">
           <span className="inline-flex items-center rounded-full bg-[color-mix(in_oklab,var(--brand-lime),white_80%)] px-3 py-1 text-sm font-medium text-[var(--brand-green)]">
@@ -94,12 +94,15 @@ export default function BenefitsSection() {
         </div>
         
         {/* Title with highlighted text */}
-        <h2 className="text-3xl font-bold tracking-tight text-[#123524]">
-          Tiết kiệm, hiệu quả, minh bạch và{" "}
-          <span className="whitespace-nowrap"><span className="marker-lime">bền vững</span> cho doanh nghiệp</span>
+        <h2 className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-bold tracking-tight text-[#123524] leading-tight break-words hyphens-auto word-wrap overflow-wrap-anywhere">
+          <span className="block sm:inline">Tiết kiệm, hiệu quả,</span>{" "}
+          <span className="block sm:inline">minh bạch và</span>{" "}
+          <span className="whitespace-nowrap">
+            <span className="marker-lime">bền vững</span> cho doanh nghiệp
+          </span>
         </h2>
         
-        <p className="mt-4 text-lg text-gray-600">
+        <p className="mt-4 text-base sm:text-lg text-gray-600 break-words">
           PV-ERP tối ưu chi phí, gia tăng năng suất, minh bạch dữ liệu và kiến tạo nền tảng tăng trưởng lâu dài, vững chắc
         </p>
       </div>
