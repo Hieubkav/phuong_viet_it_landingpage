@@ -46,7 +46,7 @@ export default function BusinessPainPointsSection() {
       <div className="mx-auto max-w-3xl text-center pv-ani-fade-up-1">
         {/* Badge */}
         <div className="mb-4">
-          <span className="inline-flex items-center rounded-full bg-[color-mix(in_oklab,var(--brand-lime),white_80%)] px-3 py-1 text-sm font-medium text-[var(--brand-green)]">
+          <span className="inline-flex items-center rounded-full px-3 py-1 text-sm font-medium bg-secondary text-secondary-foreground brand-chip">
             Thách thức - Khó khăn
           </span>
         </div>
@@ -85,3 +85,4 @@ export default function BusinessPainPointsSection() {
     </Section>
   );
 }
+

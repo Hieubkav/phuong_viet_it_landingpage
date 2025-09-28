@@ -103,9 +103,9 @@ html { scroll-behavior: smooth; }
   background: linear-gradient(180deg, #ffffff 0%, #f5f9f4 100%);
 }
 .brand-chip {
-  background: linear-gradient(90deg, rgba(47, 168, 76, 0.16) 0%, rgba(255, 205, 102, 0.42) 100%);
+  background: linear-gradient(135deg, rgba(255, 240, 205, 0.92) 0%, rgba(223, 246, 214, 0.95) 100%);
   color: #123524;
-  border: 1px solid rgba(47, 168, 76, 0.24);
+  border: 1px solid color-mix(in oklab, var(--brand-green), white 68%);
   border-radius: 9999px;
   padding-inline: 1.1rem;
   padding-block: 0.4rem;
@@ -115,8 +115,11 @@ html { scroll-behavior: smooth; }
   align-items: center;
   justify-content: center;
   gap: 0.35rem;
-  box-shadow: 0 6px 18px rgba(47, 168, 76, 0.12);
+  box-shadow: 0 10px 26px rgba(18, 53, 36, 0.12);
 }
+
+
+
 .brand-border { border-color: color-mix(in oklab, var(--brand-green) 45%, var(--border)); }
 :where(button, a, input, textarea, select):focus-visible {
   outline: 2px solid color-mix(in oklab, var(--brand-green) 60%, transparent);

@@ -88,7 +88,7 @@ export default function BenefitsSection() {
       <div className="mx-auto max-w-4xl text-center">
         {/* Badge */}
         <div className="mb-4">
-          <span className="inline-flex items-center rounded-full bg-[color-mix(in_oklab,var(--brand-lime),white_80%)] px-3 py-1 text-sm font-medium text-[var(--brand-green)]">
+          <span className="inline-flex items-center rounded-full px-3 py-1 text-sm font-medium bg-secondary text-secondary-foreground brand-chip">
             Giá trị cho doanh nghiệp
           </span>
         </div>
@@ -184,3 +184,4 @@ export default function BenefitsSection() {
     </Section>
   );
 }
+
