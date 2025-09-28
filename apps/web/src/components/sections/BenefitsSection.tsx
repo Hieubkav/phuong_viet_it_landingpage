@@ -86,11 +86,21 @@ export default function BenefitsSection() {
   return (
     <Section className="benefits-surface py-14 lg:py-16" containerClassName="relative z-[1]">
       <div className="mx-auto max-w-3xl text-center">
-        <h2 className="mt-3 text-3xl font-bold tracking-tight">
-          Giá trị cho doanh nghiệp
+        {/* Badge */}
+        <div className="mb-4">
+          <span className="inline-flex items-center rounded-full bg-[color-mix(in_oklab,var(--brand-lime),white_80%)] px-3 py-1 text-sm font-medium text-[var(--brand-green)]">
+            Giá trị cho doanh nghiệp
+          </span>
+        </div>
+        
+        {/* Title with highlighted text */}
+        <h2 className="text-3xl font-bold tracking-tight text-[#123524]">
+          Tiết kiệm, hiệu quả, minh bạch và{" "}
+          <span className="whitespace-nowrap"><span className="marker-lime">bền vững</span> cho doanh nghiệp</span>
         </h2>
-        <p className="mt-2 text-muted-foreground">
-          Tiết kiệm chi phí, tăng năng suất và ra quyết định nhanh để phát triển bền vững
+        
+        <p className="mt-4 text-lg text-gray-600">
+          PV-ERP tối ưu chi phí, gia tăng năng suất, minh bạch dữ liệu và kiến tạo nền tảng tăng trưởng lâu dài, vững chắc
         </p>
       </div>
 

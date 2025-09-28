@@ -15,8 +15,26 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "dohy",
-  description: "dohy",
+  title: "PV-ERP | Hệ thống ERP toàn diện cho doanh nghiệp",
+  description: "PV-ERP - Giải pháp quản lý doanh nghiệp toàn diện, tích hợp quản lý bán hàng, kho hàng, nhân sự và tài chính",
+  metadataBase: new URL('https://pv-erp.com'),
+  icons: {
+    icon: '/logo.png',
+    shortcut: '/logo.png',
+    apple: '/logo.png',
+  },
+  openGraph: {
+    title: "PV-ERP | Hệ thống ERP toàn diện cho doanh nghiệp", 
+    description: "PV-ERP - Giải pháp quản lý doanh nghiệp toàn diện, tích hợp quản lý bán hàng, kho hàng, nhân sự và tài chính",
+    images: ['/logo.png'],
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: "PV-ERP | Hệ thống ERP toàn diện cho doanh nghiệp",
+    description: "PV-ERP - Giải pháp quản lý doanh nghiệp toàn diện, tích hợp quản lý bán hàng, kho hàng, nhân sự và tài chính", 
+    images: ['/logo.png'],
+  },
 };
 
 export default function RootLayout({

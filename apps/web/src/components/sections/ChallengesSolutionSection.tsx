@@ -310,8 +310,19 @@ export default function ChallengesSolutionSection() {
   return (
     <Section className="solution-surface py-14 lg:py-16" containerClassName="relative z-[1]">
       <div className="mx-auto max-w-3xl text-center">
-        <h2 className="mt-3 text-3xl font-bold tracking-tight">Giải pháp PV-ERP</h2>
-        <p className="mt-2 text-muted-foreground">
+        {/* Badge */}
+        <div className="mb-4">
+          <span className="inline-flex items-center rounded-full bg-[color-mix(in_oklab,var(--brand-lime),white_80%)] px-3 py-1 text-sm font-medium text-[var(--brand-green)]">
+            Giải pháp PV-ERP
+          </span>
+        </div>
+        
+        {/* Title with highlighted text */}
+        <h2 className="text-3xl font-bold tracking-tight text-[#123524]">
+          Tối ưu - Hợp nhất - <span className="marker-lime">Hiệu quả</span>
+        </h2>
+        
+        <p className="mt-4 text-lg text-gray-600">
           PV-ERP giúp doanh nghiệp tối ưu quy trình, hợp nhất dữ liệu, tăng hiệu
           quả và tạo bước nhảy vọt trong quản trị
         </p>

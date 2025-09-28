@@ -39,14 +39,24 @@ const PAIN_POINTS: PainPointCard[] = [
     description: "Thiếu KPI minh bạch khiến lãnh đạo phải dựa vào cảm tính.",
   },
 ];
+
 export default function BusinessPainPointsSection() {
   return (
     <Section className="section-surface py-14 lg:py-16">
       <div className="mx-auto max-w-3xl text-center pv-ani-fade-up-1">
-        <h2 className="mt-3 text-3xl font-bold tracking-tight">
-          Vấn đề doanh nghiệp gặp phải
+        {/* Badge */}
+        <div className="mb-4">
+          <span className="inline-flex items-center rounded-full bg-[color-mix(in_oklab,var(--brand-lime),white_80%)] px-3 py-1 text-sm font-medium text-[var(--brand-green)]">
+            Thách thức - Khó khăn
+          </span>
+        </div>
+        
+        {/* Title with highlighted text */}
+        <h2 className="text-3xl font-bold tracking-tight text-[#123524]">
+          <span className="whitespace-nowrap">Vấn đề doanh nghiệp</span> <span className="marker-lime">gặp phải</span>
         </h2>
-        <p className="mt-2 text-muted-foreground">
+        
+        <p className="mt-4 text-lg text-gray-600">
           Trong hành trình phát triển, doanh nghiệp luôn đối mặt với nhiều thách
           thức làm chậm bước tiến bền vững
         </p>
@@ -75,6 +85,3 @@ export default function BusinessPainPointsSection() {
     </Section>
   );
 }
-
-
-

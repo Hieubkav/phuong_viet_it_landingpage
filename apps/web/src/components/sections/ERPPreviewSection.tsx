@@ -137,10 +137,20 @@ export default function ERPPreviewSection() {
   return (
     <Section className="apps-surface py-14 lg:py-16">
       <div className="mx-auto max-w-3xl text-center">
-        <h2 className="mt-3 text-3xl font-bold tracking-tight">
-          Một nền tảng – <span className="marker-lime">Kết nối toàn diện</span>
+        {/* Badge */}
+        <div className="mb-4">
+          <span className="inline-flex items-center rounded-full bg-[color-mix(in_oklab,var(--brand-lime),white_80%)] px-3 py-1 text-sm font-medium text-[var(--brand-green)]">
+            Một nền tảng – Kết nối toàn diện
+          </span>
+        </div>
+        
+        {/* Title with highlighted text */}
+        <h2 className="text-3xl font-bold tracking-tight text-[#123524]">
+          <span className="marker-lime">PV-ERP</span> quy trình liền mạch,{" "}
+          <span className="whitespace-nowrap">dữ liệu thống nhất</span>
         </h2>
-        <p className="mt-2 text-muted-foreground">
+        
+        <p className="mt-4 text-lg text-gray-600">
           PV-ERP hợp nhất toàn bộ quy trình và dữ liệu, tạo dòng chảy quản trị
           xuyên suốt – từ vận hành đến chiến lược
         </p>
@@ -184,4 +194,3 @@ export default function ERPPreviewSection() {
     </Section>
   );
 }
-

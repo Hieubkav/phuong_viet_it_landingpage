@@ -191,11 +191,21 @@ export default function KeyFeaturesSection() {
   return (
     <Section className="industry-surface py-14 lg:py-16" containerClassName="relative z-[1]">
       <div className="mx-auto max-w-3xl text-center">
-        <h2 className="mt-3 text-3xl font-bold tracking-tight">
-          ERP linh hoạt – <span className="marker-lime">Phù hợp mọi lĩnh vực</span>
+        {/* Badge */}
+        <div className="mb-4">
+          <span className="inline-flex items-center rounded-full bg-[color-mix(in_oklab,var(--brand-lime),white_80%)] px-3 py-1 text-sm font-medium text-[var(--brand-green)]">
+            PV-ERP phù hợp cho mọi ngành nghề
+          </span>
+        </div>
+        
+        {/* Title with highlighted text */}
+        <h2 className="text-3xl font-bold tracking-tight text-[#123524]">
+          <span className="marker-lime">Tùy chỉnh</span> chuyên biệt cho{" "}
+          <span className="whitespace-nowrap">từng lĩnh vực</span>
         </h2>
-        <p className="mt-2 text-muted-foreground">
-          PV-ERP điều chỉnh theo đặc thù từng ngành để nâng cao hiệu quả vận hành và quản trị
+        
+        <p className="mt-4 text-lg text-gray-600">
+          Với khả năng tùy chỉnh chuyên sâu, PV-ERP phù hợp với đặc thù của từng ngành nghề theo hoạt động riêng biệt của mỗi doanh nghiệp
         </p>
       </div>
 

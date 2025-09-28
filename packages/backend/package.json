@@ -1,5 +1,5 @@
 {
-	"name": "@dohy/backend",
+	"name": "@pv-erp/backend",
 	"version": "1.0.0",
 	"scripts": {
 		"dev": "convex dev",

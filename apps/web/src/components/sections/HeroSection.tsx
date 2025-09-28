@@ -45,7 +45,7 @@ export default function HeroSection() {
           </h1>
 
           <p className="mt-5 max-w-xl text-lg leading-relaxed text-slate-600 md:text-xl">
-            Hợp nhất dữ liệu - Tối ưu vận hành - Tăng trưởng bền vững cùng hệ sinh thái quản trị số hóa toàn diện.
+            Hợp nhất dữ liệu - Tối ưu vận hành - Tăng trưởng bền vững
           </p>
 
           <div className="mt-8">

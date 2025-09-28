@@ -1,0 +1,6 @@
+oke tương tự ,
+ở "Triển khai đơn giản"
+thêm badge "Hành trình PV-ERP thành công"
+Tiêu đề "Triển khai đơn giản" đổi thành "Lộ trình rõ ràng, triển khai hiệu quả"
+Vệt màu tiêu đề nằm ở chữ Lộ trình rõ ràng,
+"Chỉ với 4 bước đơn giản, bạn có thể sở hữu hệ thống ISO điện tử hoàn chỉnh" đổi thành "Các giai đoạn được thiết kế bài bản, đảm bảo triển khai PV-ERP thành công và mang lại giá trị tối đa cho doanh nghiệp"

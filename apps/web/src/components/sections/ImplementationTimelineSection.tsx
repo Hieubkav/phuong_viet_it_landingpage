@@ -57,11 +57,20 @@ export default function ImplementationTimelineSection() {
     <Section className="py-14 lg:py-16 bg-gray-50">
       {/* Header */}
       <div className="mx-auto max-w-4xl text-center">
-        <h2 className="text-3xl font-bold tracking-tight text-gray-900">
-          Triển khai đơn giản
+        {/* Badge */}
+        <div className="mb-4">
+          <span className="inline-flex items-center rounded-full bg-[color-mix(in_oklab,var(--brand-lime),white_80%)] px-3 py-1 text-sm font-medium text-[var(--brand-green)]">
+            Hành trình PV-ERP thành công
+          </span>
+        </div>
+        
+        {/* Title with highlighted text */}
+        <h2 className="text-3xl font-bold tracking-tight text-[#123524]">
+          <span className="marker-lime whitespace-nowrap">Lộ trình rõ ràng</span>, triển khai hiệu quả
         </h2>
+        
         <p className="mt-4 text-lg text-gray-600 max-w-2xl mx-auto">
-          Chỉ với 4 bước đơn giản, bạn có thể sở hữu hệ thống ISO điện tử hoàn chỉnh
+          Các giai đoạn được thiết kế bài bản, đảm bảo triển khai PV-ERP thành công và mang lại giá trị tối đa cho doanh nghiệp
         </p>
       </div>
 

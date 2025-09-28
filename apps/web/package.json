@@ -23,7 +23,7 @@
 		"tw-animate-css": "^1.3.4",
 		"zod": "^4.0.2",
 		"convex": "^1.27.0",
-		"@dohy/backend": "workspace:*",
+		"@pv-erp/backend": "workspace:*",
 		"fumadocs-ui": "15.7.9",
 		"fumadocs-core": "15.7.9",
 		"fumadocs-mdx": "11.8.3",

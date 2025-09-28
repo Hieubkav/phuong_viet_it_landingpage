@@ -1,5 +1,5 @@
 {
-	"name": "dohy",
+	"name": "pv-erp",
 	"private": true,
 	"workspaces": [
 		"apps/*",
@@ -12,8 +12,8 @@
 		"check-types": "turbo check-types",
 		"dev:native": "turbo -F native dev",
 		"dev:web": "turbo -F web dev",
-		"dev:server": "turbo -F @dohy/backend dev",
-		"dev:setup": "turbo -F @dohy/backend dev:setup"
+		"dev:server": "turbo -F @pv-erp/backend dev",
+		"dev:setup": "turbo -F @pv-erp/backend dev:setup"
 	},
 	"dependencies": {},
 	"devDependencies": {
