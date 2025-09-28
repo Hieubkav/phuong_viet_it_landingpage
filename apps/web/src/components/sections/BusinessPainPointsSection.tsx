@@ -42,7 +42,7 @@ const PAIN_POINTS: PainPointCard[] = [
 
 export default function BusinessPainPointsSection() {
   return (
-    <Section className="section-surface py-14 lg:py-16">
+    <Section className="section-surface py-12 lg:py-14">
       <div className="mx-auto max-w-3xl text-center pv-ani-fade-up-1">
         {/* Badge */}
         <div className="mb-4">
@@ -56,21 +56,21 @@ export default function BusinessPainPointsSection() {
           <span className="whitespace-nowrap">Vấn đề doanh nghiệp</span> <span className="marker-lime">gặp phải</span>
         </h2>
         
-        <p className="mt-4 text-lg text-gray-600">
+        <p className="mt-3 text-lg text-gray-600">
           Trong hành trình phát triển, doanh nghiệp luôn đối mặt với nhiều thách
           thức làm chậm bước tiến bền vững
         </p>
       </div>
 
-      <div className="mt-10 grid gap-5 sm:grid-cols-2 xl:grid-cols-4">
+      <div className="mt-8 grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
         {PAIN_POINTS.map(({ key, icon: Icon, title, description }) => (
           <Card
             key={key}
             className="h-full min-h-[220px] border-muted/70 bg-white shadow-sm transition hover:-translate-y-1 hover:shadow-md"
           >
-            <CardContent className="flex h-full flex-col items-center gap-3 p-6 text-center">
-              <span className="flex h-16 w-16 items-center justify-center rounded-3xl border border-[color-mix(in_oklab,var(--brand-green),white_55%)] bg-[color-mix(in_oklab,var(--brand-lime),white_85%)] text-[var(--brand-green)] shadow-sm">
-                <Icon className="h-8 w-8" />
+            <CardContent className="flex h-full flex-col items-center gap-2 px-4 py-2 text-center">
+              <span className="flex h-14 w-14 items-center justify-center rounded-2xl border border-[color-mix(in_oklab,var(--brand-green),white_55%)] bg-[color-mix(in_oklab,var(--brand-lime),white_85%)] text-[var(--brand-green)] shadow-sm">
+                <Icon className="h-7 w-7" />
               </span>
               <div className="text-lg font-semibold leading-snug text-foreground">
                 {title}

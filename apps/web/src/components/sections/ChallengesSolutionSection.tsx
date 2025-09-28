@@ -210,8 +210,8 @@ function SolutionDetail({ item }: { item: SolutionItem }) {
   const Icon = item.icon;
 
   return (
-    <Card className="relative h-full overflow-hidden border-muted/70 bg-white shadow-sm">
-      <CardContent className="h-full p-7">
+    <Card className="relative h-full overflow-hidden border-muted/70 bg-white shadow-sm lg:min-h-[560px]">
+      <CardContent className="flex h-full flex-col gap-6 p-7">
         <div className="flex items-start gap-3">
           <span className="flex h-12 w-12 items-center justify-center rounded-2xl border border-[color-mix(in_oklab,var(--brand-green),white_55%)] bg-[color-mix(in_oklab,var(--brand-lime),white_82%)] text-[var(--brand-green)] shadow-sm">
             <Icon className="h-6 w-6" aria-hidden />
@@ -224,20 +224,20 @@ function SolutionDetail({ item }: { item: SolutionItem }) {
           </div>
         </div>
 
-        <p className="mt-6 text-base leading-relaxed text-slate-600">
+        <p className="text-base leading-relaxed text-slate-600">
           {item.description}
         </p>
 
-        <ul className="mt-5 grid gap-2 text-left text-sm text-foreground/85">
+        <ul className="grid gap-2 text-left text-base text-foreground/85">
           {item.points.map((point) => (
             <li key={point} className="flex items-start gap-2">
               <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-[var(--brand-green)]" aria-hidden />
-              <span>{point}</span>
+              <span className="leading-relaxed">{point}</span>
             </li>
           ))}
         </ul>
 
-        <div className="mt-6 overflow-hidden rounded-2xl border border-slate-200 bg-white/80 p-4">
+        <div className="mt-auto flex min-h-[160px] items-center justify-center overflow-hidden rounded-2xl border border-slate-200 bg-white/80 p-4">
           {item.media}
         </div>
 
@@ -267,21 +267,21 @@ function SolutionOption({
       aria-selected={active}
     >
       <Card
-        className={`relative h-full overflow-hidden border transition hover:-translate-y-0.5 hover:shadow-sm ${
+        className={`relative h-full min-w-[220px] shrink-0 snap-start overflow-hidden border transition hover:-translate-y-0.5 hover:shadow-sm lg:min-w-0 lg:shrink lg:py-5 lg:gap-4 py-4 gap-3 ${
           active
             ? "border-[color-mix(in_oklab,var(--brand-green),white_40%)] shadow-md"
             : "border-muted/70"
         } bg-white`}
       >
-        <CardContent className="flex items-start gap-3 p-5">
+        <CardContent className="flex items-start gap-2 p-4">
           <span
-            className={`flex h-10 w-10 items-center justify-center rounded-xl border text-[var(--brand-green)] ${
+            className={`flex h-9 w-9 items-center justify-center rounded-lg border text-[var(--brand-green)] ${
               active
                 ? "border-[color-mix(in_oklab,var(--brand-green),white_50%)] bg-[color-mix(in_oklab,var(--brand-lime),white_82%)]"
                 : "border-[color-mix(in_oklab,var(--brand-green),white_75%)] bg-[color-mix(in_oklab,var(--brand-lime),white_90%)]"
             }`}
           >
-            <Icon className="h-5 w-5" aria-hidden />
+            <Icon className="h-4 w-4" aria-hidden />
           </span>
           <div>
             <div className="text-base font-semibold text-foreground line-clamp-1">
@@ -328,12 +328,12 @@ export default function ChallengesSolutionSection() {
         </p>
       </div>
 
-      <div className="mt-10 grid gap-6 lg:grid-cols-12 lg:items-start">
-        <div className="lg:col-span-7 pv-ani-fade-up-1">
+      <div className="mt-10 flex flex-col gap-6 lg:grid lg:grid-cols-[minmax(0,_1fr)_minmax(260px,_320px)] lg:items-stretch">
+        <div className="order-2 pv-ani-fade-up-1 lg:order-1">
           <SolutionDetail item={active} />
         </div>
 
-        <div className="grid gap-4 lg:col-span-5 pv-ani-fade-up-2">
+        <div className="order-1 flex gap-3 overflow-x-auto pb-2 pv-ani-fade-up-2 snap-x snap-mandatory lg:order-2 lg:grid lg:gap-4 lg:overflow-visible lg:pb-0 lg:snap-none">
           {SOLUTIONS.map((item) => (
             <SolutionOption
               key={item.key}
