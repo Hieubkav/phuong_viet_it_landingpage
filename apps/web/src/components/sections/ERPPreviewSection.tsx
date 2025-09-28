@@ -100,27 +100,27 @@ function AppTile({
   return (
     <Card
       className="
-        group relative min-h-[160px] sm:min-h-[180px] lg:min-h-[200px] overflow-hidden border border-[color-mix(in_oklab,var(--brand-green),white_12%)]
+        group relative min-h-[120px] sm:min-h-[130px] lg:min-h-[140px] overflow-hidden border border-[color-mix(in_oklab,var(--brand-green),white_12%)]
         bg-white shadow-[0_10px_30px_rgba(0,0,0,0.06)] transition
         hover:-translate-y-1 hover:shadow-[0_18px_40px_rgba(0,0,0,0.12)]
       "
     >
-      <CardContent className="flex h-full flex-col items-center justify-center gap-4 p-6">
+      <CardContent className="flex h-full flex-col items-center justify-center gap-1 p-3">
         <div
           style={styleVars}
           className="
-            flex h-20 w-20 items-center justify-center rounded-3xl bg-[linear-gradient(135deg,var(--acc)_0%,color-mix(in_oklab,var(--acc),white_45%)_100%)]
+            flex h-[80px] w-[80px] items-center justify-center rounded-2xl bg-[linear-gradient(135deg,var(--acc)_0%,color-mix(in_oklab,var(--acc),white_45%)_100%)]
             shadow-[inset_0_1px_0_rgba(255,255,255,.35)]
           "
         >
           <img
             src={iconSrc}
             alt={name}
-            className="h-16 w-16 object-contain"
+            className="h-[78px] w-[78px] object-contain"
             loading="lazy"
           />
         </div>
-        <div className="text-center text-base font-semibold leading-tight text-foreground md:text-lg">
+        <div className="text-center text-sm font-semibold leading-tight text-foreground md:text-base">
           {name}
         </div>
 
