@@ -209,47 +209,52 @@ export default function KeyFeaturesSection() {
         </p>
       </div>
 
-      <div className="relative mt-12">
-        <span className="absolute left-5 top-0 bottom-6 w-px bg-gradient-to-b from-[color-mix(in_oklab,var(--brand-green),transparent_30%)] via-[color-mix(in_oklab,var(--brand-green),transparent_10%)] to-[color-mix(in_oklab,var(--brand-green),transparent_40%)]" aria-hidden />
+      <div className="mt-12 space-y-16">
+        {FEATURES.map((feature, index) => {
+          const Icon = feature.icon;
+          const isReversed = index % 2 === 1;
+          
+          return (
+            <div key={feature.key} className={`flex flex-col gap-8 lg:flex-row lg:items-center ${isReversed ? 'lg:flex-row-reverse' : ''}`}>
+              {/* Content Section */}
+              <div className="flex-1 space-y-6">
+                <div className="flex items-start gap-4">
+                  <span
+                    className={`flex h-16 w-16 items-center justify-center rounded-full bg-gradient-to-br ${feature.accent} text-white shadow-lg flex-shrink-0 text-xl font-bold`}
+                  >
+                    {index + 1}
+                  </span>
+                  <div className="space-y-3">
+                    <h3 className="text-2xl font-bold tracking-tight text-foreground md:text-3xl">
+                      {feature.title}
+                    </h3>
+                    <p className="text-lg text-slate-600">{feature.summary}</p>
+                  </div>
+                </div>
 
-        <div className="space-y-10 sm:space-y-12">
-          {FEATURES.map((feature) => {
-            const Icon = feature.icon;
-            return (
-              <div key={feature.key} className="relative pl-16">
-                <span
-                  className={`absolute left-5 top-3 flex h-12 w-12 -translate-x-1/2 items-center justify-center rounded-full border-4 border-white bg-gradient-to-br ${feature.accent} text-white shadow-lg`}
-                >
-                  <Icon className="h-5 w-5" aria-hidden />
-                </span>
+                <ul className="space-y-3 text-base text-foreground/85 ml-20">
+                  {feature.bullets.map((bullet) => (
+                    <li key={bullet} className="flex items-start gap-3">
+                      <CheckCircle2 className="mt-0.5 h-5 w-5 flex-shrink-0 text-[var(--brand-green)]" aria-hidden />
+                      <span>{bullet}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
 
-                <Card className="border border-muted/70 bg-white shadow-sm">
-                  <CardContent className="flex flex-col gap-6 p-6">
-                    <div className="space-y-3">
-                      <h3 className="text-xl font-semibold tracking-tight text-foreground md:text-2xl">
-                        {feature.title}
-                      </h3>
-                      <p className="text-base text-slate-600 md:text-lg">{feature.summary}</p>
-                    </div>
-
-                    <ul className="space-y-2 text-sm text-foreground/85 md:text-base">
-                      {feature.bullets.map((bullet) => (
-                        <li key={bullet} className="flex items-start gap-2">
-                          <CheckCircle2 className="mt-0.5 h-4 w-4 flex-shrink-0 text-[var(--brand-green)]" aria-hidden />
-                          <span>{bullet}</span>
-                        </li>
-                      ))}
-                    </ul>
-
-                    <div className="overflow-hidden rounded-2xl border border-slate-200 bg-white/80 p-4 text-[color-mix(in_oklab,var(--brand-green),black_10%)]">
+              {/* Media Section */}
+              <div className="flex-1">
+                <Card className="border border-slate-200 bg-white shadow-sm">
+                  <CardContent className="p-6">
+                    <div className="overflow-hidden rounded-xl bg-gradient-to-br from-slate-50 to-white p-6 text-[color-mix(in_oklab,var(--brand-green),black_10%)]">
                       {feature.media}
                     </div>
                   </CardContent>
                 </Card>
               </div>
-            );
-          })}
-        </div>
+            </div>
+          );
+        })}
       </div>
     </Section>
   );
