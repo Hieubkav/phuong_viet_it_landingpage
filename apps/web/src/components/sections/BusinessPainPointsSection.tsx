@@ -69,13 +69,13 @@ export default function BusinessPainPointsSection() {
             className="h-full min-h-[220px] border-muted/70 bg-white shadow-sm transition hover:-translate-y-1 hover:shadow-md"
           >
             <CardContent className="flex h-full flex-col items-center gap-3 p-6 text-center">
-              <span className="flex h-12 w-12 items-center justify-center rounded-2xl border border-[color-mix(in_oklab,var(--brand-green),white_55%)] bg-[color-mix(in_oklab,var(--brand-lime),white_85%)] text-[var(--brand-green)] shadow-sm">
-                <Icon className="h-6 w-6" />
+              <span className="flex h-16 w-16 items-center justify-center rounded-3xl border border-[color-mix(in_oklab,var(--brand-green),white_55%)] bg-[color-mix(in_oklab,var(--brand-lime),white_85%)] text-[var(--brand-green)] shadow-sm">
+                <Icon className="h-8 w-8" />
               </span>
-              <div className="text-lg font-semibold leading-snug text-foreground line-clamp-1">
+              <div className="text-lg font-semibold leading-snug text-foreground">
                 {title}
               </div>
-              <p className="text-sm text-muted-foreground line-clamp-2">
+              <p className="text-sm text-muted-foreground">
                 {description}
               </p>
             </CardContent>
