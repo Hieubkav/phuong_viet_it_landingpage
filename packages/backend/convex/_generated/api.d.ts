@@ -13,7 +13,10 @@ import type {
   FilterApi,
   FunctionReference,
 } from "convex/server";
-import type * as todos from "../todos.js";
+import type * as media from "../media.js";
+import type * as pageBlocks from "../pageBlocks.js";
+import type * as pages from "../pages.js";
+import type * as settings from "../settings.js";
 
 /**
  * A utility for referencing Convex functions in your app's API.
@@ -24,7 +27,10 @@ import type * as todos from "../todos.js";
  * ```
  */
 declare const fullApi: ApiFromModules<{
-  todos: typeof todos;
+  media: typeof media;
+  pageBlocks: typeof pageBlocks;
+  pages: typeof pages;
+  settings: typeof settings;
 }>;
 export declare const api: FilterApi<
   typeof fullApi,
