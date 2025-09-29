@@ -143,7 +143,8 @@ export const BLOCK_PRESETS: BlockPreset[] = [
       type: "object",
       properties: {
         badge: { type: "string", title: "Badge" },
-        title: { type: "string", title: "Tiêu đề" },
+        highlight: { type: "string", title: "Từ nhấn mạnh" },
+title: { type: "string", title: "Tiêu đề" },
         description: { type: "string", title: "Mô tả" },
         tabs: {
           type: "array",
@@ -192,7 +193,8 @@ export const BLOCK_PRESETS: BlockPreset[] = [
       type: "object",
       properties: {
         badge: { type: "string", title: "Badge" },
-        title: { type: "string", title: "Tiêu đề" },
+        highlight: { type: "string", title: "Từ nhấn mạnh" },
+title: { type: "string", title: "Tiêu đề" },
         description: { type: "string", title: "Mô tả" },
         modules: {
           type: "array",
@@ -240,7 +242,8 @@ export const BLOCK_PRESETS: BlockPreset[] = [
       type: "object",
       properties: {
         badge: { type: "string", title: "Badge" },
-        title: { type: "string", title: "Tiêu đề" },
+        highlight: { type: "string", title: "Từ nhấn mạnh" },
+title: { type: "string", title: "Tiêu đề" },
         description: { type: "string", title: "Mô tả" },
         features: {
           type: "array",
@@ -288,7 +291,8 @@ export const BLOCK_PRESETS: BlockPreset[] = [
       type: "object",
       properties: {
         badge: { type: "string", title: "Badge" },
-        title: { type: "string", title: "Tiêu đề" },
+        highlight: { type: "string", title: "Từ nhấn mạnh" },
+title: { type: "string", title: "Tiêu đề" },
         description: { type: "string", title: "Mô tả" },
         tabs: {
           type: "array",
@@ -338,7 +342,8 @@ export const BLOCK_PRESETS: BlockPreset[] = [
       type: "object",
       properties: {
         badge: { type: "string", title: "Badge" },
-        title: { type: "string", title: "Tiêu đề" },
+        highlight: { type: "string", title: "Từ nhấn mạnh" },
+title: { type: "string", title: "Tiêu đề" },
         description: { type: "string", title: "Mô tả" },
         steps: {
           type: "array",

@@ -20,6 +20,7 @@ type StepInput = {
 type ImplementationTimelineData = {
   badge?: string;
   title?: string;
+  highlight?: string;
   description?: string;
   steps?: StepInput[];
 };
@@ -55,6 +56,7 @@ function resolveData(data?: ImplementationTimelineData) {
   return {
     badge: merged.badge ?? "Hành trình PV-ERP thành công",
     title: merged.title ?? "Lộ trình rõ ràng, triển khai hiệu quả",
+    highlight: merged.highlight ?? (DEFAULT_DATA as any).highlight ?? "Lộ trình rõ ràng",
     description:
       merged.description ??
       "Các giai đoạn được thiết kế bài bản, đảm bảo triển khai PV-ERP thành công và mang lại giá trị tối đa cho doanh nghiệp",
@@ -67,7 +69,9 @@ type ImplementationTimelineSectionProps = {
 };
 
 export default function ImplementationTimelineSection({ data }: ImplementationTimelineSectionProps) {
-  const { badge, title, description, steps } = resolveData(data);
+  const { badge, title, highlight, description, steps } = resolveData(data);
+  const hasHighlight = highlight && title.includes(highlight as string);
+  const [beforeHighlight, afterHighlight] = hasHighlight ? title.split(highlight as string) : [title, ""];
 
   return (
     <Section className="bg-gray-50 py-14 lg:py-16">
@@ -81,7 +85,15 @@ export default function ImplementationTimelineSection({ data }: ImplementationTi
         ) : null}
 
         <h2 className="text-2xl font-bold tracking-tight text-[#123524] md:text-3xl">
-          {title}
+          {hasHighlight ? (
+            <>
+              {beforeHighlight}
+              <span className="marker-lime">{highlight}</span>
+              {afterHighlight}
+            </>
+          ) : (
+            title
+          )}
         </h2>
 
         {description ? <p className="mt-4 text-lg text-gray-600">{description}</p> : null}

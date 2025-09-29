@@ -53,6 +53,7 @@ export const HOME_BLOCK_TEMPLATES = {
   challenges: {
     badge: "Giải pháp PV-ERP",
     title: "Tối ưu - Hợp nhất - Hiệu quả",
+    highlight: "Hiệu quả",
     description:
       "PV-ERP giúp doanh nghiệp tối ưu quy trình, hợp nhất dữ liệu, tăng hiệu quả và tạo bước nhảy vọt trong quản trị",
     tabs: [
@@ -117,6 +118,7 @@ export const HOME_BLOCK_TEMPLATES = {
   erpPreview: {
     badge: "Một nền tảng – Kết nối toàn diện",
     title: "PV-ERP quy trình liền mạch, dữ liệu thống nhất",
+    highlight: "PV-ERP",
     description:
       "PV-ERP hợp nhất toàn bộ quy trình và dữ liệu, tạo dòng chảy quản trị xuyên suốt – từ vận hành đến chiến lược",
     modules: [
@@ -154,6 +156,7 @@ export const HOME_BLOCK_TEMPLATES = {
   keyFeatures: {
     badge: "PV-ERP phù hợp cho mọi ngành nghề",
     title: "Tùy chỉnh chuyên biệt cho từng lĩnh vực",
+    highlight: "Tùy chỉnh",
     description:
       "Với khả năng tùy chỉnh chuyên sâu, PV-ERP phù hợp với đặc thù của từng ngành nghề theo hoạt động riêng biệt của mỗi doanh nghiệp",
     features: [
@@ -201,6 +204,7 @@ export const HOME_BLOCK_TEMPLATES = {
   benefits: {
     badge: "Giá trị cho doanh nghiệp",
     title: "Tiết kiệm, hiệu quả, minh bạch và bền vững cho doanh nghiệp",
+    highlight: "bền vững",
     description:
       "PV-ERP tối ưu chi phí, gia tăng năng suất, minh bạch dữ liệu và kiến tạo nền tảng tăng trưởng lâu dài, vững chắc",
     tabs: [
@@ -265,6 +269,7 @@ export const HOME_BLOCK_TEMPLATES = {
   implementationTimeline: {
     badge: "Hành trình PV-ERP thành công",
     title: "Lộ trình rõ ràng, triển khai hiệu quả",
+    highlight: "Lộ trình rõ ràng",
     description:
       "Các giai đoạn được thiết kế bài bản, đảm bảo triển khai PV-ERP thành công và mang lại giá trị tối đa cho doanh nghiệp",
     steps: [

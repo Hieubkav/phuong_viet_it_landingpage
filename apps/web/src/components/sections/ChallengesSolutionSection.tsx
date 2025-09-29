@@ -26,6 +26,7 @@ type ChallengeTab = {
 type ChallengesBlockData = {
   badge?: string;
   title?: string;
+  highlight?: string;
   description?: string;
   tabs?: ChallengeTab[];
 };
@@ -184,6 +185,7 @@ function resolveData(data?: ChallengesBlockData) {
   return {
     badge: merged.badge ?? "Giải pháp PV-ERP",
     title: merged.title ?? "Tối ưu - Hợp nhất - Hiệu quả",
+    highlight: merged.highlight ?? (DEFAULT_DATA as any).highlight ?? "Hiệu quả",
     description:
       merged.description ??
       "PV-ERP giúp doanh nghiệp tối ưu quy trình, hợp nhất dữ liệu, tăng hiệu quả và tạo bước nhảy vọt trong quản trị",
@@ -196,7 +198,9 @@ type ChallengesSolutionSectionProps = {
 };
 
 export default function ChallengesSolutionSection({ data }: ChallengesSolutionSectionProps) {
-  const { badge, title, description, tabs } = useMemo(() => resolveData(data), [data]);
+  const { badge, title, highlight, description, tabs } = useMemo(() => resolveData(data), [data]);
+  const hasHighlight = highlight && title.includes(highlight as string);
+  const [beforeHighlight, afterHighlight] = hasHighlight ? title.split(highlight as string) : [title, ""];
   const [activeKey, setActiveKey] = useState<string | null>(tabs[0]?.key ?? null);
 
   useEffect(() => {
@@ -217,7 +221,15 @@ export default function ChallengesSolutionSection({ data }: ChallengesSolutionSe
         ) : null}
 
         <h2 className="text-2xl font-bold tracking-tight text-[#123524] md:text-3xl">
-          {title}
+          {hasHighlight ? (
+            <>
+              {beforeHighlight}
+              <span className="marker-lime">{highlight}</span>
+              {afterHighlight}
+            </>
+          ) : (
+            title
+          )}
         </h2>
 
         {description ? <p className="mt-4 text-lg text-gray-600">{description}</p> : null}

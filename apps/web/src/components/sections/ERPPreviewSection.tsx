@@ -34,6 +34,7 @@ type CtaItem = {
 type ERPPreviewData = {
   badge?: string;
   title?: string;
+  highlight?: string;
   description?: string;
   modules?: ModuleItem[];
   cta?: CtaItem;
@@ -63,6 +64,7 @@ function resolveData(data?: ERPPreviewData) {
   return {
     badge: merged.badge ?? "Một nền tảng – Kết nối toàn diện",
     title: merged.title ?? "PV-ERP quy trình liền mạch, dữ liệu thống nhất",
+    highlight: merged.highlight ?? (DEFAULT_DATA as any).highlight ?? "PV-ERP",
     description:
       merged.description ??
       "PV-ERP hợp nhất toàn bộ quy trình và dữ liệu, tạo dòng chảy quản trị xuyên suốt – từ vận hành đến chiến lược",
@@ -112,7 +114,9 @@ type ERPPreviewSectionProps = {
 };
 
 export default function ERPPreviewSection({ data }: ERPPreviewSectionProps) {
-  const { badge, title, description, modules, cta } = resolveData(data);
+  const { badge, title, highlight, description, modules, cta } = resolveData(data);
+  const hasHighlight = highlight && title.includes(highlight as string);
+  const [beforeHighlight, afterHighlight] = hasHighlight ? title.split(highlight as string) : [title, ""];
 
   return (
     <Section className="apps-surface py-14 lg:py-16">
@@ -126,7 +130,15 @@ export default function ERPPreviewSection({ data }: ERPPreviewSectionProps) {
         ) : null}
 
         <h2 className="text-2xl font-bold tracking-tight text-[#123524] md:text-3xl">
-          {title}
+          {hasHighlight ? (
+            <>
+              {beforeHighlight}
+              <span className="marker-lime">{highlight}</span>
+              {afterHighlight}
+            </>
+          ) : (
+            title
+          )}
         </h2>
 
         {description ? <p className="mt-4 text-lg text-gray-600">{description}</p> : null}

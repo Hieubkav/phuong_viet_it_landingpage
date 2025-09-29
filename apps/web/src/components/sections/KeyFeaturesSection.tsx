@@ -32,6 +32,7 @@ type FeatureInput = {
 type KeyFeaturesBlockData = {
   badge?: string;
   title?: string;
+  highlight?: string;
   description?: string;
   features?: FeatureInput[];
 };
@@ -187,6 +188,7 @@ function resolveData(data?: KeyFeaturesBlockData) {
   return {
     badge: merged.badge ?? "PV-ERP phù hợp cho mọi ngành nghề",
     title: merged.title ?? "Tùy chỉnh chuyên biệt cho từng lĩnh vực",
+    highlight: merged.highlight ?? (DEFAULT_DATA as any).highlight ?? "Tùy chỉnh",
     description:
       merged.description ??
       "Với khả năng tùy chỉnh chuyên sâu, PV-ERP phù hợp với đặc thù của từng ngành nghề theo hoạt động riêng biệt của mỗi doanh nghiệp",
@@ -199,7 +201,9 @@ type KeyFeaturesSectionProps = {
 };
 
 export default function KeyFeaturesSection({ data }: KeyFeaturesSectionProps) {
-  const { badge, title, description, features } = resolveData(data);
+  const { badge, title, highlight, description, features } = resolveData(data);
+  const hasHighlight = highlight && title.includes(highlight as string);
+  const [beforeHighlight, afterHighlight] = hasHighlight ? title.split(highlight as string) : [title, ""];
 
   return (
     <Section className="industry-surface py-14 lg:py-16" containerClassName="relative z-[1]">
@@ -213,7 +217,15 @@ export default function KeyFeaturesSection({ data }: KeyFeaturesSectionProps) {
         ) : null}
 
         <h2 className="text-2xl font-bold tracking-tight text-[#123524] md:text-3xl">
-          {title}
+          {hasHighlight ? (
+            <>
+              {beforeHighlight}
+              <span className="marker-lime">{highlight}</span>
+              {afterHighlight}
+            </>
+          ) : (
+            title
+          )}
         </h2>
 
         {description ? <p className="mt-4 text-lg text-gray-600">{description}</p> : null}

@@ -21,6 +21,7 @@ type BenefitTabInput = {
 type BenefitsBlockData = {
   badge?: string;
   title?: string;
+  highlight?: string;
   description?: string;
   tabs?: BenefitTabInput[];
 };
@@ -77,6 +78,7 @@ function resolveData(data?: BenefitsBlockData) {
       data?.title ??
       DEFAULT_DATA.title ??
       "Tiết kiệm, hiệu quả, minh bạch và bền vững cho doanh nghiệp",
+    highlight: data?.highlight ?? (DEFAULT_DATA as any).highlight ?? "bền vững",
     description:
       data?.description ??
       DEFAULT_DATA.description ??
@@ -153,7 +155,9 @@ type BenefitsSectionProps = {
 };
 
 export default function BenefitsSection({ data }: BenefitsSectionProps) {
-  const { badge, title, description, tabs } = useMemo(() => resolveData(data), [data]);
+  const { badge, title, highlight, description, tabs } = useMemo(() => resolveData(data), [data]);
+  const hasHighlight = highlight && title.includes(highlight as string);
+  const [beforeHighlight, afterHighlight] = hasHighlight ? title.split(highlight as string) : [title, ""];
   const [activeKey, setActiveKey] = useState<string>(tabs[0]?.key ?? "");
 
   const active = tabs.find((tab) => tab.key === activeKey) ?? tabs[0];
@@ -170,7 +174,15 @@ export default function BenefitsSection({ data }: BenefitsSectionProps) {
         ) : null}
 
         <h2 className="text-lg font-bold tracking-tight text-[#123524] sm:text-xl md:text-2xl lg:text-3xl">
-          {title}
+          {hasHighlight ? (
+            <>
+              {beforeHighlight}
+              <span className="marker-lime">{highlight}</span>
+              {afterHighlight}
+            </>
+          ) : (
+            title
+          )}
         </h2>
 
         {description ? <p className="mt-4 text-base text-gray-600 sm:text-lg">{description}</p> : null}
@@ -205,8 +217,8 @@ export default function BenefitsSection({ data }: BenefitsSectionProps) {
                     {tab.Icon ? <tab.Icon className="h-4 w-4" /> : null}
                   </span>
                   <div>
-                    <div className="text-base font-semibold text-foreground line-clamp-1">{tab.title}</div>
-                    <p className="mt-1 text-sm text-muted-foreground line-clamp-2">{tab.summary}</p>
+                    <div className="text-base font-semibold text-foreground">{tab.title}</div>
+                    <p className="mt-1 text-sm text-muted-foreground">{tab.summary}</p>
                   </div>
                 </div>
                 <div
