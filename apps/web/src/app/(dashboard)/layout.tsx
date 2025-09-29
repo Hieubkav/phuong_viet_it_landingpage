@@ -6,18 +6,18 @@ import { Search } from "@/components/search";
 import { ThemeSwitch } from "@/components/theme-switch";
 import { ProfileDropdown } from "@/components/profile-dropdown";
 
-export default function DashboardGroupLayout({ children }: { children: React.ReactNode }) {
-  const links = [
-    { title: "Overview", href: "/dashboard" },
-    { title: "Units", href: "/units" },
-    { title: "Reports", href: "/dashboard/reports", disabled: true },
-  ];
+const dashboardLinks = [
+  { title: "Tổng quan", href: "/dashboard" },
+  { title: "Blocks trang chủ", href: "/dashboard/home-blocks" },
+  { title: "Tạo block", href: "/dashboard/home-blocks/new" },
+];
 
+export default function DashboardGroupLayout({ children }: { children: React.ReactNode }) {
   return (
     <AuthenticatedLayout>
       <Header fixed>
-        <TopNav links={links} />
-        <div className="ms-auto flex items-center space-x-2 sm:space-x-3 flex-nowrap">
+        <TopNav links={dashboardLinks} />
+        <div className="ms-auto flex flex-nowrap items-center space-x-2 sm:space-x-3">
           <Search />
           <ThemeSwitch />
           <ProfileDropdown />
