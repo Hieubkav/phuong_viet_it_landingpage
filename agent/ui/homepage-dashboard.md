@@ -7,4 +7,5 @@
 - Bổ sung `packages/backend/convex/seed.ts` (mutation `seedHome`) để khởi tạo trang + block mẫu khi chưa có dữ liệu.
 - Icon dùng chung khai báo tại `apps/web/src/lib/lucide-icons.ts` (map tên icon ↔ Lucide component).
 - Cập nhật layout dashboard: sidebar & topnav chỉ giữ liên kết thật (`/dashboard`, `/dashboard/home-blocks`, `/dashboard/home-blocks/new`) và trang tổng quan mới hướng dẫn quy trình.
+- Frontend landing page nay render động: query `api.homepage.getHomepage`, map từng block `kind` → section tương ứng, fallback dữ liệu từ template khi thiếu.
 - Khi triển khai nhớ chạy `bunx tsc --project apps/web/tsconfig.json --noEmit`, sau đó nếu sạch lỗi mới build `bun run --cwd apps/web build`.

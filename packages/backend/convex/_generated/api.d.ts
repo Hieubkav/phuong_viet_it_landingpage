@@ -13,6 +13,7 @@ import type {
   FilterApi,
   FunctionReference,
 } from "convex/server";
+import type * as homepage from "../homepage.js";
 import type * as media from "../media.js";
 import type * as pageBlocks from "../pageBlocks.js";
 import type * as pages from "../pages.js";
@@ -28,6 +29,7 @@ import type * as settings from "../settings.js";
  * ```
  */
 declare const fullApi: ApiFromModules<{
+  homepage: typeof homepage;
   media: typeof media;
   pageBlocks: typeof pageBlocks;
   pages: typeof pages;

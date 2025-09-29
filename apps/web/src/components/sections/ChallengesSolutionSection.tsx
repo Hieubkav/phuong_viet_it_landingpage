@@ -1,24 +1,36 @@
 "use client";
 
+import { useEffect, useMemo, useState } from "react";
+import type { CSSProperties, ReactNode } from "react";
 import Section from "@/components/layout/Section";
 import { Card, CardContent } from "@/components/ui/card";
-import {
-  Layers,
-  Wallet,
-  Gauge,
-  BrainCog,
-  CheckCircle2,
-} from "lucide-react";
+import { CheckCircle2, Layers } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
-import {
-  useEffect,
-  useState,
-  type CSSProperties,
-  type ReactNode,
-} from "react";
+import { cloneBlockDefault } from "@/components/blocks/block-defaults";
+import { getIconByKey } from "@/lib/lucide-icons";
+import type { HomeBlockKind } from "@pv-erp/shared/home-block-templates";
 
 /** CSS variables an toàn */
 type CSSVars = CSSProperties & { [key: `--${string}`]: string | number };
+
+type ChallengeTab = {
+  key?: string;
+  icon?: string;
+  title?: string;
+  summary?: string;
+  description?: string;
+  points?: unknown[];
+  media?: string;
+};
+
+type ChallengesBlockData = {
+  badge?: string;
+  title?: string;
+  description?: string;
+  tabs?: ChallengeTab[];
+};
+
+const DEFAULT_DATA = cloneBlockDefault("challenges" as HomeBlockKind) as ChallengesBlockData;
 
 type SolutionItem = {
   key: string;
@@ -46,12 +58,7 @@ function DonutCashflow() {
   const styleVars: CSSVars = { "--circum": circum };
 
   return (
-    <svg
-      className="donut-cash h-24 w-24"
-      viewBox="0 0 80 80"
-      aria-hidden
-      style={styleVars}
-    >
+    <svg className="donut-cash h-24 w-24" viewBox="0 0 80 80" aria-hidden style={styleVars}>
       <circle className="ring" cx="40" cy="40" r={r} />
       <circle
         className="arc"
@@ -110,14 +117,7 @@ function BarsLongStrategy() {
       aria-hidden
     >
       {arr.map((i) => (
-        <rect
-          key={i}
-          x={startX + i * (barW + gap)}
-          y={yTop}
-          width={barW}
-          height={h}
-          rx={4}
-        />
+        <rect key={i} x={startX + i * (barW + gap)} y={yTop} width={barW} height={h} rx={4} />
       ))}
     </svg>
   );
@@ -143,68 +143,105 @@ function useResponsiveCols(): number {
   return cols;
 }
 
-/* ================= Data ================= */
+const MEDIA_COMPONENTS: Record<string, ReactNode> = {
+  nodesFlow: <NodesFlow />,
+  donutCashflow: <DonutCashflow />,
+  sparkMini: <SparkMini />,
+  barsLongStrategy: <BarsLongStrategy />,
+};
 
-const SOLUTIONS: SolutionItem[] = [
-  {
-    key: "integration",
-    icon: Layers,
-    title: "Hợp nhất quy trình",
-    summary: "Một nền tảng xuyên suốt các phòng ban và chi nhánh.",
-    description:
-      "PV-ERP kết nối dữ liệu giữa bán hàng, kho, kế toán và vận hành để loại bỏ các điểm tắc nghẽn thủ công, đảm bảo thông tin luôn đồng nhất.",
-    points: [
-      "Luồng phê duyệt tự động theo vai trò",
-      "Đồng bộ tồn kho và trạng thái đơn hàng thời gian thực",
-      "Kho dữ liệu tập trung, dễ dàng truy vấn",
-    ],
-    media: <NodesFlow />,
-  },
-  {
-    key: "finance",
-    icon: Wallet,
-    title: "Kiểm soát tài chính",
-    summary: "Theo dõi chi phí, dòng tiền và công nợ tức thời.",
-    description:
-      "Bảng điều khiển tài chính của PV-ERP giúp doanh nghiệp chủ động ngân sách, cảnh báo vượt chi và quản lý công nợ chính xác tới từng hóa đơn.",
-    points: [
-      "Tổng hợp thu chi theo dự án và trung tâm chi phí",
-      "Dự báo dòng tiền dựa trên kế hoạch thu - chi",
-      "Báo cáo công nợ đa chiều cho nhà cung cấp và khách hàng",
-    ],
-    media: <DonutCashflow />,
-  },
-  {
-    key: "reporting",
-    icon: Gauge,
-    title: "Dashboard thời gian thực",
-    summary: "Ra quyết định nhanh với chỉ số cập nhật liên tục.",
-    description:
-      "Hệ thống báo cáo trực quan giúp lãnh đạo theo dõi KPI, cảnh báo bất thường và so sánh hiệu suất theo thời gian chỉ bằng vài cú nhấp chuột.",
-    points: [
-      "Thư viện báo cáo KPI theo từng phòng ban",
-      "Cảnh báo email / chat khi chỉ số vượt ngưỡng",
-      "Trích xuất dữ liệu linh hoạt cho phân tích chuyên sâu",
-    ],
-    media: <SparkMini />,
-  },
-  {
-    key: "strategy",
-    icon: BrainCog,
-    title: "Ra quyết định dựa dữ liệu",
-    summary: "Quyết định chiến lược chính xác và kịp thời.",
-    description:
-      "Dữ liệu được chuẩn hóa và chia sẻ trên một nguồn duy nhất giúp ban lãnh đạo xây dựng kế hoạch tăng trưởng, tối ưu nguồn lực và theo dõi hiệu quả triển khai.",
-    points: [
-      "Mô hình dự báo đa kịch bản theo thị trường",
-      "Phân bổ nguồn lực dựa trên hiệu suất thực tế",
-      "Lưu vết quyết định và kết quả thực thi",
-    ],
-    media: <BarsLongStrategy />,
-  },
-];
+function resolveMedia(mediaKey?: string): ReactNode {
+  if (!mediaKey) return <SparkMini />;
+  return MEDIA_COMPONENTS[mediaKey] ?? <SparkMini />;
+}
 
-/* ================= Presentational components ================= */
+function resolveData(data?: ChallengesBlockData) {
+  const merged: ChallengesBlockData = {
+    ...DEFAULT_DATA,
+    ...data,
+    tabs: data?.tabs ?? DEFAULT_DATA.tabs ?? [],
+  };
+
+  const tabs: SolutionItem[] = (merged.tabs ?? []).map((tab, index) => {
+    const icon = tab.icon ? getIconByKey(tab.icon as any) : null;
+    const points = Array.isArray(tab.points)
+      ? tab.points.filter((item): item is string => typeof item === "string" && item.trim().length > 0)
+      : [];
+
+    return {
+      key: tab.key ?? `solution-${index}`,
+      icon: icon ?? (getIconByKey("Layers" as any) ?? Layers),
+      title: tab.title ?? "Giải pháp",
+      summary: tab.summary ?? "",
+      description:
+        tab.description ??
+        "PV-ERP giúp doanh nghiệp tối ưu quy trình, hợp nhất dữ liệu và nâng cao hiệu quả",
+      points: points.length > 0 ? points : ["Hỗ trợ quy trình end-to-end", "Theo dõi KPI realtime", "Bảo mật cao"],
+      media: resolveMedia(tab.media),
+    };
+  });
+
+  return {
+    badge: merged.badge ?? "Giải pháp PV-ERP",
+    title: merged.title ?? "Tối ưu - Hợp nhất - Hiệu quả",
+    description:
+      merged.description ??
+      "PV-ERP giúp doanh nghiệp tối ưu quy trình, hợp nhất dữ liệu, tăng hiệu quả và tạo bước nhảy vọt trong quản trị",
+    tabs,
+  };
+}
+
+type ChallengesSolutionSectionProps = {
+  data?: ChallengesBlockData;
+};
+
+export default function ChallengesSolutionSection({ data }: ChallengesSolutionSectionProps) {
+  const { badge, title, description, tabs } = useMemo(() => resolveData(data), [data]);
+  const [activeKey, setActiveKey] = useState<string | null>(tabs[0]?.key ?? null);
+
+  useEffect(() => {
+    setActiveKey(tabs[0]?.key ?? null);
+  }, [tabs]);
+
+  const active = tabs.find((item) => item.key === activeKey) ?? tabs[0];
+
+  return (
+    <Section className="solution-surface py-14 lg:py-16" containerClassName="relative z-[1]">
+      <div className="mx-auto max-w-3xl text-center">
+        {badge ? (
+          <div className="mb-4">
+            <span className="brand-chip inline-flex items-center rounded-full bg-secondary px-3 py-1 text-sm font-medium text-secondary-foreground">
+              {badge}
+            </span>
+          </div>
+        ) : null}
+
+        <h2 className="text-2xl font-bold tracking-tight text-[#123524] md:text-3xl">
+          {title}
+        </h2>
+
+        {description ? <p className="mt-4 text-lg text-gray-600">{description}</p> : null}
+      </div>
+
+      <div className="mt-10 flex flex-col gap-6 lg:grid lg:grid-cols-[minmax(0,_1fr)_minmax(260px,_320px)] lg:items-stretch">
+        <div className="order-2 lg:order-1">
+          {active ? <SolutionDetail item={active} /> : null}
+        </div>
+
+        <div className="order-1 flex gap-3 overflow-x-auto pb-2 snap-x snap-mandatory lg:order-2 lg:grid lg:gap-4 lg:overflow-visible lg:pb-0 lg:snap-none">
+          {tabs.map((item) => (
+            <SolutionOption
+              key={item.key}
+              item={item}
+              active={item.key === active?.key}
+              onSelect={() => setActiveKey(item.key)}
+            />
+          ))}
+        </div>
+      </div>
+    </Section>
+  );
+}
 
 function SolutionDetail({ item }: { item: SolutionItem }) {
   const Icon = item.icon;
@@ -217,16 +254,12 @@ function SolutionDetail({ item }: { item: SolutionItem }) {
             <Icon className="h-6 w-6" aria-hidden />
           </span>
           <div>
-            <h3 className="text-2xl font-bold tracking-tight text-foreground">
-              {item.title}
-            </h3>
-            <p className="mt-1 text-base text-muted-foreground">{item.summary}</p>
+            <h3 className="text-2xl font-bold tracking-tight text-foreground">{item.title}</h3>
+            {item.summary ? <p className="mt-1 text-base text-muted-foreground">{item.summary}</p> : null}
           </div>
         </div>
 
-        <p className="text-base leading-relaxed text-slate-600">
-          {item.description}
-        </p>
+        <p className="text-base leading-relaxed text-slate-600">{item.description}</p>
 
         <ul className="grid gap-2 text-left text-base text-foreground/85">
           {item.points.map((point) => (
@@ -247,15 +280,13 @@ function SolutionDetail({ item }: { item: SolutionItem }) {
   );
 }
 
-function SolutionOption({
-  item,
-  active,
-  onSelect,
-}: {
+type SolutionOptionProps = {
   item: SolutionItem;
   active: boolean;
   onSelect: () => void;
-}) {
+};
+
+function SolutionOption({ item, active, onSelect }: SolutionOptionProps) {
   const Icon = item.icon;
 
   return (
@@ -284,12 +315,8 @@ function SolutionOption({
             <Icon className="h-4 w-4" aria-hidden />
           </span>
           <div>
-            <div className="text-base font-semibold text-foreground line-clamp-1">
-              {item.title}
-            </div>
-            <p className="mt-1 text-sm text-muted-foreground line-clamp-2">
-              {item.summary}
-            </p>
+            <div className="text-base font-semibold text-foreground line-clamp-1">{item.title}</div>
+            {item.summary ? <p className="mt-1 text-sm text-muted-foreground line-clamp-2">{item.summary}</p> : null}
           </div>
         </CardContent>
         <div
@@ -301,50 +328,3 @@ function SolutionOption({
     </button>
   );
 }
-
-/* ================= Section ================= */
-
-export default function ChallengesSolutionSection() {
-  const [active, setActive] = useState<SolutionItem>(SOLUTIONS[0]);
-
-  return (
-    <Section className="solution-surface py-14 lg:py-16" containerClassName="relative z-[1]">
-      <div className="mx-auto max-w-3xl text-center">
-        {/* Badge */}
-        <div className="mb-4">
-          <span className="inline-flex items-center rounded-full px-3 py-1 text-sm font-medium bg-secondary text-secondary-foreground brand-chip">
-            Giải pháp PV-ERP
-          </span>
-        </div>
-        
-        {/* Title with highlighted text */}
-        <h2 className="text-2xl md:text-3xl font-bold tracking-tight text-[#123524] leading-tight break-words">
-          Tối ưu - Hợp nhất - <span className="marker-lime">Hiệu quả</span>
-        </h2>
-        
-        <p className="mt-4 text-lg text-gray-600">
-          PV-ERP giúp doanh nghiệp tối ưu quy trình, hợp nhất dữ liệu, tăng hiệu
-          quả và tạo bước nhảy vọt trong quản trị
-        </p>
-      </div>
-
-      <div className="mt-10 flex flex-col gap-6 lg:grid lg:grid-cols-[minmax(0,_1fr)_minmax(260px,_320px)] lg:items-stretch">
-        <div className="order-2 pv-ani-fade-up-1 lg:order-1">
-          <SolutionDetail item={active} />
-        </div>
-
-        <div className="order-1 flex gap-3 overflow-x-auto pb-2 pv-ani-fade-up-2 snap-x snap-mandatory lg:order-2 lg:grid lg:gap-4 lg:overflow-visible lg:pb-0 lg:snap-none">
-          {SOLUTIONS.map((item) => (
-            <SolutionOption
-              key={item.key}
-              item={item}
-              active={active.key === item.key}
-              onSelect={() => setActive(item)}
-            />
-          ))}
-        </div>
-      </div>
-    </Section>
-  );
-}
-

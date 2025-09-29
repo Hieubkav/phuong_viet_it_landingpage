@@ -1,115 +1,121 @@
 "use client";
 
 import Section from "@/components/layout/Section";
-import { MessageCircle, Cog, GraduationCap, Headphones } from "lucide-react";
+import { cloneBlockDefault } from "@/components/blocks/block-defaults";
+import { getIconByKey } from "@/lib/lucide-icons";
+import type { HomeBlockKind } from "@pv-erp/shared/home-block-templates";
+import { Card } from "@/components/ui/card";
+import type { LucideIcon } from "lucide-react";
 
-type Step = {
-  key: string;
-  title: string;
-  desc: string;
-  icon: React.ReactNode;
-  num: string;
-  bgColor: string;
-  numColor: string;
+const DEFAULT_DATA = cloneBlockDefault("implementationTimeline" as HomeBlockKind) as ImplementationTimelineData;
+
+type StepInput = {
+  key?: string;
+  order?: number;
+  title?: string;
+  description?: string;
+  icon?: string;
 };
 
-const STEPS: Step[] = [
-  {
-    key: "consult",
-    num: "1",
-    title: "Liên hệ tư vấn",
-    desc: "Tư vấn giải pháp phù hợp với đặc thù cơ quan",
-    icon: <MessageCircle className="h-6 w-6 text-blue-600" />,
-    bgColor: "bg-white",
-    numColor: "bg-blue-600",
-  },
-  {
-    key: "setup",
-    num: "2",
-    title: "Cài đặt & Cấu hình",
-    desc: "Triển khai và cấu hình theo quy trình ISO hiện tại",
-    icon: <Cog className="h-6 w-6 text-green-600" />,
-    bgColor: "bg-white",
-    numColor: "bg-blue-600",
-  },
-  {
-    key: "training",
-    num: "3",
-    title: "Tập huấn sử dụng",
-    desc: "Hướng dẫn chi tiết sử dụng phần mềm",
-    icon: <GraduationCap className="h-6 w-6 text-orange-600" />,
-    bgColor: "bg-white",
-    numColor: "bg-blue-600",
-  },
-  {
-    key: "support",
-    num: "4",
-    title: "Vận hành & Hỗ trợ",
-    desc: "Hỗ trợ 24/7 trong các ngày làm việc",
-    icon: <Headphones className="h-6 w-6 text-purple-600" />,
-    bgColor: "bg-white",
-    numColor: "bg-blue-600",
-  },
-];
+type ImplementationTimelineData = {
+  badge?: string;
+  title?: string;
+  description?: string;
+  steps?: StepInput[];
+};
 
-export default function ImplementationTimelineSection() {
+type TimelineStep = {
+  key: string;
+  order: number;
+  title: string;
+  description: string;
+  icon?: LucideIcon;
+};
+
+function resolveSteps(steps?: StepInput[]): TimelineStep[] {
+  const merged = steps ?? DEFAULT_DATA.steps ?? [];
+  return merged
+    .map((step, index) => ({
+      key: step.key ?? `step-${index}`,
+      order: step.order ?? index + 1,
+      title: step.title ?? `Bước ${index + 1}`,
+      description: step.description ?? "Nội dung bước",
+      icon: step.icon ? getIconByKey(step.icon as any) : undefined,
+    }))
+    .sort((a, b) => a.order - b.order);
+}
+
+function resolveData(data?: ImplementationTimelineData) {
+  const merged: ImplementationTimelineData = {
+    ...DEFAULT_DATA,
+    ...data,
+    steps: data?.steps ?? DEFAULT_DATA.steps ?? [],
+  };
+
+  return {
+    badge: merged.badge ?? "Hành trình PV-ERP thành công",
+    title: merged.title ?? "Lộ trình rõ ràng, triển khai hiệu quả",
+    description:
+      merged.description ??
+      "Các giai đoạn được thiết kế bài bản, đảm bảo triển khai PV-ERP thành công và mang lại giá trị tối đa cho doanh nghiệp",
+    steps: resolveSteps(merged.steps),
+  };
+}
+
+type ImplementationTimelineSectionProps = {
+  data?: ImplementationTimelineData;
+};
+
+export default function ImplementationTimelineSection({ data }: ImplementationTimelineSectionProps) {
+  const { badge, title, description, steps } = resolveData(data);
+
   return (
-    <Section className="py-14 lg:py-16 bg-gray-50">
-      {/* Header */}
+    <Section className="bg-gray-50 py-14 lg:py-16">
       <div className="mx-auto max-w-4xl text-center">
-        {/* Badge */}
-        <div className="mb-4">
-          <span className="inline-flex items-center rounded-full px-3 py-1 text-sm font-medium bg-secondary text-secondary-foreground brand-chip">
-            Hành trình PV-ERP thành công
-          </span>
-        </div>
-        
-        {/* Title with highlighted text */}
-        <h2 className="text-2xl md:text-3xl font-bold tracking-tight text-[#123524] leading-tight break-words">
-          <span className="marker-lime whitespace-nowrap">Lộ trình rõ ràng</span>, triển khai hiệu quả
+        {badge ? (
+          <div className="mb-4">
+            <span className="brand-chip inline-flex items-center rounded-full bg-secondary px-3 py-1 text-sm font-medium text-secondary-foreground">
+              {badge}
+            </span>
+          </div>
+        ) : null}
+
+        <h2 className="text-2xl font-bold tracking-tight text-[#123524] md:text-3xl">
+          {title}
         </h2>
-        
-        <p className="mt-4 text-lg text-gray-600 max-w-2xl mx-auto">
-          Các giai đoạn được thiết kế bài bản, đảm bảo triển khai PV-ERP thành công và mang lại giá trị tối đa cho doanh nghiệp
-        </p>
+
+        {description ? <p className="mt-4 text-lg text-gray-600">{description}</p> : null}
       </div>
 
-      {/* Steps */}
       <div className="mt-12">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-          {STEPS.map((step) => (
-            <div key={step.key} className="relative">
-              {/* Number - positioned outside and above */}
-              <div className="flex justify-center mb-4">
-                <div className={`${step.numColor} text-white rounded-xl w-12 h-12 flex items-center justify-center font-bold text-lg shadow-sm`}>
-                  {step.num}
-                </div>
-              </div>
-
-              {/* Background rounded rectangle */}
-              <div className={`${step.bgColor} rounded-2xl px-6 py-6 relative shadow-sm border border-gray-100`}>
-                {/* Icon */}
-                <div className="flex justify-center mb-4">
-                  <div className="w-12 h-12 bg-gray-50 rounded-lg flex items-center justify-center shadow-sm">
-                    {step.icon}
+        <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-4">
+          {steps.map((step) => {
+            const Icon = step.icon;
+            return (
+              <div key={step.key} className="relative">
+                <div className="mb-4 flex justify-center">
+                  <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-blue-600 font-bold text-lg text-white shadow-sm">
+                    {step.order}
                   </div>
                 </div>
 
-                {/* Content */}
-                <div className="text-center px-2">
-                  <h3 className="font-semibold text-gray-900 mb-2 text-sm">
-                    {step.title}
-                  </h3>
-                  <p className="text-xs text-gray-600 leading-relaxed">
-                    {step.desc}
-                  </p>
-                </div>
+                <Card className="rounded-2xl border border-gray-100 px-6 py-6 bg-white shadow-sm">
+                  <div className="mb-4 flex justify-center">
+                    <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-gray-50 shadow-sm">
+                      {Icon ? <Icon className="h-6 w-6 text-blue-600" /> : null}
+                    </div>
+                  </div>
+
+                  <div className="px-2 text-center">
+                    <h3 className="mb-2 text-sm font-semibold text-gray-900">{step.title}</h3>
+                    <p className="text-xs text-gray-600 leading-relaxed">{step.description}</p>
+                  </div>
+                </Card>
               </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
       </div>
     </Section>
   );
 }
-
