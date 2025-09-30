@@ -7,3 +7,6 @@
 ## 2025-09-30 Update 2
 - Tang logo navbar ~20%: desktop AppImage dung width/height 80 (h-16 w-16), mobile dung width/height 28 (h-7 w-7).
 
+## 2025-09-30 Update 3
+- Navbar label Hành trình đổi thành Triển khai (giữ nguyên anchor hanh-trinh).
+

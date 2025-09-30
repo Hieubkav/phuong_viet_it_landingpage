@@ -19,7 +19,7 @@ const NAV = [
   { id: "chuc-nang", label: "Chức năng" },
   { id: "tinh-nang", label: "Tính năng" },
   { id: "loi-ich", label: "Lợi ích" },
-  { id: "hanh-trinh", label: "Hành trình" },
+  { id: "hanh-trinh", label: "Triển khai" },
   { id: "lien-he", label: "Liên hệ" },
 ];
 
@@ -180,3 +180,4 @@ export default function SiteHeader() {
     </header>
   );
 }
+
