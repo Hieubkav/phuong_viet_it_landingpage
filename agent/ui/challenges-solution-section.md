@@ -20,7 +20,6 @@
 - Thu nhỏ tab button: giảm min-width xuống 220px, padding `py-4` (desktop `py-5`), gap `gap-3/4`, icon container còn `h-9 w-9`.
 - Giảm padding nội dung tab (`p-4`, gap 2) và icon xuống `h-4 w-4` để toàn bộ nút thấp hơn.
 
-
 ## 2025-09-28 Update 3
 - Tăng cỡ chữ danh sách bullet trong thẻ chi tiết lên `text-base` và thêm `leading-relaxed` để nội dung nhỏ dễ đọc hơn.
 
@@ -28,3 +27,6 @@
 - Cho phep tab Challenges chon anh minh hoa tu Media voi widget mediaImage thay cho danh sach preset co dinh.
 - Renderer kiem tra key preset cu va giu SVG fallback, neu gia tri la URL thi render the <img> lazy.
 
+## 2025-09-30 Update 5
+
+- Tang 20% kich thuoc tieu de tab Giai phap: the detail chinh dung `text-[1.8rem] md:text-[2.1rem]`, nut tab dung `text-lg`.

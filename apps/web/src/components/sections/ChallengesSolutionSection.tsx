@@ -287,7 +287,7 @@ function SolutionDetail({ item }: { item: SolutionItem }) {
             <Icon className="h-6 w-6" aria-hidden />
           </span>
           <div>
-            <h3 className="text-2xl font-bold tracking-tight text-foreground">{item.title}</h3>
+            <h3 className="text-[1.8rem] font-bold tracking-tight text-foreground md:text-[2.1rem]">{item.title}</h3>
             {item.summary ? <p className="mt-1 text-base text-muted-foreground">{item.summary}</p> : null}
           </div>
         </div>
@@ -348,7 +348,7 @@ function SolutionOption({ item, active, onSelect }: SolutionOptionProps) {
             <Icon className="h-4 w-4" aria-hidden />
           </span>
           <div>
-            <div className="text-base font-semibold text-foreground line-clamp-1">{item.title}</div>
+            <div className="text-lg font-semibold text-foreground line-clamp-1">{item.title}</div>
             {item.summary ? <p className="mt-1 text-sm text-muted-foreground line-clamp-2">{item.summary}</p> : null}
           </div>
         </CardContent>
@@ -361,3 +361,4 @@ function SolutionOption({ item, active, onSelect }: SolutionOptionProps) {
     </button>
   );
 }
+
