@@ -132,9 +132,9 @@ export default function SiteHeader() {
           <AppImage
             src="/logo.png"
             alt="PV-ERP"
-            width={64}
-            height={64}
-            className="h-14 w-14"
+            width={80}
+            height={80}
+            className="h-16 w-16"
             priority
             unoptimized
           />
@@ -163,9 +163,9 @@ export default function SiteHeader() {
                   <AppImage
                     src="/logo.png"
                     alt="PV-ERP"
-                    width={22}
-                    height={22}
-                    className="h-6 w-6"
+                    width={28}
+                    height={28}
+                    className="h-7 w-7"
                     unoptimized
                   />
                   PV-ERP
@@ -180,4 +180,3 @@ export default function SiteHeader() {
     </header>
   );
 }
-

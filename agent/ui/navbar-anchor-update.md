@@ -4,3 +4,6 @@
 - SectionAnchor sẽ auto render trừ block `quickCta`, vì vậy anchor cho CTAs cần truyền qua prop `anchorId`.
 - Scroll mượt sử dụng `scrollIntoView({ behavior: "smooth" })`; giữ nguyên logic khi tái cấu trúc header.
 - Navbar init kiểm tra anchor theo chu kỳ 200ms cho tới khi Convex render xong, nhớ disconnect & clearTimeout trong cleanup.
+## 2025-09-30 Update 2
+- Tang logo navbar ~20%: desktop AppImage dung width/height 80 (h-16 w-16), mobile dung width/height 28 (h-7 w-7).
+
