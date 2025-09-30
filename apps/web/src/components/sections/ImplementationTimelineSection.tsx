@@ -119,8 +119,8 @@ export default function ImplementationTimelineSection({ data }: ImplementationTi
                   </div>
 
                   <div className="px-2 text-center">
-                    <h3 className="mb-2 text-sm font-semibold text-gray-900">{step.title}</h3>
-                    <p className="text-xs text-gray-600 leading-relaxed">{step.description}</p>
+                    <h3 className="mb-2 text-[1.3rem] font-semibold text-gray-900">{step.title}</h3>
+                    <p className="text-[0.5rem] text-gray-600 leading-relaxed">{step.description}</p>
                   </div>
                 </Card>
               </div>
