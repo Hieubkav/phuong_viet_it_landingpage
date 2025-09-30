@@ -28,5 +28,11 @@
 - Renderer kiem tra key preset cu va giu SVG fallback, neu gia tri la URL thi render the <img> lazy.
 
 ## 2025-09-30 Update 5
-
 - Tang 20% kich thuoc tieu de tab Giai phap: the detail chinh dung `text-[1.8rem] md:text-[2.1rem]`, nut tab dung `text-lg`.
+
+## 2025-09-30 Update 6
+- isMediaUrl doi sang check prefix http/https thay regex de tranh build loi escaping.
+
+
+
+

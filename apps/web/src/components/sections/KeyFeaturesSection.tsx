@@ -144,9 +144,36 @@ const MEDIA_COMPONENTS: Record<string, ReactNode> = {
   lineServicesSmooth: <LineServicesSmooth />,
 };
 
-function resolveMedia(key?: string): ReactNode {
+function isMediaUrl(value: string): boolean {
+  if (!value) return false;
+  const normalized = value.trim();
+  if (!normalized) return false;
+  const lower = normalized.toLowerCase();
+  return (
+    lower.startsWith("http://") ||
+    lower.startsWith("https://") ||
+    normalized.startsWith("/") ||
+    normalized.startsWith("data:")
+  );
+}
+
+function resolveMedia(key?: string, title?: string): ReactNode {
   if (!key) return <BarsCommerce />;
-  return MEDIA_COMPONENTS[key] ?? <BarsCommerce />;
+  const normalized = key.trim();
+  if (!normalized) return <BarsCommerce />;
+  const preset = MEDIA_COMPONENTS[normalized];
+  if (preset) return preset;
+  if (isMediaUrl(normalized)) {
+    return (
+      <img
+        src={normalized}
+        alt={title ? `Minh họa ${title}` : "Minh họa"}
+        className="max-h-48 w-full object-contain"
+        loading="lazy"
+      />
+    );
+  }
+  return <BarsCommerce />;
 }
 
 function toStringArray(input?: unknown[]): string[] {
@@ -180,7 +207,7 @@ function resolveData(data?: KeyFeaturesBlockData) {
             "Tự động hóa quy trình",
             "Theo dõi hiệu suất realtime",
           ],
-      media: resolveMedia(feature.media),
+      media: resolveMedia(feature.media, feature.title),
       accent,
     };
   });
@@ -280,3 +307,4 @@ export default function KeyFeaturesSection({ data }: KeyFeaturesSectionProps) {
     </Section>
   );
 }
+

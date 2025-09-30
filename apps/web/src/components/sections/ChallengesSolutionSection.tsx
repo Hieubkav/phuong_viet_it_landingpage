@@ -155,7 +155,13 @@ function isMediaUrl(value: string): boolean {
   if (!value) return false;
   const normalized = value.trim();
   if (!normalized) return false;
-  return /^https?:\/\//i.test(normalized) || normalized.startsWith("/") || normalized.startsWith("data:");
+  const lower = normalized.toLowerCase();
+  return (
+    lower.startsWith("http://") ||
+    lower.startsWith("https://") ||
+    normalized.startsWith("/") ||
+    normalized.startsWith("data:")
+  );
 }
 
 function resolveMedia(mediaKey?: string, title?: string): ReactNode {

@@ -15,12 +15,6 @@ const CTA_VARIANTS = [
   { const: "outline", title: "Outline" },
 ];
 
-const KEY_FEATURE_MEDIA_OPTIONS = [
-  { const: "barsCommerce", title: "Biểu đồ Thương mại" },
-  { const: "gearsManufacturing", title: "Bánh răng Sản xuất" },
-  { const: "lineServicesSmooth", title: "Đường dịch vụ" },
-];
-
 const ACTION_STYLE_OPTIONS = [
   { const: "primary", title: "Primary" },
   { const: "outline", title: "Outline" },
@@ -254,7 +248,7 @@ title: { type: "string", title: "Tiêu đề" },
                 title: "Điểm mạnh",
                 items: { type: "string", title: "Điểm" },
               },
-              media: { type: "string", title: "Minh họa", oneOf: KEY_FEATURE_MEDIA_OPTIONS },
+              media: { type: "string", title: "Minh họa" },
               accent: { type: "string", title: "Gradient" },
             },
             required: ["key", "title"],
@@ -273,6 +267,7 @@ title: { type: "string", title: "Tiêu đề" },
           bullets: {
             "ui:options": { addButtonLabel: "Thêm điểm" },
           },
+          media: { "ui:widget": "mediaImage" },
         },
       },
     } satisfies UiSchema,
