@@ -1,5 +1,7 @@
 "use client";
 
+import { HOME_BLOCK_KINDS, cloneHomeBlockTemplate } from "@pv-erp/shared/home-block-templates";
+
 import { useMemo } from "react";
 import { useQuery } from "convex/react";
 import { api } from "@pv-erp/backend/convex/_generated/api";
@@ -21,6 +23,12 @@ type HomepageBlock = {
   label?: string;
   data?: Record<string, unknown>;
 };
+
+const FALLBACK_BLOCKS: HomepageBlock[] = HOME_BLOCK_KINDS.map((kind) => ({
+  _id: `fallback-${kind}`,
+  kind,
+  data: cloneHomeBlockTemplate(kind),
+})) as HomepageBlock[];
 
 const BLOCK_COMPONENTS: Record<HomeBlockKind, ComponentType<any>> = {
   hero: HeroSection,
@@ -71,17 +79,16 @@ function getAnchorId(block: HomepageBlock): string | undefined {
 
 export default function LandingPage() {
   const homepage = useQuery(api.homepage.getHomepage, { slug: "home" });
-  const contentBlocks = useMemo(() => (homepage?.blocks ?? []) as HomepageBlock[], [homepage?.blocks]);
+  const isLoading = homepage === undefined;
+  const contentBlocks = useMemo(() => {
+    if (homepage === undefined) {
+      return FALLBACK_BLOCKS;
+    }
+    return (homepage?.blocks ?? []) as HomepageBlock[];
+  }, [homepage]);
 
-  if (homepage === undefined) {
-    return (
-      <div className="py-24 text-center text-slate-500">
-        Đang tải dữ liệu trang chủ...
-      </div>
-    );
-  }
 
-  if (!contentBlocks.length) {
+  if (!isLoading && !contentBlocks.length) {
     return (
       <div className="py-24 text-center">
         <h2 className="text-2xl font-semibold">Chưa có nội dung trang chủ</h2>

@@ -10,3 +10,6 @@
 - Frontend landing page render động: query `api.homepage.getHomepage`, map từng block `kind` → section tương ứng, fallback dữ liệu từ template khi thiếu.
 - Các block hỗ trợ "highlight" (hero, painPoints, challenges, erpPreview, keyFeatures, benefits, implementationTimeline) để làm nổi bật từ khóa; preset form hiển thị trường này.
 - Khi triển khai nhớ chạy `bunx tsc --project apps/web/tsconfig.json --noEmit`, sau đó nếu sạch lỗi mới build `bun run --cwd apps/web build`.
+## 2025-09-30 Update
+- Landing trang chu fallback ve FALLBACK_BLOCKS tu template khi query Convex dang loading, giup render ngay thay vi loader toan trang.
+
