@@ -1,5 +1,32 @@
 import { v } from "convex/values";
 import { action, mutation, query } from "./_generated/server";
+import type { Doc, Id } from "./_generated/dataModel";
+
+type MediaDoc = Doc<"media">;
+type MediaKind = MediaDoc["kind"];
+type MediaWithUrl = MediaDoc & { url?: string };
+
+type StorageCtx = {
+  storage: {
+    getUrl: (storageId: Id<"_storage">) => Promise<string | null>;
+  };
+};
+
+function isImage(doc: MediaDoc): doc is MediaDoc & { storageId: Id<"_storage"> } {
+  return doc.kind === "image" && !!doc.storageId;
+}
+
+async function buildMediaPayload(ctx: StorageCtx, doc: MediaDoc): Promise<MediaWithUrl> {
+  if (isImage(doc)) {
+    try {
+      const url = await ctx.storage.getUrl(doc.storageId);
+      return url ? { ...doc, url } : { ...doc };
+    } catch (_error) {
+      return { ...doc };
+    }
+  }
+  return doc;
+}
 
 export const generateUploadUrl = action({
   args: {},
@@ -29,8 +56,15 @@ export const saveImage = mutation({
       format: args.format ?? "webp",
       sizeBytes: args.sizeBytes,
       createdAt: now,
+      deletedAt: undefined,
     });
-    return await ctx.db.get(id);
+
+    const doc = await ctx.db.get(id);
+    if (!doc) {
+      throw new Error("Image not found after insert");
+    }
+
+    return await buildMediaPayload(ctx, doc);
   },
 });
 
@@ -46,6 +80,7 @@ export const createVideo = mutation({
       title,
       externalUrl,
       createdAt: now,
+      deletedAt: undefined,
     });
     return await ctx.db.get(id);
   },
@@ -54,52 +89,22 @@ export const createVideo = mutation({
 export const list = query({
   args: { kind: v.optional(v.union(v.literal("image"), v.literal("video"))) },
   handler: async (ctx, { kind }) => {
-    let docs;
+    let docs: MediaDoc[];
     if (kind) {
       docs = await ctx.db
         .query("media")
         .withIndex("by_kind", (q) => q.eq("kind", kind))
         .collect();
+      docs = docs.filter((doc) => !doc.deletedAt);
     } else {
-      docs = await ctx.db.query("media").collect();
+      docs = await ctx.db
+        .query("media")
+        .withIndex("by_deleted", (q) => q.eq("deletedAt", undefined))
+        .collect();
     }
 
-    const activeDocs = docs.filter((doc) => !doc.deletedAt);
-
-    const items = await Promise.all(
-      activeDocs.map(async (doc) => {
-        if (doc.kind === "image" && doc.storageId) {
-          try {
-            const url = await ctx.storage.getUrl(doc.storageId);
-            return { ...doc, url };
-          } catch (_err) {
-            return { ...doc };
-          }
-        }
-        return doc;
-      }),
-    );
-
-    return items;
-  },
-});
-
-export const remove = mutation({
-  args: { id: v.id("media") },
-  handler: async (ctx, { id }) => {
-    const doc = await ctx.db.get(id);
-    if (!doc) return false;
-
-    if (doc.kind === "image" && doc.storageId) {
-      try {
-        await ctx.storage.delete(doc.storageId);
-      } catch (_err) {
-        // ignore missing blob
-      }
-    }
-
-    await ctx.db.delete(id);
-    return true;
+    docs.sort((a, b) => b.createdAt - a.createdAt);
+    return Promise.all(docs.map((doc) => buildMediaPayload(ctx, doc)));
   },
 });
 
@@ -110,18 +115,51 @@ export const update = mutation({
     externalUrl: v.optional(v.string()),
   },
   handler: async (ctx, { id, title, externalUrl }) => {
-    const doc = await ctx.db.get(id);
-    if (!doc) return null;
-
     const patch: Record<string, unknown> = {};
     if (title !== undefined) patch.title = title;
     if (externalUrl !== undefined) patch.externalUrl = externalUrl;
 
-    if (Object.keys(patch).length > 0) {
-      await ctx.db.patch(id, patch);
+    if (Object.keys(patch).length === 0) {
+      return { ok: true } as const;
     }
 
-    return id;
+    await ctx.db.patch(id, patch);
+    return { ok: true } as const;
+  },
+});
+
+export const remove = mutation({
+  args: { id: v.id("media") },
+  handler: async (ctx, { id }) => {
+    const doc = await ctx.db.get(id);
+    if (!doc) return { ok: false } as const;
+
+    if (isImage(doc)) {
+      try {
+        await ctx.storage.delete(doc.storageId);
+      } catch (_error) {
+        // ignore missing blob to keep soft delete flow resilient
+      }
+    }
+
+    await ctx.db.patch(id, { deletedAt: Date.now() });
+    return { ok: true } as const;
+  },
+});
+
+export const forceRemove = mutation({
+  args: { id: v.id("media") },
+  handler: async (ctx, { id }) => {
+    const doc = await ctx.db.get(id);
+    if (doc && isImage(doc)) {
+      try {
+        await ctx.storage.delete(doc.storageId);
+      } catch (_error) {
+        // swallow storage deletion failure
+      }
+    }
+    await ctx.db.delete(id);
+    return { ok: true } as const;
   },
 });
 
@@ -136,13 +174,13 @@ export const replaceImage = mutation({
   },
   handler: async (ctx, { id, storageId, width, height, format, sizeBytes }) => {
     const doc = await ctx.db.get(id);
-    if (!doc) return null;
-    if (doc.kind !== "image") throw new Error("Not an image");
+    if (!doc) return { ok: false } as const;
+    if (!isImage(doc)) throw new Error("Only image media can be replaced");
 
     if (doc.storageId && doc.storageId !== storageId) {
       try {
         await ctx.storage.delete(doc.storageId);
-      } catch (_err) {
+      } catch (_error) {
         // ignore missing blob
       }
     }
@@ -154,7 +192,7 @@ export const replaceImage = mutation({
     if (sizeBytes !== undefined) patch.sizeBytes = sizeBytes;
 
     await ctx.db.patch(id, patch);
-    return id;
+    return { ok: true } as const;
   },
 });
 
@@ -163,15 +201,5 @@ export const getImageUrl = action({
   handler: async (ctx, { storageId }) => {
     const url = await ctx.storage.getUrl(storageId);
     return { url };
-  },
-});
-
-export const forceRemove = mutation({
-  args: { id: v.id("media") },
-  handler: async (ctx, { id }) => {
-    const exist = await ctx.db.get(id);
-    if (!exist) return false;
-    await ctx.db.delete(id);
-    return true;
   },
 });

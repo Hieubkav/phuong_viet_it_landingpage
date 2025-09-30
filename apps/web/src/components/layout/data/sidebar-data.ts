@@ -1,4 +1,4 @@
-import { Layers, LayoutDashboard, Plus } from "lucide-react";
+import { Image, Layers, LayoutDashboard, Plus } from "lucide-react";
 import { type SidebarData } from "../types";
 
 export const sidebarData: SidebarData = {
@@ -15,6 +15,7 @@ export const sidebarData: SidebarData = {
         { title: "Tổng quan", url: "/dashboard", icon: LayoutDashboard },
         { title: "Blocks trang chủ", url: "/dashboard/home-blocks", icon: Layers },
         { title: "Tạo block", url: "/dashboard/home-blocks/new", icon: Plus },
+        { title: "Media", url: "/dashboard/media", icon: Image },
       ],
     },
   ],
