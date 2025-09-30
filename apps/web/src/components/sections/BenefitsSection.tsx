@@ -217,7 +217,7 @@ export default function BenefitsSection({ data }: BenefitsSectionProps) {
                     {tab.Icon ? <tab.Icon className="h-4 w-4" /> : null}
                   </span>
                   <div>
-                    <div className="text-base font-semibold text-foreground">{tab.title}</div>
+                    <div className="text-lg font-semibold text-foreground">{tab.title}</div>
                     <p className="mt-1 text-sm text-muted-foreground">{tab.summary}</p>
                   </div>
                 </div>
