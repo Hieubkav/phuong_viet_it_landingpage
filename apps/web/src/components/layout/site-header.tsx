@@ -19,6 +19,7 @@ const NAV = [
   { id: "chuc-nang", label: "Chức năng" },
   { id: "tinh-nang", label: "Tính năng" },
   { id: "loi-ich", label: "Lợi ích" },
+  { id: "hanh-trinh", label: "Hành trình" },
   { id: "lien-he", label: "Liên hệ" },
 ];
 
@@ -28,33 +29,53 @@ export default function SiteHeader() {
 
   useEffect(() => {
     const sel = NAV.map((n) => `#${n.id}`).join(",");
-    const els = Array.from(document.querySelectorAll<HTMLElement>(sel));
-    if (!els.length) return;
+    let retry: number | undefined;
+    let io: IntersectionObserver | undefined;
+    let cleanupScroll: (() => void) | undefined;
 
-    const io = new IntersectionObserver(
-      (entries) => {
-        const vis = entries
-          .filter((e) => e.isIntersecting)
-          .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
-        if (vis?.target?.id) setActive(vis.target.id);
-      },
-      {
-        rootMargin: "-72px 0px -65% 0px",
-        threshold: [0, 0.25, 0.5, 0.75, 1],
+    const bootstrap = () => {
+      const els = Array.from(document.querySelectorAll<HTMLElement>(sel));
+      if (!els.length) {
+        retry = window.setTimeout(bootstrap, 200);
+        return;
       }
-    );
 
-    els.forEach((el) => io.observe(el));
+      if (retry !== undefined) {
+        window.clearTimeout(retry);
+        retry = undefined;
+      }
 
-    const onScroll = () => {
-      if (window.scrollY < 6) setActive("gioi-thieu");
+      io = new IntersectionObserver(
+        (entries) => {
+          const vis = entries
+            .filter((entry) => entry.isIntersecting)
+            .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
+          if (vis?.target?.id) setActive(vis.target.id);
+        },
+        {
+          rootMargin: "-72px 0px -65% 0px",
+          threshold: [0, 0.25, 0.5, 0.75, 1],
+        }
+      );
+
+      els.forEach((el) => io?.observe(el));
+
+      const onScroll = () => {
+        if (window.scrollY < 6) setActive("gioi-thieu");
+      };
+      window.addEventListener("scroll", onScroll, { passive: true });
+      onScroll();
+      cleanupScroll = () => window.removeEventListener("scroll", onScroll);
     };
-    window.addEventListener("scroll", onScroll, { passive: true });
-    onScroll();
+
+    bootstrap();
 
     return () => {
-      io.disconnect();
-      window.removeEventListener("scroll", onScroll);
+      if (retry !== undefined) {
+        window.clearTimeout(retry);
+      }
+      io?.disconnect();
+      cleanupScroll?.();
     };
   }, []);
 

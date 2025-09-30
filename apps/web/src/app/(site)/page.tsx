@@ -33,6 +33,17 @@ const BLOCK_COMPONENTS: Record<HomeBlockKind, ComponentType<any>> = {
   quickCta: QuickCTASection,
 };
 
+const BLOCK_ANCHORS: Partial<Record<HomeBlockKind, string>> = {
+  hero: "gioi-thieu",
+  painPoints: "dat-van-de",
+  challenges: "giai-phap",
+  erpPreview: "chuc-nang",
+  keyFeatures: "tinh-nang",
+  benefits: "loi-ich",
+  implementationTimeline: "hanh-trinh",
+  quickCta: "lien-he",
+};
+
 function isHomeBlockKind(kind: string): kind is HomeBlockKind {
   return kind in BLOCK_COMPONENTS;
 }
@@ -49,8 +60,13 @@ function slugify(input: string) {
 function getAnchorId(block: HomepageBlock): string | undefined {
   const data = (block.data ?? {}) as Record<string, unknown>;
   const dataAnchor = typeof data.anchor === "string" ? data.anchor : undefined;
-  const source = dataAnchor && dataAnchor.trim().length > 0 ? dataAnchor : block.label;
-  return source && source.trim().length > 0 ? slugify(source.trim()) : undefined;
+  const labelAnchor = typeof block.label === "string" ? block.label : undefined;
+  const fallbackAnchor = isHomeBlockKind(block.kind) ? BLOCK_ANCHORS[block.kind] : undefined;
+  const source =
+    (dataAnchor && dataAnchor.trim().length > 0 ? dataAnchor : undefined) ??
+    (labelAnchor && labelAnchor.trim().length > 0 ? labelAnchor : undefined) ??
+    fallbackAnchor;
+  return source ? slugify(source.trim()) : undefined;
 }
 
 export default function LandingPage() {
@@ -104,3 +120,4 @@ export default function LandingPage() {
     </>
   );
 }
+

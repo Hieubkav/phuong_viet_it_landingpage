@@ -13,9 +13,10 @@ export default function SectionAnchor(
   return (
     <div
       id={id}
-      className="pointer-events-none block h-0 scroll-mt-[var(--pv-anchor-offset,100px)]"
+      className="pointer-events-none block h-px scroll-mt-[var(--pv-anchor-offset,100px)]"
       aria-hidden="true"
       {...rest}
     />
   );
 }
+
