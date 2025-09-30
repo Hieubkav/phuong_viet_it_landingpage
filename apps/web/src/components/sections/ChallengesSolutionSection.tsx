@@ -151,9 +151,30 @@ const MEDIA_COMPONENTS: Record<string, ReactNode> = {
   barsLongStrategy: <BarsLongStrategy />,
 };
 
-function resolveMedia(mediaKey?: string): ReactNode {
+function isMediaUrl(value: string): boolean {
+  if (!value) return false;
+  const normalized = value.trim();
+  if (!normalized) return false;
+  return /^https?:\/\//i.test(normalized) || normalized.startsWith("/") || normalized.startsWith("data:");
+}
+
+function resolveMedia(mediaKey?: string, title?: string): ReactNode {
   if (!mediaKey) return <SparkMini />;
-  return MEDIA_COMPONENTS[mediaKey] ?? <SparkMini />;
+  const normalized = mediaKey.trim();
+  if (!normalized) return <SparkMini />;
+  const preset = MEDIA_COMPONENTS[normalized];
+  if (preset) return preset;
+  if (isMediaUrl(normalized)) {
+    return (
+      <img
+        src={normalized}
+        alt={title ? `Minh hoa ${title}` : "Minh hoa"}
+        className="max-h-40 w-full object-contain"
+        loading="lazy"
+      />
+    );
+  }
+  return <SparkMini />;
 }
 
 function resolveData(data?: ChallengesBlockData) {
@@ -178,7 +199,7 @@ function resolveData(data?: ChallengesBlockData) {
         tab.description ??
         "PV-ERP giúp doanh nghiệp tối ưu quy trình, hợp nhất dữ liệu và nâng cao hiệu quả",
       points: points.length > 0 ? points : ["Hỗ trợ quy trình end-to-end", "Theo dõi KPI realtime", "Bảo mật cao"],
-      media: resolveMedia(tab.media),
+      media: resolveMedia(tab.media, tab.title),
     };
   });
 

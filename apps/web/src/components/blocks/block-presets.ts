@@ -15,13 +15,6 @@ const CTA_VARIANTS = [
   { const: "outline", title: "Outline" },
 ];
 
-const CHALLENGE_MEDIA_OPTIONS = [
-  { const: "nodesFlow", title: "Sơ đồ kết nối (Nodes Flow)" },
-  { const: "donutCashflow", title: "Biểu đồ tài chính (Donut Cashflow)" },
-  { const: "sparkMini", title: "Đường biểu diễn (Spark Mini)" },
-  { const: "barsLongStrategy", title: "Cột chiến lược (Bars Long Strategy)" },
-];
-
 const KEY_FEATURE_MEDIA_OPTIONS = [
   { const: "barsCommerce", title: "Biểu đồ Thương mại" },
   { const: "gearsManufacturing", title: "Bánh răng Sản xuất" },
@@ -162,7 +155,7 @@ title: { type: "string", title: "Tiêu đề" },
                 title: "Điểm nổi bật",
                 items: { type: "string", title: "Điểm" },
               },
-              media: { type: "string", title: "Minh họa", oneOf: CHALLENGE_MEDIA_OPTIONS },
+              media: { type: "string", title: "Minh họa" },
             },
             required: ["key", "title"],
           },
@@ -181,6 +174,7 @@ title: { type: "string", title: "Tiêu đề" },
           points: {
             "ui:options": { addButtonLabel: "Thêm ý" },
           },
+          media: { "ui:widget": "mediaImage" },
         },
       },
     } satisfies UiSchema,
