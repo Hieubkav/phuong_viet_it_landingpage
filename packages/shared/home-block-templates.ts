@@ -10,7 +10,7 @@ export const HOME_BLOCK_TEMPLATES = {
     ctas: [
       {
         label: "Liên hệ nhận tư vấn ngay",
-        href: "tel:0706780790",
+        href: "tel:0982949258",
         variant: "primary",
       },
     ],
@@ -312,12 +312,12 @@ export const HOME_BLOCK_TEMPLATES = {
     actions: [
       {
         label: "Đăng ký Demo",
-        href: "tel:0706780790",
+        href: "tel:0982949258",
         style: "primary",
       },
       {
         label: "Liên hệ tư vấn",
-        href: "tel:0706780790",
+        href: "tel:0982949258",
         style: "outline",
       },
     ],

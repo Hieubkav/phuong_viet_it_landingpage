@@ -59,7 +59,7 @@ function resolveHeroData(data?: HeroBlockData): Required<HeroBlockData> {
       : [
           {
             label: "Liên hệ nhận tư vấn ngay",
-            href: "tel:0706780790",
+            href: "tel:0982949258",
             variant: "primary",
           },
         ],
