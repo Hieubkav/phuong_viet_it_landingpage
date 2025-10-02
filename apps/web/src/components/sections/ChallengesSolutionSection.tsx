@@ -175,7 +175,7 @@ function resolveMedia(mediaKey?: string, title?: string): ReactNode {
       <img
         src={normalized}
         alt={title ? `Minh hoa ${title}` : "Minh hoa"}
-        className="max-h-40 w-full object-contain"
+        className="w-full h-auto"
         loading="lazy"
       />
     );
@@ -367,4 +367,7 @@ function SolutionOption({ item, active, onSelect }: SolutionOptionProps) {
     </button>
   );
 }
+
+
+
 

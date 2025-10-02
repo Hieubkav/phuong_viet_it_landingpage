@@ -168,7 +168,7 @@ function resolveMedia(key?: string, title?: string): ReactNode {
       <img
         src={normalized}
         alt={title ? `Minh họa ${title}` : "Minh họa"}
-        className="max-h-48 w-full object-contain"
+        className="w-full h-auto"
         loading="lazy"
       />
     );
@@ -307,4 +307,6 @@ export default function KeyFeaturesSection({ data }: KeyFeaturesSectionProps) {
     </Section>
   );
 }
+
+
 

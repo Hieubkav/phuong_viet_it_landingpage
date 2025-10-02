@@ -36,3 +36,8 @@
 
 
 
+\
+## 2025-09-30 Update 7
+- Render anh minh hoa voi `w-full h-auto` thay cho `max-h-40 w-full object-contain` de anh full width va giu ti le.
+- Giu lazy load de anh tu CMS hien thi chuan, tranh bi bop meo.
+
