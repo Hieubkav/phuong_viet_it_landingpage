@@ -271,9 +271,16 @@ export default function KeyFeaturesSection({ data }: KeyFeaturesSectionProps) {
               <div className="flex-1 space-y-6">
                 <div className="flex items-start gap-4">
                   <span
-                    className={`flex h-16 w-16 flex-shrink-0 items-center justify-center rounded-full bg-gradient-to-br ${feature.accent} text-white shadow-lg text-xl font-bold`}
+                    className={`flex h-16 w-16 flex-shrink-0 items-center justify-center rounded-full bg-gradient-to-br ${feature.accent} text-white shadow-lg`}
                   >
-                    {index + 1}
+                    {Icon ? (
+                      <Icon className="h-7 w-7" aria-hidden />
+                    ) : (
+                      <span className="text-2xl font-bold" aria-hidden>
+                        {index + 1}
+                      </span>
+                    )}
+                    <span className="sr-only">{feature.title}</span>
                   </span>
                   <div className="space-y-3">
                     <h3 className="text-2xl font-bold tracking-tight text-foreground md:text-3xl">{feature.title}</h3>

@@ -9,3 +9,6 @@
 ## 2025-09-30 Update 3
 - Render anh minh hoa keyFeatures voi `w-full h-auto` thay cho `max-h-48 w-full object-contain` de anh full width va giu ti le.
 - Giu lazy load nhu cu, phu hop voi anh upload tu CMS.
+
+## 2025-10-02 Update 1
+- Vong tron highlight hien icon tu schema `features.icon`; neu khong co thi fallback so thu tu 1,2,3 nhu cu.
