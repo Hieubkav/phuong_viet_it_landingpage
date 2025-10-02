@@ -2,7 +2,8 @@
 
 import { useState } from "react";
 import { cn } from "@/lib/utils";
-import { Phone, MessageCircle, MessagesSquare } from "lucide-react";
+import Image from "next/image";
+import { Phone } from "lucide-react";
 import {
   Tooltip,
   TooltipContent,
@@ -63,7 +64,7 @@ export default function ContactWidget({
             </TooltipContent>
           </Tooltip>
 
-          {/* Zalo (dùng icon MessagesSquare của lucide) */}
+          {/* Zalo */}
           <Tooltip>
             <TooltipTrigger asChild>
               <a
@@ -72,7 +73,7 @@ export default function ContactWidget({
                 rel="noopener noreferrer"
                 className={cn(
                   "pointer-events-auto absolute grid h-12 w-12 place-items-center rounded-full",
-                  "bg-white text-[var(--brand-green)] shadow-lg ring-1 ring-black/5",
+                  "bg-[#0068FF] shadow-lg ring-1 ring-[#0049B7]/30",
                   "transition-all duration-300",
                   open
                     ? "translate-y-[-116px] opacity-100"
@@ -80,14 +81,14 @@ export default function ContactWidget({
                 )}
                 title="Zalo"
               >
-                <MessagesSquare className="h-5 w-5" />
+                <Image src="/icons/zalo.svg" alt="" width={24} height={24} sizes="24px" className="h-6 w-6" />
                 <span className="sr-only">Zalo</span>
               </a>
             </TooltipTrigger>
             <TooltipContent side={isBR ? "left" : "right"}>Zalo</TooltipContent>
           </Tooltip>
 
-          {/* Messenger (dùng icon MessageCircle của lucide) */}
+          {/* Messenger */}
           <Tooltip>
             <TooltipTrigger asChild>
               <a
@@ -96,7 +97,7 @@ export default function ContactWidget({
                 rel="noopener noreferrer"
                 className={cn(
                   "pointer-events-auto absolute grid h-12 w-12 place-items-center rounded-full",
-                  "bg-white text-[#0084ff] shadow-lg ring-1 ring-black/5",
+                  "bg-[#0084FF] shadow-lg ring-1 ring-[#005AC7]/35",
                   "transition-all duration-300",
                   open
                     ? "translate-y-[-168px] opacity-100"
@@ -104,7 +105,7 @@ export default function ContactWidget({
                 )}
                 title="Messenger"
               >
-                <MessageCircle className="h-5 w-5" />
+                <Image src="/icons/messenger.svg" alt="" width={24} height={24} sizes="24px" className="h-6 w-6" />
                 <span className="sr-only">Messenger</span>
               </a>
             </TooltipTrigger>
