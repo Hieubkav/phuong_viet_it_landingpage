@@ -15,7 +15,7 @@ export default function SiteLayout({
       <ContactWidget
         phoneNumber="0852949258"
         zaloUrl="https://zalo.me/0852949258"
-        messengerUrl="https://m.me/phuongvietit.vn"
+        messengerUrl="https://www.facebook.com/phuong.viet.796368"
       />
     </div>
   );
