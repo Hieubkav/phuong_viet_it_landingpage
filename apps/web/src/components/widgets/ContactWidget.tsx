@@ -11,8 +11,8 @@ import {
 } from "@/components/ui/tooltip";
 
 type Props = {
-  phoneNumber: string; // "0706780790"
-  zaloUrl: string; // "https://zalo.me/0706780790"
+  phoneNumber: string; // "0852949258"
+  zaloUrl: string; // "https://zalo.me/0852949258"
   messengerUrl: string; // "https://m.me/phuongvietit.vn"
   position?: "br" | "bl";
   className?: string;

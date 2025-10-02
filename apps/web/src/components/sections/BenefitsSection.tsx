@@ -90,19 +90,14 @@ function resolveData(data?: BenefitsBlockData) {
 function getBenefitIllustration(key: string, fallbackImage?: string) {
   if (fallbackImage) {
     return (
-      <img
-        src={fallbackImage}
-        alt={key}
-        className="h-full w-full max-h-[220px] max-w-[360px] rounded-xl object-cover"
-        loading="lazy"
-      />
+      <img src={fallbackImage} alt={key} className="h-auto w-full rounded-xl object-cover" loading="lazy" />
     );
   }
 
   switch (key) {
     case "saving":
       return (
-        <svg className="h-full w-full max-h-[200px] max-w-[320px]" viewBox="0 0 300 180" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <svg className="h-auto w-full" viewBox="0 0 300 180" fill="none" xmlns="http://www.w3.org/2000/svg">
           <rect x="20" y="20" width="260" height="140" rx="8" fill="white" stroke="rgb(34 197 94)" strokeWidth="2" />
           <rect x="30" y="30" width="240" height="20" rx="4" fill="rgb(34 197 94 / 0.1)" />
           <text x="40" y="44" fontSize="10" fontWeight="bold" fill="rgb(34 197 94)">
@@ -124,7 +119,7 @@ function getBenefitIllustration(key: string, fallbackImage?: string) {
       );
     case "productivity":
       return (
-        <svg className="h-full w-full max-h-[200px] max-w-[320px]" viewBox="0 0 300 180" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <svg className="h-auto w-full" viewBox="0 0 300 180" fill="none" xmlns="http://www.w3.org/2000/svg">
           <rect x="20" y="20" width="260" height="140" rx="8" fill="white" stroke="rgb(34 197 94)" strokeWidth="2" />
           <rect x="30" y="30" width="240" height="20" rx="4" fill="rgb(34 197 94 / 0.1)" />
           <text x="40" y="44" fontSize="10" fontWeight="bold" fill="rgb(34 197 94)">
@@ -137,7 +132,7 @@ function getBenefitIllustration(key: string, fallbackImage?: string) {
       );
     case "transparency":
       return (
-        <svg className="h-full w-full max-h-[200px] max-w-[320px]" viewBox="0 0 300 180" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <svg className="h-auto w-full" viewBox="0 0 300 180" fill="none" xmlns="http://www.w3.org/2000/svg">
           <rect x="20" y="20" width="260" height="140" rx="8" fill="white" stroke="rgb(34 197 94)" strokeWidth="2" />
           <rect x="30" y="30" width="240" height="20" rx="4" fill="rgb(34 197 94 / 0.1)" />
           <text x="40" y="44" fontSize="10" fontWeight="bold" fill="rgb(34 197 94)">
@@ -259,8 +254,10 @@ export default function BenefitsSection({ data }: BenefitsSectionProps) {
                 </ul>
               </div>
 
-              <div className="flex min-h-[200px] items-center justify-center overflow-hidden rounded-2xl border border-slate-200 bg-gradient-to-br from-[var(--brand-green)]/5 to-[var(--brand-lime)]/10 p-6">
-                {getBenefitIllustration(active.key, active.image)}
+              <div className="relative overflow-hidden rounded-2xl border border-slate-200 bg-gradient-to-br from-[var(--brand-green)]/5 to-[var(--brand-lime)]/10">
+                <div className="flex min-h-[240px] w-full items-center justify-center p-6">
+                  {getBenefitIllustration(active.key, active.image)}
+                </div>
               </div>
             </div>
             <div className="h-[3px] bg-[linear-gradient(90deg,var(--brand-green),var(--brand-lime))]" />

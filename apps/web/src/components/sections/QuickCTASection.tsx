@@ -40,8 +40,8 @@ function resolveData(data?: QuickCtaData) {
       merged.actions && merged.actions.length > 0
         ? merged.actions
         : [
-            { label: "Đăng ký Demo", href: "tel:0982949258", style: "primary" },
-            { label: "Liên hệ tư vấn", href: "tel:0982949258", style: "outline" },
+            { label: "Đăng ký Demo", href: "tel:0852949258", style: "primary" },
+            { label: "Liên hệ tư vấn", href: "tel:0852949258", style: "outline" },
           ],
   };
 }

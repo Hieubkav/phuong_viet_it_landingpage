@@ -13,8 +13,8 @@ export default function SiteLayout({
       <main className="relative z-[1] bg-white">{children}</main>
       <Footer />
       <ContactWidget
-        phoneNumber="0982949258"
-        zaloUrl="https://zalo.me/0706780790"
+        phoneNumber="0852949258"
+        zaloUrl="https://zalo.me/0852949258"
         messengerUrl="https://m.me/phuongvietit.vn"
       />
     </div>

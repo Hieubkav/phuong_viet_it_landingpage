@@ -64,7 +64,7 @@ export default function ContactInfo({ id }: Props) {
                 <div>
                   <div className="text-sm font-medium">Điện thoại</div>
                   <a
-                    href="tel:0982949258"
+                    href="tel:0852949258"
                     className="text-sm text-muted-foreground hover:underline"
                     itemProp="telephone"
                   >

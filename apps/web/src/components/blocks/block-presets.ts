@@ -76,7 +76,7 @@ export const BLOCK_PRESETS: BlockPreset[] = [
         "ui:options": { addButtonLabel: "Thêm CTA" },
         items: {
           label: { "ui:placeholder": "Liên hệ" },
-          href: { "ui:placeholder": "tel:0982949258" },
+          href: { "ui:placeholder": "tel:0852949258" },
         },
       },
       stats: {
@@ -395,7 +395,7 @@ title: { type: "string", title: "Tiêu đề" },
       actions: {
         "ui:options": { addButtonLabel: "Thêm hành động" },
         items: {
-          href: { "ui:placeholder": "tel:0982949258" },
+          href: { "ui:placeholder": "tel:0852949258" },
         },
       },
     } satisfies UiSchema,
