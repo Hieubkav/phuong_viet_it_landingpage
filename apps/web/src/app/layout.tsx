@@ -15,29 +15,44 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "PV-ERP | Hệ thống ERP toàn diện cho doanh nghiệp",
-  description: "PV-ERP - Giải pháp quản lý doanh nghiệp toàn diện, tích hợp quản lý bán hàng, kho hàng, nhân sự và tài chính",
-  metadataBase: new URL('https://pv-erp.com'),
+  title: "ERP Cần Thơ | ERP Phương Việt (Odoo) cho ĐBSCL",
+  description:
+    "Phần mềm ERP Cần Thơ và ERP ĐBSCL của ERP Phương Việt trên nền Odoo giúp quản trị doanh nghiệp Cần Thơ tối ưu bán hàng, kho, tài chính, nhân sự.",
+  keywords: [
+    "ERP Cần Thơ",
+    "ERP ĐBSCL",
+    "Phần mềm ERP Cần Thơ",
+    "Phần mềm ERP ĐBSCL",
+    "Phần mềm quản trị Cần Thơ",
+    "Quản trị doanh nghiệp Cần Thơ",
+    "ERP Phương Việt",
+    "Odoo Cần Thơ",
+    "Odoo ĐBSCL",
+    "Giải pháp ERP Cần Thơ",
+  ],
+  metadataBase: new URL("https://pv-erp.com"),
   icons: {
-    icon: '/logo.png',
-    shortcut: '/logo.png',
-    apple: '/logo.png',
+    icon: "/logo.png",
+    shortcut: "/logo.png",
+    apple: "/logo.png",
   },
   other: {
-    'color-scheme': 'light only',
-    'theme-color': '#ffffff',
+    "color-scheme": "light only",
+    "theme-color": "#ffffff",
   },
   openGraph: {
-    title: "PV-ERP | Hệ thống ERP toàn diện cho doanh nghiệp", 
-    description: "PV-ERP - Giải pháp quản lý doanh nghiệp toàn diện, tích hợp quản lý bán hàng, kho hàng, nhân sự và tài chính",
-    images: ['/logo.png'],
-    type: 'website',
+    title: "ERP Cần Thơ | ERP Phương Việt (Odoo) cho ĐBSCL",
+    description:
+      "Giải pháp ERP Cần Thơ dựa trên Odoo, tối ưu quản trị doanh nghiệp ĐBSCL: bán hàng, kho, tài chính, nhân sự, sản xuất.",
+    images: ["/logo.png"],
+    type: "website",
   },
   twitter: {
-    card: 'summary_large_image',
-    title: "PV-ERP | Hệ thống ERP toàn diện cho doanh nghiệp",
-    description: "PV-ERP - Giải pháp quản lý doanh nghiệp toàn diện, tích hợp quản lý bán hàng, kho hàng, nhân sự và tài chính", 
-    images: ['/logo.png'],
+    card: "summary_large_image",
+    title: "ERP Cần Thơ | ERP Phương Việt (Odoo) cho ĐBSCL",
+    description:
+      "Odoo Cần Thơ - ERP Phương Việt giúp doanh nghiệp ĐBSCL quản trị thống nhất, triển khai nhanh, hỗ trợ tại chỗ.",
+    images: ["/logo.png"],
   },
 };
 

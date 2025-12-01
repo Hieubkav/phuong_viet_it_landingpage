@@ -3,6 +3,12 @@
 ## Tổng quan
 Đã thực hiện tối ưu hóa SEO toàn diện cho website PV-ERP, bao gồm việc thay đổi branding từ "dohy" sang "PV-ERP" và cải thiện metadata.
 
+## 2025-12-01 - SEO địa phương Cần Thơ/ĐBSCL
+- Cập nhật metadata toàn site với bộ từ khóa: ERP Cần Thơ, ERP ĐBSCL, Phần mềm ERP Cần Thơ/ĐBSCL, Phần mềm quản trị Cần Thơ, Quản trị doanh nghiệp Cần Thơ, ERP Phương Việt, Odoo Cần Thơ/ĐBSCL, Giải pháp ERP Cần Thơ.
+- Điều chỉnh nội dung mặc định của các block homepage (hero, pain points, solutions, preview, features, benefits, timeline, CTA) để phân bổ từ khóa địa phương, nhấn mạnh lợi thế hỗ trợ tại chỗ.
+- Seed/clone dữ liệu Convex dùng `HOME_BLOCK_TEMPLATES` nên sẽ nhận nội dung mới khi khởi tạo lại; nếu CMS đã override cần chỉnh tay theo cùng bộ từ khóa.
+- Files chạm: `apps/web/src/app/layout.tsx`, `packages/shared/home-block-templates.ts`.
+
 ## Công việc đã thực hiện
 
 ### 1. Thay đổi Branding (dohy → PV-ERP)

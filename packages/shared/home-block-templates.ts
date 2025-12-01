@@ -1,8 +1,8 @@
 export const HOME_BLOCK_TEMPLATES = {
   hero: {
-    title: "Nền tảng quản trị thông minh cho doanh nghiệp",
-    highlight: "quản trị thông minh",
-    subtitle: "Hợp nhất dữ liệu - Tối ưu vận hành - Tăng trưởng bền vững",
+    title: "ERP Phương Việt – ERP Cần Thơ, ERP ĐBSCL trên nền Odoo",
+    highlight: "ERP Cần Thơ",
+    subtitle: "Giải pháp ERP Cần Thơ (Phần mềm ERP Cần Thơ) dựa trên Odoo Cần Thơ và Odoo ĐBSCL, tối ưu quản trị doanh nghiệp Cần Thơ, mở rộng toàn ĐBSCL. Phần mềm ERP ĐBSCL linh hoạt cho bán hàng, kho, tài chính, nhân sự.",
     video: {
       src: "/video_homepage.webm",
       poster: "/hero-fallback.svg",
@@ -25,7 +25,7 @@ export const HOME_BLOCK_TEMPLATES = {
     title: "Vấn đề doanh nghiệp",
     highlight: "gặp phải",
     description:
-      "Trong hành trình phát triển, doanh nghiệp luôn đối mặt với nhiều thách thức làm chậm bước tiến bền vững",
+      "Doanh nghiệp Cần Thơ/ĐBSCL thường gặp nút thắt vận hành, thiếu dữ liệu thời gian thực khi chưa có giải pháp ERP Cần Thơ phù hợp, làm chậm tăng trưởng bền vững",
     cards: [
       {
         icon: "Link2",
@@ -55,7 +55,7 @@ export const HOME_BLOCK_TEMPLATES = {
     title: "Tối ưu - Hợp nhất - Hiệu quả",
     highlight: "Hiệu quả",
     description:
-      "PV-ERP giúp doanh nghiệp tối ưu quy trình, hợp nhất dữ liệu, tăng hiệu quả và tạo bước nhảy vọt trong quản trị",
+      "PV-ERP (ERP Phương Việt) là phần mềm ERP ĐBSCL hợp nhất quy trình, nâng hiệu quả quản trị doanh nghiệp Cần Thơ và toàn vùng",
     tabs: [
       {
         key: "integration",
@@ -116,11 +116,11 @@ export const HOME_BLOCK_TEMPLATES = {
     ],
   },
   erpPreview: {
-    badge: "Một nền tảng – Kết nối toàn diện",
-    title: "PV-ERP quy trình liền mạch, dữ liệu thống nhất",
-    highlight: "PV-ERP",
+    badge: "Nền tảng Odoo Cần Thơ - Odoo ĐBSCL",
+    title: "ERP Phương Việt kết nối Odoo cho doanh nghiệp Cần Thơ",
+    highlight: "ERP Phương Việt",
     description:
-      "PV-ERP hợp nhất toàn bộ quy trình và dữ liệu, tạo dòng chảy quản trị xuyên suốt – từ vận hành đến chiến lược",
+      "Giải pháp ERP Cần Thơ trên nền Odoo Cần Thơ/Odoo ĐBSCL hợp nhất dữ liệu và quy trình, tạo dòng chảy quản trị xuyên suốt từ vận hành đến chiến lược",
     modules: [
       { id: "accounting", name: "Kế toán", iconSrc: "https://download.odoocdn.com/icons/account_accountant/static/description/icon.svg" },
       { id: "knowledge", name: "Kiến thức", iconSrc: "https://download.odoocdn.com/icons/knowledge/static/description/icon.svg" },
@@ -154,11 +154,11 @@ export const HOME_BLOCK_TEMPLATES = {
     },
   },
   keyFeatures: {
-    badge: "PV-ERP phù hợp cho mọi ngành nghề",
+    badge: "Phần mềm quản trị Cần Thơ cho mọi ngành nghề",
     title: "Tùy chỉnh chuyên biệt cho từng lĩnh vực",
     highlight: "Tùy chỉnh",
     description:
-      "Với khả năng tùy chỉnh chuyên sâu, PV-ERP phù hợp với đặc thù của từng ngành nghề theo hoạt động riêng biệt của mỗi doanh nghiệp",
+      "Với khả năng tùy chỉnh chuyên sâu, PV-ERP (ERP Cần Thơ) phù hợp đặc thù từng ngành và hỗ trợ quản trị doanh nghiệp Cần Thơ/ĐBSCL",
     features: [
       {
         key: "commerce",
@@ -206,7 +206,7 @@ export const HOME_BLOCK_TEMPLATES = {
     title: "Tiết kiệm, hiệu quả, minh bạch và bền vững cho doanh nghiệp",
     highlight: "bền vững",
     description:
-      "PV-ERP tối ưu chi phí, gia tăng năng suất, minh bạch dữ liệu và kiến tạo nền tảng tăng trưởng lâu dài, vững chắc",
+      "PV-ERP tối ưu chi phí, gia tăng năng suất, minh bạch dữ liệu cho quản trị doanh nghiệp Cần Thơ và tạo nền tảng tăng trưởng bền vững tại ĐBSCL",
     tabs: [
       {
         key: "saving",
@@ -271,7 +271,7 @@ export const HOME_BLOCK_TEMPLATES = {
     title: "Lộ trình rõ ràng, triển khai hiệu quả",
     highlight: "Lộ trình rõ ràng",
     description:
-      "Các giai đoạn được thiết kế bài bản, đảm bảo triển khai PV-ERP thành công và mang lại giá trị tối đa cho doanh nghiệp",
+      "Các giai đoạn được thiết kế bài bản bởi đội ERP Cần Thơ, đảm bảo triển khai PV-ERP thành công và mang lại giá trị tối đa cho doanh nghiệp ĐBSCL",
     steps: [
       {
         key: "consult",
@@ -304,11 +304,11 @@ export const HOME_BLOCK_TEMPLATES = {
     ],
   },
   quickCta: {
-    badge: "Giải pháp doanh nghiệp",
-    title: "Sẵn sàng chuyển đổi số cùng PV-ERP?",
-    highlight: "chuyển đổi số",
+    badge: "Giải pháp ERP Cần Thơ",
+    title: "Sẵn sàng chuyển đổi số cùng Odoo ĐBSCL?",
+    highlight: "Odoo ĐBSCL",
     description:
-      "Dùng thử trải nghiệm thực tế hoặc nhận tư vấn 1:1 từ chuyên gia triển khai doanh nghiệp.",
+      "Dùng thử Odoo Cần Thơ, nhận tư vấn 1:1 từ chuyên gia ERP Phương Việt ngay tại Cần Thơ/ĐBSCL.",
     actions: [
       {
         label: "Đăng ký Demo",
