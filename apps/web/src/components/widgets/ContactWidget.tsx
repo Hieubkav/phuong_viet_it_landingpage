@@ -81,7 +81,7 @@ export default function ContactWidget({
                 )}
                 title="Zalo"
               >
-                <Image src="/icons/zalo.svg" alt="" width={24} height={24} sizes="24px" className="h-6 w-6" />
+                <Image src="/icons/zalo.svg" alt="Zalo" width={24} height={24} sizes="24px" className="h-6 w-6" />
                 <span className="sr-only">Zalo</span>
               </a>
             </TooltipTrigger>
@@ -105,7 +105,14 @@ export default function ContactWidget({
                 )}
                 title="Messenger"
               >
-                <Image src="/icons/messenger.svg" alt="" width={24} height={24} sizes="24px" className="h-6 w-6" />
+                <Image
+                  src="/icons/messenger.svg"
+                  alt="Messenger"
+                  width={24}
+                  height={24}
+                  sizes="24px"
+                  className="h-6 w-6"
+                />
                 <span className="sr-only">Messenger</span>
               </a>
             </TooltipTrigger>

@@ -62,6 +62,11 @@ function resolveHeroData(data?: HeroBlockData): Required<HeroBlockData> {
             href: "tel:0852949258",
             variant: "primary",
           },
+          {
+            label: "Xem tài liệu triển khai",
+            href: "/docs",
+            variant: "outline",
+          },
         ],
     stats: merged.stats?.length
       ? merged.stats

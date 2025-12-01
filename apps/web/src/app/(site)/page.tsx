@@ -1,130 +1,49 @@
-"use client";
+import type { Metadata } from "next";
+import LandingPageClient from "./landing-page.client";
 
-import { HOME_BLOCK_KINDS, cloneHomeBlockTemplate } from "@pv-erp/shared/home-block-templates";
+const siteUrl = (process.env.NEXT_PUBLIC_SITE_URL ?? "https://pv-erp.com").replace(/\/$/, "");
+const siteTitle = "PV-ERP | Giải pháp ERP Odoo tại Cần Thơ & DBSCL";
+const siteDescription =
+  "Giải pháp ERP trên nền Odoo, được triển khai bởi ERP Phương Việt cho doanh nghiệp Cần Thơ và Đồng bằng sông Cửu Long: hợp nhất dữ liệu, tối ưu vận hành, minh bạch tài chính.";
+const ogImage = `${siteUrl}/logo.png`;
 
-import { useMemo } from "react";
-import { useQuery } from "convex/react";
-import { api } from "@pv-erp/backend/convex/_generated/api";
-import SectionAnchor from "@/components/layout/SectionAnchor";
-import HeroSection from "@/components/sections/HeroSection";
-import BusinessPainPointsSection from "@/components/sections/BusinessPainPointsSection";
-import ChallengesSolutionSection from "@/components/sections/ChallengesSolutionSection";
-import ERPPreviewSection from "@/components/sections/ERPPreviewSection";
-import KeyFeaturesSection from "@/components/sections/KeyFeaturesSection";
-import BenefitsSection from "@/components/sections/BenefitsSection";
-import ImplementationTimelineSection from "@/components/sections/ImplementationTimelineSection";
-import QuickCTASection from "@/components/sections/QuickCTASection";
-import type { HomeBlockKind } from "@pv-erp/shared/home-block-templates";
-import type { ComponentType } from "react";
-
-type HomepageBlock = {
-  _id: string | { toString(): string };
-  kind: string;
-  label?: string;
-  data?: Record<string, unknown>;
+export const metadata: Metadata = {
+  title: siteTitle,
+  description: siteDescription,
+  alternates: {
+    canonical: "/",
+  },
+  keywords: [
+    "ERP Cần Thơ",
+    "ERP DBSCL",
+    "Odoo Cần Thơ",
+    "ERP Phương Việt",
+    "Giải pháp ERP Odoo",
+    "Phần mềm quản trị doanh nghiệp",
+  ],
+  openGraph: {
+    title: siteTitle,
+    description: siteDescription,
+    url: siteUrl,
+    type: "website",
+    locale: "vi_VN",
+    images: [
+      {
+        url: ogImage,
+        width: 1200,
+        height: 630,
+        alt: "PV-ERP Odoo cho doanh nghiệp Cần Thơ",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: siteTitle,
+    description: siteDescription,
+    images: [ogImage],
+  },
 };
 
-const FALLBACK_BLOCKS: HomepageBlock[] = HOME_BLOCK_KINDS.map((kind) => ({
-  _id: `fallback-${kind}`,
-  kind,
-  data: cloneHomeBlockTemplate(kind),
-})) as HomepageBlock[];
-
-const BLOCK_COMPONENTS: Record<HomeBlockKind, ComponentType<any>> = {
-  hero: HeroSection,
-  painPoints: BusinessPainPointsSection,
-  challenges: ChallengesSolutionSection,
-  erpPreview: ERPPreviewSection,
-  keyFeatures: KeyFeaturesSection,
-  benefits: BenefitsSection,
-  implementationTimeline: ImplementationTimelineSection,
-  quickCta: QuickCTASection,
-};
-
-const BLOCK_ANCHORS: Partial<Record<HomeBlockKind, string>> = {
-  hero: "gioi-thieu",
-  painPoints: "dat-van-de",
-  challenges: "giai-phap",
-  erpPreview: "chuc-nang",
-  keyFeatures: "tinh-nang",
-  benefits: "loi-ich",
-  implementationTimeline: "hanh-trinh",
-  quickCta: "lien-he",
-};
-
-function isHomeBlockKind(kind: string): kind is HomeBlockKind {
-  return kind in BLOCK_COMPONENTS;
+export default function Page() {
+  return <LandingPageClient />;
 }
-
-function slugify(input: string) {
-  return input
-    .normalize("NFD")
-    .replace(/\p{Diacritic}/gu, "")
-    .replace(/[^a-zA-Z0-9]+/g, "-")
-    .replace(/^-+|-+$/g, "")
-    .toLowerCase();
-}
-
-function getAnchorId(block: HomepageBlock): string | undefined {
-  const data = (block.data ?? {}) as Record<string, unknown>;
-  const dataAnchor = typeof data.anchor === "string" ? data.anchor : undefined;
-  const labelAnchor = typeof block.label === "string" ? block.label : undefined;
-  const fallbackAnchor = isHomeBlockKind(block.kind) ? BLOCK_ANCHORS[block.kind] : undefined;
-  const source =
-    (dataAnchor && dataAnchor.trim().length > 0 ? dataAnchor : undefined) ??
-    (labelAnchor && labelAnchor.trim().length > 0 ? labelAnchor : undefined) ??
-    fallbackAnchor;
-  return source ? slugify(source.trim()) : undefined;
-}
-
-export default function LandingPage() {
-  const homepage = useQuery(api.homepage.getHomepage, { slug: "home" });
-  const isLoading = homepage === undefined;
-  const contentBlocks = useMemo(() => {
-    if (homepage === undefined) {
-      return FALLBACK_BLOCKS;
-    }
-    return (homepage?.blocks ?? []) as HomepageBlock[];
-  }, [homepage]);
-
-
-  if (!isLoading && !contentBlocks.length) {
-    return (
-      <div className="py-24 text-center">
-        <h2 className="text-2xl font-semibold">Chưa có nội dung trang chủ</h2>
-        <p className="mt-2 text-sm text-muted-foreground">
-          Vui lòng mở dashboard và khởi tạo dữ liệu mẫu bằng nút "Khởi tạo dữ liệu mẫu".
-        </p>
-      </div>
-    );
-  }
-
-  return (
-    <>
-      {contentBlocks.map((block) => {
-        if (!isHomeBlockKind(block.kind)) {
-          return null;
-        }
-
-        const Component = BLOCK_COMPONENTS[block.kind];
-        const anchorId = getAnchorId(block);
-        const key = typeof block._id === "string" ? block._id : block._id.toString();
-        const props: Record<string, unknown> = {
-          data: block.data as Record<string, unknown>,
-        };
-
-        if (block.kind === "quickCta") {
-          props.anchorId = anchorId;
-        }
-
-        return (
-          <section key={key} className="relative">
-            {anchorId && block.kind !== "quickCta" ? <SectionAnchor id={anchorId} /> : null}
-            <Component {...props} />
-          </section>
-        );
-      })}
-    </>
-  );
-}
-

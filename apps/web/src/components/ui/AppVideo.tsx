@@ -12,6 +12,7 @@ export default function AppVideo({
   sources,
   poster,
   decorative = false,
+  preload,
   ...rest
 }: Props) {
   const posterUrl = poster ? withBasePath(poster) : undefined;
@@ -20,6 +21,7 @@ export default function AppVideo({
     <video
       poster={posterUrl}
       playsInline
+      preload={preload ?? "metadata"}
       {...(decorative ? { "aria-hidden": true } : {})}
       {...rest}
     >
