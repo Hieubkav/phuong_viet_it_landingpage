@@ -61,19 +61,7 @@ export default function Footer() {
               </div>
             </div>
 
-            <div className="flex flex-wrap items-center justify-center gap-3 text-xs text-white/85 sm:text-sm">
-              <Link href="/" className="font-medium hover:text-[#e9f542] hover:underline">
-                Trang chủ
-              </Link>
-              <span className="h-3 w-px bg-white/30" aria-hidden />
-              <Link href={{ pathname: "/docs" }} className="font-medium hover:text-[#e9f542] hover:underline">
-                Tài liệu
-              </Link>
-              <span className="h-3 w-px bg-white/30" aria-hidden />
-              <Link href={{ pathname: "/todos" }} className="font-medium hover:text-[#e9f542] hover:underline">
-                Todo demo
-              </Link>
-            </div>
+
           </div>
         </div>
 
